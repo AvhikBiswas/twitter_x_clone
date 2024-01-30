@@ -28,7 +28,7 @@ export const Buttons_left = () => {
                 </ul>
             </div>
             <div className='flex justify-start items-center mt-2'>
-                <button className='bg-[#1D9BF0] hover:bg-[#1083E5]  w-56 h-14 text-white font-bold text-lg  rounded-3xl'>Post</button>
+                <button className='bg-[#1D9BF0] hover:bg-[#1083E5]  w-56 h-14 text-white font-bold text-base  rounded-full'>Post</button>
             </div>
             <div className='flex justify-center items-center hover:bg-neutral-200 mt-12 w-64 h-16 text-black font-bold text-lg rounded-full'>
                 <div className='flex flex-row'>

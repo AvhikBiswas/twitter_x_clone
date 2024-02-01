@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 
 export interface ManueButton {
-    title: string;
+    title: any;
     icon: ReactNode;
-    link: string;
+    link?: any;
   };
 

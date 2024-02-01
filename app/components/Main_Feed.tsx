@@ -63,18 +63,12 @@ export const Main_Feed: React.FC = () => {
 
             {/* scroll section  */}
 
-            <div className='overflow-x-auto h-[1000px] ' style={{ overflowX: 'hidden', WebkitOverflowScrolling: 'touch' }}>
+            <div className='overflow-x-auto h-[1000px] '>
                 <div className='flex pt-2 border border-l-0 border-r-0'>
                     <User_InputFeed />
                 </div>
 
                 <div className='flex flex-col '>
-                    <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
-                    <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
-                    <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
-                    <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
-                    <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
-                    <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
                     <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
                     <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
                     <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />

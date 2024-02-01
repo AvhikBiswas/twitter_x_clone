@@ -8,9 +8,6 @@ import { ManueButton } from "../Types/ManueButton";
 
 
 
-
-
-
 const Twitter_PostIcon: ManueButton[] = [
   {
     title:'chat',

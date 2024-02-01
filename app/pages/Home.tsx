@@ -10,7 +10,7 @@ export const Home = () => {
         <div className="col-span-3 ml-28 ">
           <Buttons_left />
         </div>
-        <div className="col-span-5 border ">
+        <div className="col-span-5  border-[0.1px] ">
           <Main_Feed />
         </div>
         <div className="col-span-4">right</div>

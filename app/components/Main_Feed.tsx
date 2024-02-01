@@ -1,7 +1,8 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { LuSettings } from 'react-icons/lu';
-import { UserFeed } from './UserFeed';
+import { User_InputFeed } from './User_InputFeed';
+import { Twitte_Feed } from './Twitte_Feed';
 
 export const Main_Feed: React.FC = () => {
 
@@ -14,8 +15,8 @@ export const Main_Feed: React.FC = () => {
     const [buttonBold1, setButtonBold1] = useState(Bold);
     const [buttonBold2, setButtonBold2] = useState('');
 
-   
-    
+
+
     function handleButtonClickForYou() {
         setButtonStyle2('');
         setButtonBold2('');
@@ -32,7 +33,7 @@ export const Main_Feed: React.FC = () => {
 
     return (
         <div className='flex flex-col'>
-            <div className='flex flex-row border'>
+            <div className='flex flex-row border '>
                 <div className="flex items-center justify-center">
                     <button
                         className={` hover:bg-neutral-200  w-72 h-14 ${buttonBold1}`}
@@ -60,9 +61,28 @@ export const Main_Feed: React.FC = () => {
                 </div>
             </div>
 
-            <div className='flex '>
-                <UserFeed/>
+            {/* scroll section  */}
+
+            <div className='overflow-x-auto h-[1000px] ' style={{ overflowX: 'hidden', WebkitOverflowScrolling: 'touch' }}>
+                <div className='flex pt-2 border border-l-0 border-r-0'>
+                    <User_InputFeed />
+                </div>
+
+                <div className='flex flex-col '>
+                    <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
+                    <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
+                    <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
+                    <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
+                    <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
+                    <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
+                    <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
+                    <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
+                    <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
+                    <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
+                </div>
             </div>
+
+
         </div>
     );
 };

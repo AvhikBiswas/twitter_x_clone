@@ -16,11 +16,11 @@ export const Buttons_left = () => {
                     {Left_buttons.map((item) => (
                         <li key={item.title}>
                             <Link
-                                className="flex justify-start items-center gap-4 hover:bg-neutral-200 rounded-full px-3 py-3 w-fit cursor-pointer"
+                                className="flex justify-start items-center gap-4 hover:bg-neutral-200 rounded-full p-[10px] w-fit cursor-pointer"
                                 href={item.link}
                             >
                                 <span className=" text-3xl" >{item.icon}</span>
-                                <span className="hidden text- sm:inline">{item.title}</span>
+                                <span className="hidden text-xl sm:inline">{item.title}</span>
                             </Link>
                         </li>
                     ))}
@@ -28,8 +28,10 @@ export const Buttons_left = () => {
                 </ul>
             </div>
             <div className='flex justify-start items-center mt-2'>
-                <button className='bg-[#1D9BF0] hover:bg-[#1083E5]  w-56 h-14 text-white font-bold text-base  rounded-full'>Post</button>
+                <button className='bg-[#1D9BF0] hover:bg-[#1083E5]  w-56 h-[49px] text-white font-bold text-base  rounded-full'>Post</button>
             </div>
+
+
             <div className='flex justify-center items-center hover:bg-neutral-200 mt-12 w-64 h-16 text-black font-bold text-lg rounded-full'>
                 <div className='flex flex-row'>
                     <img src="https://avatars.githubusercontent.com/u/82642119?s=96&v=4" className="rounded-full w-10 h-10" alt="img" />

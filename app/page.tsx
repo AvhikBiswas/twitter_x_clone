@@ -1,14 +1,8 @@
-"use client"
-
 import React from 'react'
-import { Home } from './pages/Home';
 
- const page = () => {
+const login = () => {
   return (
-    <>
-     <Home/> 
-    </>
+    <div>Home Page</div>
   )
 }
-
-export default page;
+export default login;

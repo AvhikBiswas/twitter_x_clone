@@ -1,10 +1,13 @@
+"use client"
+
+import { Buttons_left } from '@/app/components/Buttons_left';
+import { Main_Feed } from '@/app/components/Main_Feed';
+import { Main_TrendingSearch } from '@/app/components/Main_TrendingSerach';
 import React from 'react';
 import { LuSettings } from 'react-icons/lu';
-import { Buttons_left } from '../components/Buttons_left';
-import { Main_Feed } from '../components/Main_Feed';
-import {Main_TrendingSearch} from '../components/Main_TrendingSerach'
 
-export const Home = () => {
+
+ const home = () => {
   return (
       <div className='grid grid-cols-12 h-screen w-screen'>
         <div className="col-span-3 ml-28 ">
@@ -19,3 +22,4 @@ export const Home = () => {
       </div>
   );
 };
+export default home;

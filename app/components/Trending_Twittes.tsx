@@ -1,6 +1,6 @@
 import React from "react";
 import { TrendingArray } from "../utils/TrendingArray";
-import { Trending } from "../Types/Trending";
+import Trending from "./Trending";
 
 export const Trending_Twittes: React.FC = () => {
   return (
@@ -16,15 +16,9 @@ export const Trending_Twittes: React.FC = () => {
           <ul className="w-full">
             
             {TrendingArray.map((item) => (
-              <li key={item.Posts} className="hover:bg-slate-200 pl-4 p-3">
-                <div className="">
-                  <div className="font-light text-xs">{item.TrendingCatagory}</div>
-                  <div className="font-bold text-sm">{item.Tag}</div>
-                  <div className="font-light text-xs">{item.Posts}</div>
-                </div>
-              </li>
+            <Trending item={item}/>
             ))}
-
+            
           </ul>
         </span>
         <span className="py-3 rounded-b-2xl pl-4 hover:bg-neutral-200 ">

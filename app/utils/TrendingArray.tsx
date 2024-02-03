@@ -1,6 +1,6 @@
-import { Trending } from "../Types/Trending";
+import { TrendingType } from "../Types/TrendingType";
 
-export const TrendingArray: Trending[] = [
+export const TrendingArray:TrendingType[] = [
   {
     TrendingCatagory: "Entertainment · Trending",
     Tag: "#AnushkaSharma",

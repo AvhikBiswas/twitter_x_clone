@@ -29,7 +29,7 @@ export const Twitte_Feed: React.FC<TwitteFeed> = ({ UserAvatar, Twitte_text, Use
         <div className='ml-12'>
           <div className='flex flex-row ml-1'>
             <h5 className='text-sm font-bold'>Avhik Biswas</h5>
-            <h5 className='text-sm font-light'>@AVIK0000007</h5>
+            <h5 className='text-sm font-light pl-1'>@AVIK0000007</h5>
           </div>
           <div className='flex flex-col'>
             <p className='ml-1 text-sm'>

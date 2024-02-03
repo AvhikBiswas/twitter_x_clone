@@ -2,6 +2,7 @@ import React from 'react';
 import { LuSettings } from 'react-icons/lu';
 import { Buttons_left } from '../components/Buttons_left';
 import { Main_Feed } from '../components/Main_Feed';
+import { Main_TrendingSerach } from '../components/Main_TrendingSerach';
 
 
 export const Home = () => {
@@ -11,9 +12,11 @@ export const Home = () => {
           <Buttons_left />
         </div>
         <div className="col-span-5  border-[0.1px] ">
-          <Main_Feed />
+          <Main_Feed/>
         </div>
-        <div className="col-span-4">right</div>
+        <div className="col-span-4 mt-1">
+          <Main_TrendingSerach/>
+        </div>
       </div>
   );
 };

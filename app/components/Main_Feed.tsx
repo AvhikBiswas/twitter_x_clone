@@ -75,7 +75,7 @@ export const Main_Feed: React.FC = () => {
                     <Twitte_Feed UserAvatar='hi' Twitte_text='hiooo' />
                 </div>
             </div>
-
+        
 
         </div>
     );

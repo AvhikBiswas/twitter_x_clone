@@ -1,20 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { CiSearch } from "react-icons/ci";
+import useInputFocus from "../hooks/useInputFocus";
 
-export const Main_TrendingSerach: React.FC = () => {
-  const [searchValue, setSearchValue] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
+export const Main_TrendingSearch: React.FC = () => {
+  const { isFocused, onFocus, onBlur } = useInputFocus();
 
   const onFocusStyle = "border border-blue-700";
   const defaultStyle = "bg-neutral-100";
-
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
-  };
 
   return (
     <div className="flex flex-col">
@@ -25,8 +17,8 @@ export const Main_TrendingSerach: React.FC = () => {
           </span>
           <span>
             <input
-              onFocus={handleFocus}
-              onBlur={handleBlur}
+              onFocus={onFocus}
+              onBlur={onBlur}
               type="text"
               name=""
               id=""

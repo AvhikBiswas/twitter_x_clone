@@ -7,7 +7,7 @@ export async function initialServer() {
   const app = express();
 
   // Use express built-in middleware for parsing URL-encoded bodies
-  app.use(bodyParser .json());
+  app.use(bodyParser.json());
 
   const server = new ApolloServer({
     typeDefs: `

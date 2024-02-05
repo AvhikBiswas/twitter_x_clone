@@ -20,7 +20,7 @@ export const Buttons_left = () => {
                                 href={item.link}
                             >
                                 <span className=" text-3xl" >{item.icon}</span>
-                                <span className="hidden text-xl sm:inline">{item.title}</span>
+                                <span className=" text-xl sm:inline">{item.title}</span>
                             </Link>
                         </li>
                     ))}

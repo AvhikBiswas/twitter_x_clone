@@ -1,5 +1,5 @@
 import React from "react";
-import { Main_login } from "./components/LoginComponents/Main_login";
+import { MainLogin } from "./components/LoginComponents/MainLogin";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const Login = () => {
@@ -8,7 +8,7 @@ const Login = () => {
   return (
     <GoogleOAuthProvider clientId={CLIENT_ID}>
       <div className="login">
-        <Main_login />
+        <MainLogin />
       </div>
     </GoogleOAuthProvider>
   );

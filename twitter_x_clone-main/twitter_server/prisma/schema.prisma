@@ -15,7 +15,7 @@ model user{
   firstName String
   lastName String?
   emailId String @unique
-  profileUrl String
+  profileUrl String?
 
   password String?
 

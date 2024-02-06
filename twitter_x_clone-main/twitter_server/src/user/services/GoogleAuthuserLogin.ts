@@ -1,33 +1,28 @@
-import axios from "axios";
-import AuthData, { UserData } from "./types";
-import { json } from "body-parser";
+import GetUserDetail from "../../api/GetUserDetail";
+import User_repository from "../repository/User_repository";
+import JwtVerify from "../../auth/jwt";
 
 async function GoogleAuthuserLogin(token: string) {
-  const endpointUrl = process.env.GOOGLE_AUTH;
+  const user_repository = new User_repository();
 
-  if (!endpointUrl) {
-    console.error("GOOGLE_AUTH environment variable is not set");
-    return false;
-  }
-
+  const userData = await GetUserDetail(token);
   try {
-    const { data } = await axios.get<AuthData>(endpointUrl, {
-      params: {
-        id_token: token,
-      },
-      responseType: "json",
-    });
-    const userData: UserData = {
-      userName: data.given_name,
-      firstName: data.name,
-      lastName: data.family_name,
-      email: data.email,
-      profileImg: data.picture,
-    };
-    return userData;
+    if (userData != false) {
+      const user = await user_repository.findUser(userData.email);
+      if (!user) {
+        const newUser = await user_repository.createUser(userData);
+        if (newUser) {
+          const newUserToken = await JwtVerify.genarateUserToken(newUser);
+          return newUserToken;
+        }
+      } else {
+        const newUserToken = await JwtVerify.genarateUserToken(user);
+        return newUserToken;
+      }
+    }
   } catch (error) {
-    console.error("Error from Google Auth Service", error);
-    return false;
+    console.log("error from user service",error);
+    throw error;
   }
 }
 

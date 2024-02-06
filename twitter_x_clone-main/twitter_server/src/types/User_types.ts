@@ -19,6 +19,12 @@ interface AuthData {
     kid: string;
 }
 
+export interface jwtPayload{
+id:string,
+email:string
+}
+
+
 export type UserData={
     userName:string,
     firstName:string,

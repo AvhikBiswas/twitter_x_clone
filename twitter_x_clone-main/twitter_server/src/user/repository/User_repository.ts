@@ -1,15 +1,15 @@
 import { PrismaClient, user } from "@prisma/client";
-import { craeteUser } from "./repository_types";
+import { craeteUser } from "../../types/repository_types";
 
 class User_repository {
   private prisma: PrismaClient;
   constructor() {
     this.prisma = new PrismaClient();
   }
-
-  async createUser(data: craeteUser) {
+  
+   async createUser(data: craeteUser) {
     try {
-      const newUser = await this.prisma.user.create({
+      const newUser:user = await this.prisma.user.create({
         data: {
           emailId: data.email,
           firstName: data.firstName,
@@ -21,7 +21,7 @@ class User_repository {
       return newUser;
     } catch (error) {
       console.log("error from user Repo create", error);
-      return error;
+      return false;
     }
   }
 
@@ -34,7 +34,9 @@ class User_repository {
       return userData;
     } catch (error) {
       console.log("error from user repo find", error);
-      return error;
+      return false;
     }
   }
 }
+
+export default User_repository;

@@ -2,22 +2,25 @@ import express from "express";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import bodyParser from "body-parser";
+import { user } from "../user";
+
 
 export async function initialServer() {
   const app = express();
 
-  // Use express built-in middleware for parsing URL-encoded bodies
   app.use(bodyParser.json());
 
   const server = new ApolloServer({
     typeDefs: `
-      type Query {
-        sayHello: String
-      }
+     ${user.types}
+    type Query{
+      ${user.queries} 
+    }
+
     `,
     resolvers: {
       Query: {
-        sayHello: () => "hello from graphql",
+        ...user.resolvers,
       },
     },
   });

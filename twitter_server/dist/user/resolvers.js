@@ -12,15 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = require("./app");
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-function init() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const app = yield (0, app_1.initialServer)();
-        app.listen(8000, () => {
-            console.log('srver is running on 8000');
-        });
-    });
-}
-init();
+exports.resolvers = void 0;
+const GoogleAuthuserLogin_1 = __importDefault(require("./services/GoogleAuthuserLogin"));
+exports.resolvers = {
+    verifyAuthToken: (parent, { token }) => __awaiter(void 0, void 0, void 0, function* () {
+        const res = yield (0, GoogleAuthuserLogin_1.default)(token);
+        console.log('from resolver ', res);
+        return "ok";
+    })
+};

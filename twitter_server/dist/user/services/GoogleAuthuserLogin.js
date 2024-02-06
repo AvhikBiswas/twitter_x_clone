@@ -12,32 +12,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.initialServer = void 0;
-const express_1 = __importDefault(require("express"));
-const server_1 = require("@apollo/server");
-const express4_1 = require("@apollo/server/express4");
-const body_parser_1 = __importDefault(require("body-parser"));
-const user_1 = require("../user");
-function initialServer() {
+const axios_1 = __importDefault(require("axios"));
+function GoogleAuthuserLogin(token) {
     return __awaiter(this, void 0, void 0, function* () {
-        const app = (0, express_1.default)();
-        app.use(body_parser_1.default.json());
-        const server = new server_1.ApolloServer({
-            typeDefs: `
-     ${user_1.user.types}
-    type Query{
-      ${user_1.user.queries} 
-    }
-
-    `,
-            resolvers: {
-                Query: Object.assign({}, user_1.user.resolvers),
-            },
-        });
-        yield server.start();
-        // Use expressMiddleware with the ApolloServer instance
-        app.use("/graphql", (0, express4_1.expressMiddleware)(server));
-        return app;
+        const endpointUrl = process.env.GOOGLE_AUTH;
+        if (!endpointUrl) {
+            console.error("GOOGLE_AUTH environment variable is not set");
+            return false;
+        }
+        try {
+            const { data } = yield axios_1.default.get(endpointUrl, {
+                params: {
+                    id_token: token,
+                },
+                responseType: "json"
+            });
+            const userData = {
+                userName: data.given_name,
+                firstName: data.name,
+                lastName: data.family_name,
+                email: data.email,
+                profileImg: data.picture
+            };
+            return userData;
+        }
+        catch (error) {
+            console.error("Error from Google Auth Service", error);
+            return false;
+        }
     });
 }
-exports.initialServer = initialServer;
+exports.default = GoogleAuthuserLogin;

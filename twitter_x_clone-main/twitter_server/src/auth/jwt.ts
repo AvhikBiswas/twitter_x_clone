@@ -5,7 +5,7 @@ import Jwt from "jsonwebtoken";
 const jwtSecret = "sdfghjkpyrrtyuioiuytdhjk85";
 
 class JwtVerify {
-  public static async genarateUserToken(user: user) {
+  public static genarateUserToken(user: user) {
     const payload: jwtPayload = {
       id: user?.id,
       email: user.emailId,
@@ -13,6 +13,13 @@ class JwtVerify {
     const token: string = Jwt.sign(payload, jwtSecret);
     return token;
   }
-};
+  public static verifyToken(token: string) {
+    if (token) {
+      const decode = Jwt.verify(token, jwtSecret);
+      return decode;
+    }
+    return "provide the correct token";
+  }
+}
 
 export default JwtVerify;

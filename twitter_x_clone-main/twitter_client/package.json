@@ -7,10 +7,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "codegen": "graphql-codegen --config codegen.ts --watch"
   },
   "dependencies": {
     "@react-oauth/google": "^0.12.1",
+    "graphql": "^16.8.1",
+    "graphql-request": "^6.1.0",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
@@ -18,6 +21,7 @@
     "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "5.0.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -26,6 +30,8 @@
     "eslint-config-next": "14.1.0",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@graphql-codegen/introspection": "4.0.2",
+    "@graphql-codegen/client-preset": "4.2.2"
   }
 }

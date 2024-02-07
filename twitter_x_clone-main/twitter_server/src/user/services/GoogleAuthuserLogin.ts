@@ -7,21 +7,21 @@ async function GoogleAuthuserLogin(token: string) {
 
   const userData = await GetUserDetail(token);
   try {
-    if (userData != false) {
+    if (userData) {
       const user = await user_repository.findUser(userData.email);
       if (!user) {
         const newUser = await user_repository.createUser(userData);
         if (newUser) {
-          const newUserToken = await JwtVerify.genarateUserToken(newUser);
-          return newUserToken;
+          const newUserToken = JwtVerify.genarateUserToken(newUser);
+          return newUserToken;  
         }
       } else {
-        const newUserToken = await JwtVerify.genarateUserToken(user);
+        const newUserToken = JwtVerify.genarateUserToken(user);
         return newUserToken;
       }
     }
   } catch (error) {
-    console.log("error from user service",error);
+    console.log("error from user service", error);
     throw error;
   }
 }

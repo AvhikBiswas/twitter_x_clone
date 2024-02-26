@@ -1,17 +1,24 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { RiTwitterXFill } from "react-icons/ri";
-import { GoogleLogin } from "@react-oauth/google";
-import Loading from "./loading"; 
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
+import Loading from "./loading";
+import { HandelLoginWithGoogle } from "@/app/utils/HandelLoginWithGoogle";
 
 export const MainLogin = () => {
   const [isLoading, setIsLoading] = useState(true);
 
+  const GoogleAuthLogin = useCallback(async (cred: CredentialResponse) => {
+    const token = await HandelLoginWithGoogle(cred);
+    localStorage.setItem("_Autherization", token);
+    console.log('calling google auth login');
+  }, []);
+
   useEffect(() => {
     const delay = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 1000);
 
     return () => {
       clearTimeout(delay);
@@ -42,7 +49,7 @@ export const MainLogin = () => {
               </span>
 
               <div className="w-96 rounded-full pt-6 m-1">
-                <GoogleLogin onSuccess={(cred) => console.log(cred)} />
+                <GoogleLogin onSuccess={(cred) => GoogleAuthLogin(cred)} />
               </div>
 
               <div className="flex mt-6">
@@ -52,7 +59,9 @@ export const MainLogin = () => {
               </div>
 
               <div className="mt-16 pl-2">
-                <h3 className="font-bold text-base">Already have an account?</h3>
+                <h3 className="font-bold text-base">
+                  Already have an account?
+                </h3>
               </div>
               <div className="flex mt-3">
                 <button className="text-[#1D9BF0] font-semibold justify-center items-center w-60 h-10 border border-neutral-400 rounded-3xl">
@@ -66,4 +75,3 @@ export const MainLogin = () => {
     </div>
   );
 };
-

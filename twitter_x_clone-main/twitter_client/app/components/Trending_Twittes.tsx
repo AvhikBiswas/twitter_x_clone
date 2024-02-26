@@ -16,7 +16,7 @@ export const Trending_Twittes: React.FC = () => {
           <ul className="w-full">
             
             {TrendingArray.map((item) => (
-            <Trending item={item}/>
+            <Trending item={item} key={item.Tag}/>
             ))}
             
           </ul>

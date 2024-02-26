@@ -6,10 +6,10 @@ class User_repository {
   constructor() {
     this.prisma = new PrismaClient();
   }
-  
-   async createUser(data: craeteUser) {
+
+  async createUser(data: craeteUser) {
     try {
-      const newUser:user = await this.prisma.user.create({
+      const newUser: user = await this.prisma.user.create({
         data: {
           emailId: data.email,
           firstName: data.firstName,

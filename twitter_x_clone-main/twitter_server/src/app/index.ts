@@ -3,12 +3,13 @@ import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import bodyParser from "body-parser";
 import { user } from "../user";
-
+import cors from "cors"
 
 export async function initialServer() {
   const app = express();
 
   app.use(bodyParser.json());
+  app.use(cors());
 
   const server = new ApolloServer({
     typeDefs: `

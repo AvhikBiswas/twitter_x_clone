@@ -67,20 +67,19 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
         </div>
 
         <div className="flex justify-center  items-center w-[50px]">
-          <div className="p-2 hover:bg-neutral-200 rounded-full">
+          <div className="p-1 hover:bg-neutral-200 rounded-full">
             <LuSettings size={20} />
           </div>
         </div>
       </div>
 
-      <div className="overflow-x-auto h-[1000px] scrollbar-hide">
+      {/* scroll section  */}
+      <div className="overflow-x-auto h-[634px] scrollbar-hide">
         <div className="flex pt-2 border border-l-0 border-r-0">
           <User_InputFeed />
         </div>
 
-        {/* scroll section  */}
-        
-        <div className="flex flex-col ">
+        <div className="flex flex-col">
           <Twitte_Feed UserAvatar="hi" Twitte_text="hiooo" />
           <Twitte_Feed UserAvatar="hi" Twitte_text="hiooo" />
           <Twitte_Feed UserAvatar="hi" Twitte_text="hiooo" />

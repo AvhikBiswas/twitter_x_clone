@@ -16,7 +16,7 @@ const Home = () => {
 
   const { user } = useCurrentUser();   // urrent user data
 
-  const authCheck = localStorage.getItem("_Autherization");
+  const authCheck = localStorage?.getItem("_Autherization");
   useEffect(() => {
     if (!user?.id || !authCheck) {
       toast.error("Authentication Failed");
@@ -29,13 +29,13 @@ const Home = () => {
 
   return (
     <div className="grid grid-cols-12 h-screen w-screen ">
-      <div className="col-span-3 ml-28 ">
+      <div className="col-span-3 ml-28 h-96">
         <Buttons_left user={user} />
       </div>
-      <div className="col-span-5  border-[0.1px] ">
+      <div className="col-span-5 h-96 border-[0.1px] ">
         <Main_Feed user={user}/>
       </div>
-      <div className="col-span-4 mt-1">
+      <div className="col-span-4 mt-1 h-96 ">
         <Main_TrendingSearch />
       </div>
     </div>

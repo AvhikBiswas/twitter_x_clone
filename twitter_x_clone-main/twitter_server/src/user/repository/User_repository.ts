@@ -8,13 +8,14 @@ class User_repository {
   }
 
   async createUser(data: craeteUser) {
+    if(!data)return;
     try {
       const newUser: user = await this.prisma.user.create({
         data: {
-          emailId: data.email,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          profileUrl: data.profileImg,
+          emailId: data?.email,
+          firstName: data?.firstName,
+          lastName: data?.lastName,
+          profileUrl: data?.profileImg,
         },
       });
       console.log(newUser);
@@ -27,6 +28,7 @@ class User_repository {
 
   async findUser(userEmail: string) {
     try {
+      console.log("finduser  data ",userEmail);
       const userData = await this.prisma.user.findUnique({
         where: { emailId: userEmail },
       });

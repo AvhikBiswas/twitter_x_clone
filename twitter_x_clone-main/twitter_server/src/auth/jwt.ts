@@ -20,15 +20,14 @@ class JwtVerify {
     }
   }
   public static verifyToken(token: string | undefined) {
-    console.log("token", token);
-    if (token == undefined) return;
+    if (!token || token.length < 10) return;
     try {
       if (token) {
         const decode = Jwt.verify(token, jwtSecret);
         return decode as JwtPayload;
       }
     } catch (error) {
-      return {err:error};
+      return { err: error };
     }
   }
 }

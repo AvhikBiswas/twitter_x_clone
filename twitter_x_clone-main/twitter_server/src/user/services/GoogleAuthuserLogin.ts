@@ -9,6 +9,7 @@ async function GoogleAuthuserLogin(token: string) {
   try {
     if (userData) {
       const user = await user_repository.findUser(userData.email);
+      // console.log('user', user)
       if (!user) {
         const newUser = await user_repository.createUser(userData);
         if (newUser) {
@@ -22,7 +23,6 @@ async function GoogleAuthuserLogin(token: string) {
     }
   } catch (error) {
     console.log("error from user service", error);
-    throw error;
   }
 }
 

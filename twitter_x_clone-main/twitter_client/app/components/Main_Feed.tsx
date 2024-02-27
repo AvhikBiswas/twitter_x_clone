@@ -4,7 +4,20 @@ import { LuSettings } from "react-icons/lu";
 import { User_InputFeed } from "./User_InputFeed";
 import { Twitte_Feed } from "./Twitte_Feed";
 
-export const Main_Feed: React.FC = () => {
+type User = {
+  __typename?: "User" | undefined;
+  id: string;
+  firstName: string;
+  emailId: string;
+  lastName?: string | null | undefined;
+  profileUrl: string;
+};
+
+interface Props {
+  user: User;
+}
+
+export const Main_Feed: React.FC<Props> = ({ user }) => {
   const Line1 =
     "bg-[#1D9BF0] line w-20 ml-[102px] mt-3 h-1 rounded-2xl absolute";
   const Line2 =
@@ -60,13 +73,13 @@ export const Main_Feed: React.FC = () => {
         </div>
       </div>
 
-      {/* scroll section  */}
-
       <div className="overflow-x-auto h-[1000px] scrollbar-hide">
         <div className="flex pt-2 border border-l-0 border-r-0">
           <User_InputFeed />
         </div>
 
+        {/* scroll section  */}
+        
         <div className="flex flex-col ">
           <Twitte_Feed UserAvatar="hi" Twitte_text="hiooo" />
           <Twitte_Feed UserAvatar="hi" Twitte_text="hiooo" />

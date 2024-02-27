@@ -1,24 +1,35 @@
 import { user } from "@prisma/client";
 import { jwtPayload } from "../types/User_types";
-import Jwt from "jsonwebtoken";
+import Jwt, { JwtPayload } from "jsonwebtoken";
 
 const jwtSecret = "sdfghjkpyrrtyuioiuytdhjk85";
 
 class JwtVerify {
   public static genarateUserToken(user: user) {
-    const payload: jwtPayload = {
-      id: user?.id,
-      email: user.emailId,
-    };
-    const token: string = Jwt.sign(payload, jwtSecret);
-    return token;
-  }
-  public static verifyToken(token: string) {
-    if (token) {
-      const decode = Jwt.verify(token, jwtSecret);
-      return decode;
+    try {
+      console.log("user", user);
+      const payload: jwtPayload = {
+        id: user?.id,
+        email: user?.emailId,
+      };
+      const token: string = Jwt.sign(payload, jwtSecret);
+      return token;
+    } catch (error) {
+      console.log("error", error);
+      return error;
     }
-    return "provide the correct token";
+  }
+  public static verifyToken(token: string | undefined) {
+    console.log("token", token);
+    if (token == undefined) return;
+    try {
+      if (token) {
+        const decode = Jwt.verify(token, jwtSecret);
+        return decode as JwtPayload;
+      }
+    } catch (error) {
+      return {err:error};
+    }
   }
 }
 

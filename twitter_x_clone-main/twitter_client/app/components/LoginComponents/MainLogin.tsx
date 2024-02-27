@@ -1,19 +1,50 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { RiTwitterXFill } from "react-icons/ri";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import Loading from "./loading";
 import { HandelLoginWithGoogle } from "@/app/utils/HandelLoginWithGoogle";
+import { useCurrentUser } from "@/app/hooks/useCurrentUser";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const MainLogin = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const { user } = useCurrentUser();
 
-  const GoogleAuthLogin = useCallback(async (cred: CredentialResponse) => {
-    const token = await HandelLoginWithGoogle(cred);
-    localStorage.setItem("_Autherization", token);
-    console.log('calling google auth login');
-  }, []);
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      const authToken = window.localStorage.getItem("_Autherization");
+      if (!authToken || authToken == undefined) return;
+      if (user?.id) {
+        router.push("/dashboard/home");
+        toast.success("Login Success");
+      } else {
+        router.push("/");
+      }
+    };
+    checkAuthentication();
+  }, [user, router]);
+
+  const GoogleAuthLogin = useCallback(
+    async (cred: CredentialResponse) => {
+      try {
+        const authToken = await HandelLoginWithGoogle(cred);
+        localStorage.setItem("_Autherization", authToken);
+        await queryClient.invalidateQueries(["current_user"]);
+        toast.success("Login Success");
+        router.push("/dashboard/home");
+      } catch (error) {
+        toast.error("Login Failed");
+        console.error("Error during Google authentication:", error);
+      }
+    },
+    [queryClient, router]
+  );
 
   useEffect(() => {
     const delay = setTimeout(() => {
@@ -49,7 +80,12 @@ export const MainLogin = () => {
               </span>
 
               <div className="w-96 rounded-full pt-6 m-1">
-                <GoogleLogin onSuccess={(cred) => GoogleAuthLogin(cred)} />
+                <GoogleLogin
+                  onSuccess={(cred) => {
+                    GoogleAuthLogin(cred);
+                    console.log("here is credential ", cred);
+                  }}
+                />
               </div>
 
               <div className="flex mt-6">

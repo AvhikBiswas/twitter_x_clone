@@ -4,7 +4,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster } from "react-hot-toast";
 
 const Login = () => {
-  const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+  const CLIENT_ID:string = process.env.NEXT_PUBLIC_CLIENT_ID;
 
   return (
     <GoogleOAuthProvider clientId={CLIENT_ID}>

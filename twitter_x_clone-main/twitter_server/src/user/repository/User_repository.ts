@@ -8,7 +8,7 @@ class User_repository {
   }
 
   async createUser(data: craeteUser) {
-    if(!data)return;
+    if (!data) return;
     try {
       const newUser: user = await this.prisma.user.create({
         data: {
@@ -28,12 +28,14 @@ class User_repository {
 
   async findUser(userEmail: string) {
     try {
-      console.log("finduser  data ",userEmail);
-      const userData = await this.prisma.user.findUnique({
-        where: { emailId: userEmail },
-      });
-      console.log(userData);
-      return userData;
+      console.log("finduser  data ", userEmail);
+      if (userEmail) {
+        const userData = await this.prisma.user.findUnique({
+          where: { emailId: userEmail },
+        });
+        console.log(userData);
+        return userData;
+      }
     } catch (error) {
       console.log("error from user repo find", error);
       return false;

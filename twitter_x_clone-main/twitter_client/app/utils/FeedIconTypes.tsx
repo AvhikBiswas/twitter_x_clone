@@ -8,7 +8,7 @@ import { MdOutlineBrokenImage, MdOutlineGifBox, MdOutlinePoll } from "react-icon
 
 export const Feedicon = [
   {
-    title: "Broken Image",
+    title: "Image",
     icon: <MdOutlineBrokenImage size={21} />,
   },
   {

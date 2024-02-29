@@ -6,7 +6,6 @@ import { IoIosMore } from "react-icons/io";
 import { useRouter } from "next/navigation";
 
 type User = {
-  __typename?: "User" | undefined;
   id: string;
   firstName: string;
   emailId: string;
@@ -24,7 +23,7 @@ export const Buttons_left: React.FC<Props> = ({ user }) => {
   const router = useRouter();
 
   const handleLogoutPopUp = () => {
-    setLogoutStyle(true); // Toggle the logout style
+    setLogoutStyle(!logoutStyle); // Toggle the logout style
   };
 
   const handleLogout = () => {
@@ -59,6 +58,7 @@ export const Buttons_left: React.FC<Props> = ({ user }) => {
             <li key={item.title}>
               <Link
                 className="flex justify-start items-center gap-4 hover:bg-neutral-200 rounded-full p-[10px] w-fit cursor-pointer"
+                // {item.title==="Profile"?href={user.id}:}
                 href={item.link}
               >
                 <span className=" text-3xl">{item.icon}</span>

@@ -1,4 +1,4 @@
-import { graphqlClient } from "@/clients/api";
+import { graphqlClient, graphqlClientHeder } from "@/clients/api";
 import { VERIFY_AUTH_TOKEN_QUERY } from "@/graphql/quary/user";
 import { CredentialResponse } from "@react-oauth/google";
 import toast from "react-hot-toast";
@@ -12,7 +12,7 @@ export async function HandelLoginWithGoogle(cred: CredentialResponse) {
     const { credential } = cred;
     console.log("Credential is ->", credential);
 
-    const { verifyAuthToken } = await graphqlClient.request(
+    const { verifyAuthToken } = await graphqlClientHeder.request(
       VERIFY_AUTH_TOKEN_QUERY,
       {
         token: credential,

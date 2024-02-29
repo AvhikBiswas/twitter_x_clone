@@ -19,17 +19,17 @@ const Left_buttons: manueButton[] = [
   {
     title: "Home",
     icon: <MdHomeFilled />,
-    link: '/'
+    link: '/dashboard/home'
   },
   {
     title: "Explore",
     icon: <IoSearch />,
-    link: '/'
+    link: ''
   },
   {
     title: "Notifications",
     icon: <IoNotificationsOutline />,
-    link: '/'
+    link: ''
   },
   {
     title: "Messages",
@@ -54,7 +54,7 @@ const Left_buttons: manueButton[] = [
   {
     title: "Profile",
     icon: <HiOutlineUser />,
-    link: '/'
+    link: '/2'
   },
   {
     title: "More",

@@ -1,18 +1,16 @@
-"use client";
+"use client"
 
 import { Buttons_left } from "@/app/components/Buttons_left";
 import { Main_Feed } from "@/app/components/Main_Feed";
 import { Main_TrendingSearch } from "@/app/components/Main_TrendingSerach";
 import { useCurrentUser } from "@/app/hooks/useCurrentUser";
 import { useRouter } from "next/navigation"; // Import from next/navigation
-import React, {useEffect } from "react";
+import React, {useCallback, useEffect } from "react";
 import toast from "react-hot-toast";
 
 const Home = () => {
   const router = useRouter();
 
-
-  
 
   const { user } = useCurrentUser();   // urrent user data
 

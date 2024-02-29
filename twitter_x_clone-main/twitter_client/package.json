@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "mob": " dev -H 0.0.0.0",
-    "dev": "concurrently \"yarn run codegen\"  next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

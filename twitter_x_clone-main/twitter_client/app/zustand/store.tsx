@@ -1,12 +1,6 @@
 import { create } from "zustand";
+import { CurrentUser } from "../Types/CurrentUser";
 
-type CurrentUser = {
-  lastName: string;
-  id: string;
-  firstName: string;
-  emailId: string;
-  profileUrl: string;
-};
 
 interface userStore {
   CurrUser: CurrentUser | null; // Use CurrentUser | null to allow null value

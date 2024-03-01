@@ -4,14 +4,23 @@ import { Main_TrendingSearch } from "@/app/components/Main_TrendingSerach";
 import ProfileCard from "@/app/components/profile";
 import { useCurrentUser } from "@/app/hooks/useCurrentUser";
 import { useParams } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useUserStore from "../zustand/store";
+import { useTheme } from "next-themes";
 
 export default function ProfileLayout() {
   const { CurrentUser } = useUserStore();
   const params = useParams<{ profile: string }>();
   console.log("params", params.profile);
   const { user } = useCurrentUser();
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+  setTheme('light');
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
   return (
     <div className="grid grid-cols-12 h-screen w-screen">
       <div className="col-span-3 ml-28">

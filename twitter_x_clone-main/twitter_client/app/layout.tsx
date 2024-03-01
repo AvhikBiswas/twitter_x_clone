@@ -16,10 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ReactQuaryClientProvider>
-      <html lang="en">
-        <body className={inter.className}>{children}</body>
-      </html>
-    </ReactQuaryClientProvider>
+    <html lang="en">
+      <body className={inter.className}>
+        <ReactQuaryClientProvider>
+          <div>{children} </div>
+        </ReactQuaryClientProvider>
+      </body>
+    </html>
   );
 }

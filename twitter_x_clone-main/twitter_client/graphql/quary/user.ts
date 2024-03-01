@@ -17,3 +17,15 @@ export const getCurrentUserQuary = graphql`
     }
   }
 `;
+
+export const getProfileQuary = graphql`
+  query GetUserDetails($getUserDetailsId: String!) {
+    GetUserDetails(id: $getUserDetailsId) {
+      id
+      firstName
+      emailId
+      lastName
+      profileUrl
+    }
+  }
+`;

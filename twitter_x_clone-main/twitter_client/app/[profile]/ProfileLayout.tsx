@@ -8,9 +8,9 @@ import React from "react";
 import useUserStore from "../zustand/store";
 
 export default function ProfileLayout() {
-  const {CurrentUser}=useUserStore();
+  const { CurrentUser } = useUserStore();
   const params = useParams<{ profile: string }>();
-  console.log('params', params.profile);
+  console.log("params", params.profile);
   const { user } = useCurrentUser();
   return (
     <div className="grid grid-cols-12 h-screen w-screen">
@@ -18,7 +18,7 @@ export default function ProfileLayout() {
         <Buttons_left user={user} />
       </div>
       <div className="col-span-5 border border-y-0">
-      <ProfileCard profile={user}/>
+        <ProfileCard profile={user} />
       </div>
       <div className="col-span-4 mt-1">
         <Main_TrendingSearch />

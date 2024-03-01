@@ -19,7 +19,9 @@ export const resolvers = {
     }
   },
   GetUserDetails: async (parent: any, { id }: { id: string }, ctx: GraphqlContext) => {
-    if (!ctx.user?.id) return { err: "Unauthorized User" };
+    
+    // if (!ctx.user?.id) return { err: "Unauthorized User" };
+    console.log('id------>', id)
     if (!id) return { err: "id Can't be Undefined" };
     try {
         const UserData = await UserProfile(id);

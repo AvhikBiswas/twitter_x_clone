@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "mob": " dev -H 0.0.0.0",
-    "dev": "next dev",
+    "dev": "concurrently \"yarn codegen\" \"next dev\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -29,6 +29,7 @@
     "@graphql-codegen/cli": "5.0.2",
     "@graphql-codegen/client-preset": "4.2.2",
     "@graphql-codegen/introspection": "4.0.2",
+    "@tanstack/react-query-devtools": "^5.24.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

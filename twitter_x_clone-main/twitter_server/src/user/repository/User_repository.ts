@@ -41,12 +41,10 @@ class User_repository {
 
   
   async findUseById(UserId: string) {
-    console.log('userId----------------------------------------------->', UserId);
     try {
       const userData = await this.prisma.user.findUnique({
         where: { id: UserId },
       });
-      console.log('UserData is ->', userData)
       return userData;
     } catch (error) {
       console.log("error from user repo find", error);

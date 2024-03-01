@@ -9,6 +9,7 @@ export default function useUserByID(Id: string) {
     queryFn: async () => {
       const UserData: any = await graphqlClientHeder.request(getProfileQuary, {
         getUserDetailsId: Id,
+        cacheTime: 10000,
       });
       console.log("data", UserData);
       return UserData;

@@ -54,7 +54,7 @@ const Left_buttons: manueButton[] = [
   {
     title: "Profile",
     icon: <HiOutlineUser />,
-    link: '/2'
+    link: '/clsbrp9rk0000a8jbl0i6qy4v'
   },
   {
     title: "More",

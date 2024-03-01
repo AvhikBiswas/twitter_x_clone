@@ -38,6 +38,20 @@ class User_repository {
       return false;
     }
   }
+
+  
+  async findUseById(UserId: string) {
+    try {
+      const userData = await this.prisma.user.findUnique({
+        where: { id: UserId },
+      });
+      console.log(userData);
+      return userData;
+    } catch (error) {
+      console.log("error from user repo find", error);
+      return false;
+    }
+  }
 }
 
 export default User_repository;

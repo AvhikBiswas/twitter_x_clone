@@ -18,8 +18,14 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
+  GetUserDetails?: Maybe<UserDataWithId>;
   getCurrentUser?: Maybe<User>;
   verifyAuthToken?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type QueryGetUserDetailsArgs = {
+  id: Scalars['String']['input'];
 };
 
 
@@ -34,6 +40,15 @@ export type User = {
   id: Scalars['ID']['output'];
   lastName?: Maybe<Scalars['String']['output']>;
   password?: Maybe<Scalars['String']['output']>;
+  profileUrl: Scalars['String']['output'];
+};
+
+export type UserDataWithId = {
+  __typename?: 'UserDataWithID';
+  emailId: Scalars['String']['output'];
+  firstName: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  lastName?: Maybe<Scalars['String']['output']>;
   profileUrl: Scalars['String']['output'];
 };
 

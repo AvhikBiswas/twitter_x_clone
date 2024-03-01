@@ -32,11 +32,13 @@ export async function initialServer() {
     await server.start();
 
     // Use expressMiddleware with the ApolloServer instance
+    
     app.use(
       "/graphql",
       expressMiddleware(server, {
         context: async ({ req, res }) => {
           try {
+            if(!req.headers.authorization)return  {err:"Unauth",user:{}};
             const data = req.headers.authorization
               ? JwtVerify.verifyToken(req.headers.authorization)
               : "";
@@ -45,9 +47,8 @@ export async function initialServer() {
               user: data,
             };
           } catch (error) {
-            console.error("Error verifying token:", error);
             return {
-              user: null,
+              user: "Unauthorized User",error,
             };
           }
         },

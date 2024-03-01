@@ -7,4 +7,11 @@ export const types = `#graphql
     profileUrl: String!
     password: String
   }
+  type UserDataWithID {
+  id: String!
+  firstName: String!
+  lastName: String
+  emailId: String!
+  profileUrl: String!
+}
 `;

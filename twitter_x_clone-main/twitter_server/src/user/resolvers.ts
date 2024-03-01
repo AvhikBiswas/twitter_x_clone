@@ -1,6 +1,7 @@
-import { GraphqlContext } from "../types/User_types";
+import { GraphqlContext, UserData } from "../types/User_types";
 import User_repository from "./repository/User_repository";
 import GoogleAuthuserLogin from "./services/GoogleAuthuserLogin";
+import UserProfile from "./services/UserProfile";
 
 export const resolvers = {
   verifyAuthToken: async (parent: any, { token }: { token: string }) => {
@@ -17,4 +18,18 @@ export const resolvers = {
       return user;
     }
   },
+  GetUserDetails: async (parent: any, { id }: { id: string }, ctx: GraphqlContext) => {
+    if (!ctx.user?.id) return { err: "Unauthorized User" };
+    if (!id) return { err: "id Can't be Undefined" };
+    try {
+        const UserData = await UserProfile(id);
+        if (!UserData) {
+            throw new Error("User ID is missing");
+        }
+        return UserData;
+    } catch (error) {
+        return { err: error };
+    }
+},
+
 };

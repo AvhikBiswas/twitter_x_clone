@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ReactQuaryClientProvider } from "./components/ReactQuaryClientProvider";
+import { ReactQuaryClientProvider } from "../app/Providers/ReactQuaryClientProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 

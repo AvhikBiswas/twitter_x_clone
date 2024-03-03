@@ -9,7 +9,7 @@ import useUserStore from "../zustand/store";
 import { useTheme } from "next-themes";
 
 export default function ProfileLayout() {
-  const { CurrentUser } = useUserStore();
+  const { CurrUser } = useUserStore();
   const params = useParams<{ profile: string }>();
   console.log("params", params.profile);
   const { user } = useCurrentUser();
@@ -20,8 +20,8 @@ export default function ProfileLayout() {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
-  return (
+  if (!mounted || !user) return null;
+    return (
     <div className="grid grid-cols-12 h-screen w-screen">
       <div className="col-span-3 ml-28">
         <Buttons_left user={user} />

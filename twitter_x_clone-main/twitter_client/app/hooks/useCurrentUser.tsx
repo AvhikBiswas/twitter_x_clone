@@ -14,7 +14,6 @@ export const useCurrentUser = () => {
     queryFn: async () => {
       const response = await graphqlClientHeder.request(getCurrentUserQuary);
       const user = response.getCurrentUser;
-
       if (user) {
         setUser(user);
       } else {

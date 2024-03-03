@@ -6,6 +6,8 @@ import { user } from "../user";
 import cors from "cors";
 import { GraphqlContext } from "../types/User_types";
 import JwtVerify from "../auth/jwt";
+import { tweet } from "../tweet/index";
+import { mutations } from "../tweet/mutations";
 
 export async function initialServer() {
   try {
@@ -17,28 +19,38 @@ export async function initialServer() {
     const server = new ApolloServer<GraphqlContext>({
       typeDefs: `
        ${user.types}
+       ${tweet.types}
       type Query{
         ${user.queries} 
       }
+      type Mutation {
+        createNewTweet(payload: CreateTweetData):tweet
+      }
+      
 
       `,
       resolvers: {
         Query: {
           ...user.resolvers,
         },
+        Mutation: {
+          ...tweet.resolver.mutations,
+        },
+        ...tweet.resolver.extraResolvers
       },
     });
 
     await server.start();
 
     // Use expressMiddleware with the ApolloServer instance
-    
+
     app.use(
       "/graphql",
       expressMiddleware(server, {
         context: async ({ req, res }) => {
           try {
-            if(!req.headers.authorization)return  {err:"Unauth",user:{}};
+            if (!req.headers.authorization)
+              return { err: "Unauth", user: null };
             const data = req.headers.authorization
               ? JwtVerify.verifyToken(req.headers.authorization)
               : "";
@@ -48,7 +60,8 @@ export async function initialServer() {
             };
           } catch (error) {
             return {
-              user: "Unauthorized User",error,
+              user: "Unauthorized User",
+              error,
             };
           }
         },

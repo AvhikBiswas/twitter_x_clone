@@ -17,7 +17,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const CLIENT_ID:string = process.env.NEXT_PUBLIC_CLIENT_ID;
+  const CLIENT_ID:any= process.env.NEXT_PUBLIC_CLIENT_ID;
   return (
     <html lang="en">
       <body className={inter.className}>

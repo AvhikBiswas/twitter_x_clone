@@ -5,7 +5,6 @@ import useUserStore from "../zustand/store";
 import { useRouter } from "next/navigation";
 import { GetCurrentUserQuery, User } from "@/gql/graphql";
 
-
 export const useCurrentUser = () => {
   const { setUser, removeUser } = useUserStore();
   const router = useRouter();
@@ -21,9 +20,9 @@ export const useCurrentUser = () => {
         router.push("/");       
       }
 
-      return user;
+      return response;
     },
   });
 
-  return { ...quary, user: quary.data as User };
+  return { ...quary, user: quary.data?.getCurrentUser as User | undefined };
 };

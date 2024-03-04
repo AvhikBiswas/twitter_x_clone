@@ -1,12 +1,12 @@
 import { graphql } from "../../gql";
 
-export const VERIFY_AUTH_TOKEN_QUERY = graphql`
+export const VERIFY_AUTH_TOKEN_QUERY = graphql(`
   query VerifyAuthToken($token: String!) {
     verifyAuthToken(token: $token)
   }
-`;
+`);
 
-export const getCurrentUserQuary = graphql`
+export const getCurrentUserQuary = graphql(`
   query GetCurrentUser {
     getCurrentUser {
       id
@@ -16,9 +16,9 @@ export const getCurrentUserQuary = graphql`
       profileUrl
     }
   }
-`;
+`);
 
-export const getProfileQuary = graphql`
+export const getProfileQuary = graphql(`
   query GetUserDetails($getUserDetailsId: String!) {
     GetUserDetails(id: $getUserDetailsId) {
       id
@@ -28,5 +28,5 @@ export const getProfileQuary = graphql`
       profileUrl
     }
   }
-`;
+`);
 

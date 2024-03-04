@@ -27,7 +27,7 @@ export default function ProfileLayout() {
         <Buttons_left user={user} />
       </div>
       <div className="col-span-5 border border-y-0">
-        <ProfileCard profile={user} />
+        <ProfileCard/>
       </div>
       <div className="col-span-4 mt-1">
         <Main_TrendingSearch />

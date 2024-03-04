@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Feedicon } from "../utils/FeedIconTypes";
 import { useCreateTweet } from "../hooks/createTweet";
-import toast from "react-hot-toast";
 
 export const User_InputFeed = () => {
   const [content, setContent] = useState("");
@@ -15,7 +14,7 @@ export const User_InputFeed = () => {
     return rows;
   };
 
-  const handleContentChange = (e) => {
+  const handleContentChange = (e:any) => {
     setContent(e.target.value);
   };
 
@@ -26,7 +25,7 @@ export const User_InputFeed = () => {
     input.click();
   }, []);
 
-  const handleImageChange = (e) => {
+  const handleImageChange = (e:any) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
     }

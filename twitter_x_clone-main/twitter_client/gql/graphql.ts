@@ -23,7 +23,7 @@ export type CreateTweetData = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createNewTweet?: Maybe<Scalars['String']['output']>;
+  createNewTweet?: Maybe<Tweet>;
 };
 
 
@@ -56,6 +56,7 @@ export type User = {
   lastName?: Maybe<Scalars['String']['output']>;
   password?: Maybe<Scalars['String']['output']>;
   profileUrl: Scalars['String']['output'];
+  tweets?: Maybe<Array<Maybe<Tweet>>>;
 };
 
 export type UserDataWithId = {
@@ -67,6 +68,14 @@ export type UserDataWithId = {
   profileUrl: Scalars['String']['output'];
 };
 
+export type CreateTweetReturn = {
+  __typename?: 'createTweetReturn';
+  content: Scalars['String']['output'];
+  hashTag?: Maybe<Scalars['String']['output']>;
+  imageURL?: Maybe<Scalars['String']['output']>;
+  userID: Scalars['String']['output'];
+};
+
 export type Tweet = {
   __typename?: 'tweet';
   auther?: Maybe<User>;
@@ -75,6 +84,13 @@ export type Tweet = {
   id: Scalars['ID']['output'];
   imageURL?: Maybe<Scalars['String']['output']>;
 };
+
+export type CreateTweetMutationMutationVariables = Exact<{
+  payload?: InputMaybe<CreateTweetData>;
+}>;
+
+
+export type CreateTweetMutationMutation = { __typename?: 'Mutation', createNewTweet?: { __typename?: 'tweet', content?: string | null } | null };
 
 export type VerifyAuthTokenQueryVariables = Exact<{
   token: Scalars['String']['input'];
@@ -96,6 +112,7 @@ export type GetUserDetailsQueryVariables = Exact<{
 export type GetUserDetailsQuery = { __typename?: 'Query', GetUserDetails?: { __typename?: 'UserDataWithID', id: string, firstName: string, emailId: string, lastName?: string | null, profileUrl: string } | null };
 
 
+export const CreateTweetMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateTweetMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"payload"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateTweetData"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createNewTweet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"payload"},"value":{"kind":"Variable","name":{"kind":"Name","value":"payload"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]}}]} as unknown as DocumentNode<CreateTweetMutationMutation, CreateTweetMutationMutationVariables>;
 export const VerifyAuthTokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"VerifyAuthToken"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"token"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"verifyAuthToken"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"token"},"value":{"kind":"Variable","name":{"kind":"Name","value":"token"}}}]}]}}]} as unknown as DocumentNode<VerifyAuthTokenQuery, VerifyAuthTokenQueryVariables>;
 export const GetCurrentUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCurrentUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getCurrentUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"emailId"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"profileUrl"}}]}}]}}]} as unknown as DocumentNode<GetCurrentUserQuery, GetCurrentUserQueryVariables>;
 export const GetUserDetailsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserDetails"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"getUserDetailsId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"GetUserDetails"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"getUserDetailsId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"emailId"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"profileUrl"}}]}}]}}]} as unknown as DocumentNode<GetUserDetailsQuery, GetUserDetailsQueryVariables>;

@@ -19,7 +19,7 @@ export const MainLogin = () => {
   useEffect(() => {
     const checkAuthentication = async () => {
       const authToken = window.localStorage.getItem("_Autherization");
-      if (!authToken || authToken == undefined) return;
+      if (!authToken || authToken == undefined){  return null; };
       if (user?.id) {
         router.push("/dashboard/home");
         toast.success("Login Success");

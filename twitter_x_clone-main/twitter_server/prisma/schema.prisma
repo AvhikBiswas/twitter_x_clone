@@ -21,7 +21,7 @@ model user {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  tweets    tweet[]
+  tweets tweet[]
 }
 
 model tweet {

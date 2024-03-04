@@ -8,7 +8,6 @@ class User_repository {
   }
 
   async createUser(data: craeteUser) {
-    if (!data) return;
     try {
       const newUser: user = await this.prisma.user.create({
         data: {
@@ -19,6 +18,7 @@ class User_repository {
         },
       });
       console.log(newUser);
+      if(!newUser?.id) return false;
       return newUser;
     } catch (error) {
       console.log("error from user Repo create", error);
@@ -27,11 +27,13 @@ class User_repository {
   }
 
   async findUser(userEmail: string) {
+    
     try {
       const userData = await this.prisma.user.findUnique({
         where: { emailId: userEmail },
       });
       console.log(userData);
+      if(!userData?.id) return false;
       return userData;
     } catch (error) {
       console.log("error from user repo find", error);
@@ -39,12 +41,27 @@ class User_repository {
     }
   }
 
-  
+  //finding tweets of user
+
   async findUseById(UserId: string) {
     try {
       const userData = await this.prisma.user.findUnique({
         where: { id: UserId },
       });
+      if(!userData?.id) return false;
+      return userData;
+    } catch (error) {
+      console.log("error from user repo find", error);
+      return false;
+    }
+  }
+
+  async findMAnyByID(UserId:string) {
+    try {
+      const userData = await this.prisma.tweet.findMany({
+        where: { id: UserId }
+      });
+      if(!userData) return false;
       return userData;
     } catch (error) {
       console.log("error from user repo find", error);

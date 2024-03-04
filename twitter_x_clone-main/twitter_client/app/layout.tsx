@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ReactQuaryClientProvider } from "../app/Providers/ReactQuaryClientProvider";
+import { Toaster } from "react-hot-toast";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,11 +17,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const CLIENT_ID:string = process.env.NEXT_PUBLIC_CLIENT_ID;
   return (
     <html lang="en">
       <body className={inter.className}>
         <ReactQuaryClientProvider>
+        <GoogleOAuthProvider clientId={CLIENT_ID}>
           <div>{children} </div>
+          <Toaster position="top-right" reverseOrder={false} />
+          </GoogleOAuthProvider>
         </ReactQuaryClientProvider>
       </body>
     </html>

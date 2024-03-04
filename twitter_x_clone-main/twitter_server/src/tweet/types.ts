@@ -6,10 +6,16 @@ type tweet{
     hashTag:String
     auther:User
 }
+
 input CreateTweetData {
         content:String!
         imageURL:String
     }
+ type createTweetReturn{
+  userID:String!
+  imageURL:String
+  content:String!
+  hashTag:String
+}
 
 `;
-

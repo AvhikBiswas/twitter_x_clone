@@ -1,7 +1,6 @@
 import { graphqlClient, graphqlClientHeder } from "@/clients/api";
 import { VERIFY_AUTH_TOKEN_QUERY } from "@/graphql/quary/user";
 import { CredentialResponse } from "@react-oauth/google";
-import toast from "react-hot-toast";
 
 export async function HandelLoginWithGoogle(cred: CredentialResponse) {
   try {
@@ -20,14 +19,11 @@ export async function HandelLoginWithGoogle(cred: CredentialResponse) {
     );
 
     if (verifyAuthToken) {
-      console.log("Verified Successfully:", verifyAuthToken);
-      toast.success("Verified Successfully");
       return verifyAuthToken;
     } else {
       throw new Error("Token verification failed");
     }
   } catch (err) {
     console.error("Error handling Google login:", err);
-    toast.error("An error occurred while verifying the token");
   }
 }

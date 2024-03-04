@@ -29,6 +29,7 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
   const [buttonBold1, setButtonBold1] = useState(Bold);
   const [buttonBold2, setButtonBold2] = useState("");
 
+
   function handleButtonClickForYou() {
     setButtonStyle2("");
     setButtonBold2("");

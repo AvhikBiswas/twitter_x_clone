@@ -4,6 +4,7 @@ import JwtVerify from "../../auth/jwt";
 
 async function GoogleAuthuserLogin(token: string) {
   const user_repository = new User_repository();
+  console.log('token--->',token);
 
   const userData = await GetUserDetail(token);
   try {

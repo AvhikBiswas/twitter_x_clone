@@ -21,7 +21,6 @@ export const Buttons_left: React.FC<Props> = ({ user }) => {
   const [logoutStyle, setLogoutStyle] = useState(false);
   const logoutPopupRef = useRef(null);
   const router = useRouter();
-
   const handleLogoutPopUp = () => {
     setLogoutStyle(!logoutStyle); // Toggle the logout style
   };

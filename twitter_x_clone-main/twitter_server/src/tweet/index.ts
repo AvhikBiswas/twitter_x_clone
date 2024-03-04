@@ -1,5 +1,4 @@
-import { mutations } from "./mutations";
-// import quaries from "./quaries";
+import { createNewTweetMutation} from "./mutations";
 import { resolver } from "./resolvers";
 import { types } from "./types";
-export const tweet = { resolver, types,mutations };
+export const tweet = { resolver, types,createNewTweetMutation};

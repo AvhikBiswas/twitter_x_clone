@@ -7,9 +7,8 @@ export default function useUserByID(Id: string) {
   const { data, isLoading, isError } = useQuery<UserDataWithId, Error>({
     queryKey: ["current_Profile", Id],
     queryFn: async () => {
-      const UserData: any = await graphqlClientHeder.request(getProfileQuary, {
+      const UserData:any = await graphqlClientHeder.request(getProfileQuary, {
         getUserDetailsId: Id,
-        cacheTime: 10000,
       });
       console.log("data", UserData);
       return UserData;
@@ -17,7 +16,7 @@ export default function useUserByID(Id: string) {
   });
 
   return {
-    profileData: (data?.GetUserDetails as User) || null,
+    profileData: (data?.GetUserDetails) || null,
     isLoading,
     isError,
   };

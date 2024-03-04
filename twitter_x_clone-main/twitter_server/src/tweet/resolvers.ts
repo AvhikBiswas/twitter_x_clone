@@ -1,6 +1,6 @@
 import { tweet } from "@prisma/client";
 import { GraphqlContext } from "../types/User_types";
-import { Tweet_type, tweetPayload } from "../types/tweet";
+import { tweetPayload } from "../types/tweet";
 import createTweet from "./services/createTweet";
 import GettweetAuthor from "./services/GetTwetAuthor";
 

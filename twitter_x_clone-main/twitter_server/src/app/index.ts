@@ -7,14 +7,15 @@ import cors from "cors";
 import { GraphqlContext } from "../types/User_types";
 import JwtVerify from "../auth/jwt";
 import { tweet } from "../tweet/index";
-import { mutations } from "../tweet/mutations";
 
 export async function initialServer() {
   try {
     const app = express();
 
     app.use(bodyParser.json());
-    app.use(cors());
+    app.use(cors({
+      origin: 'http://localhost:3000'
+    }));
 
     const server = new ApolloServer<GraphqlContext>({
       typeDefs: `
@@ -24,7 +25,7 @@ export async function initialServer() {
         ${user.queries} 
       }
       type Mutation {
-        createNewTweet(payload: CreateTweetData):tweet
+       ${tweet.createNewTweetMutation}
       }
       
 
@@ -36,7 +37,8 @@ export async function initialServer() {
         Mutation: {
           ...tweet.resolver.mutations,
         },
-        ...tweet.resolver.extraResolvers
+        ...tweet.resolver.extraResolvers,
+        ...user.extraResolver,
       },
     });
 

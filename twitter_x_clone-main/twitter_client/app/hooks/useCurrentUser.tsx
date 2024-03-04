@@ -3,7 +3,7 @@ import { getCurrentUserQuary } from "@/graphql/quary/user";
 import { useQuery } from "@tanstack/react-query";
 import useUserStore from "../zustand/store";
 import { useRouter } from "next/navigation";
-import { GetCurrentUserQuery } from "@/gql/graphql";
+import { GetCurrentUserQuery, User } from "@/gql/graphql";
 
 
 export const useCurrentUser = () => {
@@ -17,14 +17,13 @@ export const useCurrentUser = () => {
       if (user) {
         setUser(user);
       } else {
-       
-        removeUser();
-        router.push("/");
+         removeUser();
+        router.push("/");       
       }
 
       return user;
     },
   });
 
-  return { ...quary, user: quary.data };
+  return { ...quary, user: quary.data as User };
 };

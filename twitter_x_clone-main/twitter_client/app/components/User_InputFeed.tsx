@@ -1,15 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { BsEmojiSmile } from "react-icons/bs";
-import { CiImageOn } from "react-icons/ci";
-import { GrSchedulePlay } from "react-icons/gr";
-import { HiOutlineFaceSmile } from "react-icons/hi2";
-import { IoLocationOutline } from "react-icons/io5";
-import {
-  MdOutlineBrokenImage,
-  MdOutlineGifBox,
-  MdOutlinePoll,
-} from "react-icons/md";
 import { Feedicon } from "../utils/FeedIconTypes";
+import { useCreateTweet } from "../hooks/createTweet";
+import toast from "react-hot-toast";
 
 export const User_InputFeed = () => {
   const [content, setContent] = useState("");
@@ -65,6 +57,15 @@ export const User_InputFeed = () => {
 
   const iconStyle = { color: "#1D9BF0", width: "35px", height: "35px" };
 
+  const createTweetMutation = useCreateTweet();
+
+  function handelPost() {
+    if (content) {
+      createTweetMutation.mutate({ content:content });
+    }
+    return;
+  }
+
   return (
     <div className="flex-grow flex-shrink">
       <div className="flex ml-2 p-2 relative">
@@ -106,6 +107,7 @@ export const User_InputFeed = () => {
             </span>
           ) : null}
           <button
+            onClick={handelPost}
             className={`w-16 ${
               isPostButtonDisabled
                 ? "bg-blue-200"

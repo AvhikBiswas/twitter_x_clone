@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 const ProfileCard = () => {
   const { profile } = useParams<{ profile: string }>();
 
+
   const fetchProfileData = useCallback(
     (UserId: string) => {
       console.log("callback");
@@ -16,11 +17,7 @@ const ProfileCard = () => {
     [profile]
   );
 
-  const { profileData, isLoading } = fetchProfileData(profile);
-
-  console.log("profileData is -->  ", profileData);
-  if (isLoading) toast.loading("Loading");
-
+  const { profileData, isLoading } = fetchProfileData(profile); 
   return (
     <div className="main_profile">
       <div className="flex bg-neutral-200 w-full h-14 z-10">

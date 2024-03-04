@@ -1,7 +1,10 @@
+import { tweet } from "@prisma/client";
+import { user } from ".";
 import { GraphqlContext, UserData } from "../types/User_types";
 import User_repository from "./repository/User_repository";
 import GoogleAuthuserLogin from "./services/GoogleAuthuserLogin";
 import UserProfile from "./services/UserProfile";
+import getUserTweets from "./services/getUserTweet";
 
 export const resolvers = {
   verifyAuthToken: async (parent: any, { token }: { token: string }) => {
@@ -34,3 +37,12 @@ export const resolvers = {
 },
 
 };
+
+export const  extraResolver={
+User:{
+  tweets:async(parents:tweet)=>{
+    const tweetData= await getUserTweets(parents.autherId);
+    return tweetData;
+  }
+}
+}

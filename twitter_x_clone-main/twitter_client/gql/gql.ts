@@ -13,6 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\n  #graphql\n  mutation CreateTweetMutation($payload:CreateTweetData) {\n    createNewTweet(payload: $payload) {\n      content\n    }\n  }\n": types.CreateTweetMutationDocument,
     "\n  query VerifyAuthToken($token: String!) {\n    verifyAuthToken(token: $token)\n  }\n": types.VerifyAuthTokenDocument,
     "\n  query GetCurrentUser {\n    getCurrentUser {\n      id\n      firstName\n      emailId\n      lastName\n      profileUrl\n    }\n  }\n": types.GetCurrentUserDocument,
     "\n  query GetUserDetails($getUserDetailsId: String!) {\n    GetUserDetails(id: $getUserDetailsId) {\n      id\n      firstName\n      emailId\n      lastName\n      profileUrl\n    }\n  }\n": types.GetUserDetailsDocument,
@@ -32,6 +33,10 @@ const documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  #graphql\n  mutation CreateTweetMutation($payload:CreateTweetData) {\n    createNewTweet(payload: $payload) {\n      content\n    }\n  }\n"): (typeof documents)["\n  #graphql\n  mutation CreateTweetMutation($payload:CreateTweetData) {\n    createNewTweet(payload: $payload) {\n      content\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

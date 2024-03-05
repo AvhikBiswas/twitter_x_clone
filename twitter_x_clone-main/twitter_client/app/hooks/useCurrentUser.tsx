@@ -16,8 +16,8 @@ export const useCurrentUser = () => {
       if (user) {
         setUser(user);
       } else {
-         removeUser();
-        router.push("/");       
+        removeUser();
+        router.push("/");
       }
 
       return response;

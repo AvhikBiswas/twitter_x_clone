@@ -13,16 +13,19 @@ export async function initialServer() {
     const app = express();
 
     app.use(bodyParser.json());
-    app.use(cors({
-      origin: 'http://localhost:3000'
-    }));
+    app.use(
+      cors({
+        origin: "http://localhost:3000",
+      })
+    );
 
     const server = new ApolloServer<GraphqlContext>({
       typeDefs: `
        ${user.types}
        ${tweet.types}
       type Query{
-        ${user.queries} 
+        ${user.queries}
+        ${tweet.queries} 
       }
       type Mutation {
        ${tweet.createNewTweetMutation}
@@ -33,6 +36,7 @@ export async function initialServer() {
       resolvers: {
         Query: {
           ...user.resolvers,
+          ...tweet.AllTweetresolvers,
         },
         Mutation: {
           ...tweet.resolver.mutations,

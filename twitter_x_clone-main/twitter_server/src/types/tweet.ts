@@ -1,8 +1,11 @@
 export type tweetPayload = {
   userID: string;
-  imageURL?: string
+  imageURL?: string;
   content: string;
-  hashTag?: string
+  hashTag?: string;
 };
 
-
+export type PageSkipValue={
+  skipValue: number;
+  userID:string,
+};

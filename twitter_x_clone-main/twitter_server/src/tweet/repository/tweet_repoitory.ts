@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { tweetPayload } from "../../types/tweet";
+import { PageSkipValue, tweetPayload } from "../../types/tweet";
 
 class Tweet {
   private prisma: PrismaClient;
@@ -8,8 +8,7 @@ class Tweet {
   }
 
   async createTweet(payload: tweetPayload) {
-
-    console.log('payload is -->', payload);
+    console.log("payload is -->", payload);
     try {
       const data = await this.prisma.tweet.create({
         data: {
@@ -19,7 +18,7 @@ class Tweet {
           autherId: payload.userID,
         },
       });
-      console.log('Data', data);
+      console.log("Data", data);
       return data;
     } catch (error) {
       console.error("Error creating tweet:", error);
@@ -27,18 +26,24 @@ class Tweet {
     }
   }
 
-//   async getAllUserTweet(Userid: string) {
-//     try {
-//       const data = this.prisma.user.findMany({ where: {id: Userid },include: { tweets: true } });
-//       return (await data).sort;
-//     } catch (error) {
-//       console.log("error is from tweet find many", error);
-//       throw new Error("Unable To Find Tweets");
-//     }
-//   }
+  async getAllUserTweet(allUserTweet: PageSkipValue) {
+    try {
+      const TweetsData = await this.prisma.tweet.findMany({
+        where: { autherId: allUserTweet.userID },
+        skip: allUserTweet.skipValue,
+        take: 10,
+        orderBy: { createdAt: "desc" },
+      });
+      return TweetsData;
+    } catch (error) {
+      throw new Error("Somthing Went Wrong");
+    }
+  }
 
-  async getAuthor(userId:string){
-    const TweetAuthor=await this.prisma.user.findUnique({where:{id:userId}});
+  async getAuthor(userId: string) {
+    const TweetAuthor = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
     return TweetAuthor;
   }
 }

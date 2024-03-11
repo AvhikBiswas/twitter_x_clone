@@ -7,7 +7,7 @@ export const Main_TrendingSearch: React.FC = () => {
   const { isFocused, onFocus, onBlur } = useInputFocus();
 
   const onFocusStyle = "border border-blue-700";
-  const defaultStyle = "bg-neutral-100";
+  const defaultStyle = "bg-[#232323]";
 
   return (
     <div className="flex flex-col">
@@ -18,7 +18,7 @@ export const Main_TrendingSearch: React.FC = () => {
       >
         <div className="flex justify-start items-center">
           <span className="pr-2">
-            <CiSearch size={20} className="text-gray-700" />
+            <CiSearch size={20} className={isFocused?"text-blue-700":""} />
           </span>
           <span>
             <input
@@ -28,7 +28,7 @@ export const Main_TrendingSearch: React.FC = () => {
               name=""
               id=""
               className={`outline-none h-9 w-60 pl-3 ${
-                isFocused ? "" : defaultStyle
+                isFocused ? "bg-[#121212]" : defaultStyle
               }`}
               placeholder="Search"
             />

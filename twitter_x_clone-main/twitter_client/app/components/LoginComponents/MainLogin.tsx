@@ -18,7 +18,7 @@ export const MainLogin = () => {
 
   useEffect(() => {
     const checkAuthentication = async () => {
-      const authToken = window.localStorage.getItem("_Autherization");
+      const authToken = localStorage.getItem("_Autherization");
       if (!authToken || authToken == undefined) {
         return null;
       }

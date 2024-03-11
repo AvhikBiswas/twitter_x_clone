@@ -76,7 +76,7 @@ export const User_InputFeed = () => {
         <div className="flex pl-1 items-center justify-center text-center flex-grow">
           <textarea
             id="userFeedTextarea"
-            className="w-full flex justify-center text-left mt-1 text-xl text-[#536471] items-center pl-3 focus:outline-none resize-none overflow-hidden"
+            className="w-full flex justify-center text-left mt-1 text-xl light:text-[#536471] items-center pl-3 focus:outline-none bg-inherit resize-none overflow-hidden"
             style={{ height: "40px" }}
             placeholder="What is happening?!"
             name="twitter"
@@ -93,7 +93,7 @@ export const User_InputFeed = () => {
               key={button.title}
               onClick={button.title === "Image" ? handelImageInput : undefined}
               style={iconStyle}
-              className="hover:bg-neutral-200 flex rounded-full justify-center items-center"
+              className="light:hover:bg-neutral-200 dark:hover:bg-[#232323] cursor-pointer flex rounded-full justify-center items-center"
             >
               {button.icon}
             </div>

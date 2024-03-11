@@ -5,14 +5,14 @@ import Trending from "./Trending";
 export const Trending_Twittes: React.FC = () => {
   return (
     <div className="mt-40 ml-12">
-      <div className="flex flex-col rounded-2xl bg-neutral-100 w-80 h-fit">
+      <div className="flex flex-col rounded-2xl bg-[#232323] w-80 h-fit">
         <div className="pt-4 pl-4">
           <h2 className=" font-bold text-xl">What’s happening</h2>
         </div>
 
         {/* Trending Section */}
 
-        <span className="flex mt-1 hover:">
+        <span className="flex mt-1">
           <ul className="w-full">
             
             {TrendingArray.map((item) => (
@@ -21,7 +21,7 @@ export const Trending_Twittes: React.FC = () => {
             
           </ul>
         </span>
-        <span className="py-3 rounded-b-2xl pl-4 hover:bg-neutral-200 ">
+        <span className="py-3 rounded-b-2xl pl-4 dark:hover:bg-[#323232] ">
             <div className="text-blue-400 text-sm cursor-pointer">Show more</div>
         </span>
       </div>

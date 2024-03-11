@@ -12,33 +12,37 @@ const Twitter_PostIcon: ManueButton[] = [
   {
     title:'chat',
     icon:<BsChat/>,
-    link:'/'
+    link:'/',
+    buttonStyle: "hover:text-blue-600"
   },
   {
     title:'retwitte',
     icon:<AiOutlineRetweet />,
-    link:'/'
+    link:'/',
+    buttonStyle:"hover:text-green-600"
   },
   {
     title:'heart',
     icon:<IoHeartOutline/>,
-    link:'/'
+    link:'/',
+    buttonStyle:"hover:text-red-600"
   },
   {
     title:'engagement',
     icon:<LiaPollSolid/>,
-    link:'/'
+    link:'/',
+    buttonStyle:"hover:text-green-600"
 },
 {
   title:'bookmark',
   icon:<CiBookmark/>  ,
-  link:'/'
-},  
+  link:'/',
+  buttonStyle:"hover:text-blue-600"},  
 {
   title:'share',
   icon:<CiSaveUp2/> ,
-  link:'/'
-},
+  link:'/',
+  buttonStyle:"hover:text-sky-600"},
 
 ]
 export default Twitter_PostIcon;

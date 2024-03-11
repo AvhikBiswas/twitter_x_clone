@@ -6,40 +6,52 @@ import { Twitte_Feed } from "./Twitte_Feed";
 import { Tweet } from "@/gql/graphql";
 import { CurrentUser } from "../Types/CurrentUser";
 import useUserByID from "../hooks/getUserByID";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import Link from "next/link";
 
 const ProfileCard = () => {
   const { profile } = useParams<{ profile: string }>();
   const [tweets, setTweets] = useState<Tweet[]>([]);
-  const { isLoading, tweets: fetchedTweets } = getUserTweets({ params: profile, skipValue: 0});
-  const {profileData}=useUserByID(profile)
+  const { isLoading, tweets: fetchedTweets } = getUserTweets({
+    params: profile,
+    skipValue: 0,
+  });
+  const { profileData } = useUserByID(profile);
 
   useEffect(() => {
     if (!isLoading) {
-      setTweets(fetchedTweets || []); 
+      setTweets(fetchedTweets || []);
     }
   }, [isLoading, fetchedTweets]);
 
   return (
-    <div className="main_profile">
-      {isLoading ? (
-        <div>Loading...</div>
+    <div className="main_profile w-full h-full">
+      {isLoading && !profileData?.profileUrl ? (
+        <div className="flex w-full h-full justify-center text-center items-center">
+          <AiOutlineLoading3Quarters
+            size={40}
+            className="flex justify-center text-center items-center"
+            color="blue"
+          />
+        </div>
       ) : (
         <div>
-          <div className="flex bg-neutral-200 w-full h-14 z-10">
+          <div className="flex light:bg-neutral-200 w-full h-14 z-10">
             <div className="flex">
-              <div className="flex items-center ">
-                <div className="ml-2  hover:bg-white rounded-full w-7">
+              <div className="flex items-center pt-1">
+                <Link href={"/dashboard/home"}>
+                <div className="ml-3  light:hover:bg-white dark:hover:bg-[#242424] cursor-pointer rounded-full w-7">
                   <IoMdArrowBack
                     className="w-full h-full object-cover rounded-full"
                     size={20}
                   />
-                </div>
-                <div className="flex flex-col ml-5">
-                  <h1 className="font-bold text-xl space-y-0">
+                </div> </Link>
+                <div className="flex flex-col ml-9">
+                  <h1 className="font-semibold text-lg space-y-0">
                     {profileData?.firstName} {profileData?.lastName}
                   </h1>
                   <div className="pb-1">
-                    <span className="text-sm">0 post</span>
+                    <span className="text-sm dark:text-[#383838] font-extralight">0 post</span>
                   </div>
                 </div>
               </div>
@@ -63,7 +75,7 @@ const ProfileCard = () => {
               )}
               <span className="absolute mt-36 ml-4 w-36 h-36 rounded-full overflow-hidden">
                 <img
-                  className="w-full h-full object-cover object-center rounded-full border-4 border-white"
+                  className="w-full h-full object-cover object-center rounded-full border-4 border-[#121212]"
                   src={profileData?.profileUrl}
                   alt=""
                 />
@@ -88,7 +100,20 @@ const ProfileCard = () => {
             <div className="pt-11">
               <span className="pt-10">
                 {/* Twitte_Feed components */}
-                {tweets.map((item) => <Twitte_Feed key={item.id} data={item} />)}
+                {isLoading ? (
+                  <AiOutlineLoading3Quarters
+                    size={20}
+                    className="flex justify-center text-center items-center"
+                    color="blue"
+                  />
+                ) : (
+                  tweets.map((item, index) => (
+                    <Twitte_Feed
+                      key={item.id}
+                      data={item}
+                    />
+                  ))
+                )}
               </span>
             </div>
           </div>
@@ -96,6 +121,6 @@ const ProfileCard = () => {
       )}
     </div>
   );
-}
+};
 
 export default ProfileCard;

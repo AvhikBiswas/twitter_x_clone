@@ -4,5 +4,6 @@ export interface ManueButton {
     title: any;
     icon: ReactNode;
     link?: any;
+    buttonStyle?:String
   };
 

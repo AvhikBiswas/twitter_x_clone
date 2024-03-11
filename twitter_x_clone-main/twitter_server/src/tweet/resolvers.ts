@@ -33,7 +33,6 @@ export const AllTweetresolvers = {
         skipValue,
         userID
       });
-      console.log('allTweetData-------------------------->', allTweetData)
       return allTweetData;
     } catch (error) {
       console.log("got error in fetching tweet ", error);

@@ -15,7 +15,7 @@ export default function ProfileLayout() {
   const { user } = useCurrentUser();
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
-  setTheme('light');
+  setTheme('dark');
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -26,7 +26,7 @@ export default function ProfileLayout() {
       <div className="col-span-3 ml-28">
         <Buttons_left user={user} />
       </div>
-      <div className="col-span-5 border border-y-0">
+      <div className="col-span-5 border border-x-gray-700 border-x-[00.1px] border-y-0">
         <ProfileCard/>
       </div>
       <div className="col-span-4 mt-1">

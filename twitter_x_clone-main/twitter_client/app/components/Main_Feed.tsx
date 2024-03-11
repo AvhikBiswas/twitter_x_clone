@@ -29,7 +29,6 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
   const [buttonBold1, setButtonBold1] = useState(Bold);
   const [buttonBold2, setButtonBold2] = useState("");
 
-
   function handleButtonClickForYou() {
     setButtonStyle2("");
     setButtonBold2("");
@@ -46,10 +45,10 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row border ">
+      <div className="flex flex-row ">
         <div className="flex items-center justify-center">
           <button
-            className={` hover:bg-neutral-200  w-72 h-14 ${buttonBold1}`}
+            className={`light:hover:bg-neutral-200 dark:hover:bg-[#232323] w-72 h-14 ${buttonBold1}`}
             onClick={handleButtonClickForYou}
           >
             For you
@@ -59,16 +58,15 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
 
         <div className="flex items-center justify-center">
           <button
-            className={` w-[300px] h-14 hover:bg-neutral-200  ${buttonBold2}`}
+            className={` w-[300px] h-14 light:hover:bg-neutral-200 dark:hover:bg-[#232323]  ${buttonBold2}`}
             onClick={handleButtonClickFollowing}
           >
             Following
             <div className={buttonStyle2}></div>
           </button>
         </div>
-
-        <div className="flex justify-center  items-center w-[50px]">
-          <div className="p-1 hover:bg-neutral-200 rounded-full">
+        <div className="flex justify-center items-center w-[50px] cursor-pointer">
+          <div className="p-1 light:hover:bg-neutral-200 dark:hover:bg-[#232323]  rounded-full">
             <LuSettings size={20} />
           </div>
         </div>
@@ -76,7 +74,7 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
 
       {/* scroll section  */}
       <div className="overflow-x-auto h-[634px] scrollbar-hide">
-        <div className="flex pt-2 border border-l-0 border-r-0">
+        <div className="flex pt-2 border border-y-gray-700 border-y-[00.1px] border-x-0">
           <User_InputFeed />
         </div>
 

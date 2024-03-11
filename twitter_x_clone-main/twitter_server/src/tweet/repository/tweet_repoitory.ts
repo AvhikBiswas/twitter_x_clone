@@ -2,9 +2,7 @@ import { prismaClient } from "../../client/db";
 import { PageSkipValue, tweetPayload } from "../../types/tweet";
 
 class Tweet {
-
-  async createTweet(payload:tweetPayload) {
-    console.log('payload_------------------>', payload);
+  async createTweet(payload: tweetPayload) {
     try {
       const data = await prismaClient.tweet.create({
         data: {
@@ -16,9 +14,8 @@ class Tweet {
       });
       return data;
     } catch (error) {
-      console.log('error', error);
+      console.log("error", error);
       throw new Error("Unable to create tweet");
-
     }
   }
 
@@ -30,15 +27,29 @@ class Tweet {
         take: 10,
         orderBy: { createdAt: "desc" },
       });
-  
+
       if (tweetsData.length === 0) {
-        return []; 
+        return [];
       }
-  
+
       return tweetsData;
     } catch (error) {
-      console.log('error------------------->', error);
-      // throw new Error("Something Went Wrong");
+      throw new Error("Something Went Wrong");
+    }
+  }
+
+  async getAllTweetAll(skipValue: number) {
+    try {
+      const tweetsData = await prismaClient.tweet.findMany({
+        where: {},
+        skip: skipValue,
+        take: 10,
+        orderBy: { autherId: "desc" },
+      });
+      return tweetsData;
+    } catch (error) {
+      console.error("Error fetching tweets:", error);
+      throw new Error("Error fetching tweets");
     }
   }
 

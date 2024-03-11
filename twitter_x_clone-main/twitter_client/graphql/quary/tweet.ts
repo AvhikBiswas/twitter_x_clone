@@ -11,7 +11,7 @@ export const createTweetMutation = graphql(`
 
 export const getTweets = graphql(`
   query getUserTweet($skipValue: Int, $userId: String) {
-    getAllTweetsById(skipValue:$skipValue,userID:$userId) {
+    getAllTweetsById(skipValue: $skipValue, userID: $userId) {
       content
       id
       imageURL
@@ -24,4 +24,16 @@ export const getTweets = graphql(`
   }
 `);
 
-
+export const getAllTweets = graphql(`
+  query GetAllTweetsById($skipValue: Int!) {
+    getAllTweets(skipValue: $skipValue) {
+      content
+      auther {
+        firstName
+        lastName
+        emailId
+        profileUrl
+      }
+    }
+  }
+`);

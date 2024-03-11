@@ -4,6 +4,7 @@ import { PageSkipValue, tweetPayload } from "../types/tweet";
 import createTweet from "./services/createTweet";
 import GettweetAuthor from "./services/GetTwetAuthor";
 import { getAllTweetsByUser } from "./services/getAllTweetsByUser";
+import { getAllTweetsRandom } from "./services/getAllTweetsRandom";
 
 const mutations = {
   createNewTweet: async (
@@ -22,7 +23,7 @@ const mutations = {
 export const AllTweetresolvers = {
   getAllTweetsById: async (
     parent: any,
-    { skipValue, userID }: { skipValue: number; userID:string },
+    { skipValue, userID }: { skipValue: number; userID: string },
     ctx: GraphqlContext
   ) => {
     if (!ctx.user?.id) {
@@ -31,11 +32,27 @@ export const AllTweetresolvers = {
     try {
       const allTweetData = await getAllTweetsByUser({
         skipValue,
-        userID
+        userID,
       });
       return allTweetData;
     } catch (error) {
       console.log("got error in fetching tweet ", error);
+    }
+  },
+
+  getAllTweets: async (
+    parent: any,
+    { skipValue }: { skipValue: number },
+    ctx: GraphqlContext
+  ) => {
+    if (!ctx.user?.id) {
+      throw new Error("Not Authenticated");
+    }
+    try {
+      const allTweets = getAllTweetsRandom(skipValue);
+      return allTweets;
+    } catch (error) {
+      throw new Error("Somthing Wrong");
     }
   },
 };

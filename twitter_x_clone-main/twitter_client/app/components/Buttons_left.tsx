@@ -20,7 +20,6 @@ interface Props {
 
 export const Buttons_left: React.FC<Props> = ({ user }) => {
   const { CurrUser } = useUserStore();
-  console.log("CurrUser--------->", CurrUser);
   const [logoutStyle, setLogoutStyle] = useState(false);
   const logoutPopupRef = useRef(null);
   const router = useRouter();

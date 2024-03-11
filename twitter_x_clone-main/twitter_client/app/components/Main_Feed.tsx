@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { LuSettings } from "react-icons/lu";
 import { User_InputFeed } from "./User_InputFeed";
 import { Twitte_Feed } from "./Twitte_Feed";
+import { GetAlltweet } from "../hooks/getAllTweets";
+import { Tweet } from "@/gql/graphql";
 
 type User = {
   __typename?: "User" | undefined;
@@ -28,6 +30,7 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
   const [buttonStyle2, setButtonStyle2] = useState("");
   const [buttonBold1, setButtonBold1] = useState(Bold);
   const [buttonBold2, setButtonBold2] = useState("");
+  const [allTweetsData, setAllTweetsData] = useState<Tweet[]>([]);
 
   function handleButtonClickForYou() {
     setButtonStyle2("");
@@ -42,6 +45,15 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
     setButtonStyle2(Line2);
     setButtonBold2(Bold);
   }
+
+  const { allTweets: fetchedTweets, isLoading } = GetAlltweet(1);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setAllTweetsData(fetchedTweets || []);
+    }
+  }, [isLoading, fetchedTweets]);
+
 
   return (
     <div className="flex flex-col">
@@ -79,10 +91,11 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
         </div>
 
         <div className="flex flex-col">
-          <Twitte_Feed UserAvatar="hi" Twitte_text="hiooo" />
-          <Twitte_Feed UserAvatar="hi" Twitte_text="hiooo" />
-          <Twitte_Feed UserAvatar="hi" Twitte_text="hiooo" />
-          <Twitte_Feed UserAvatar="hi" Twitte_text="hiooo" />
+          {!isLoading ?
+           ( allTweetsData.map((item) => (<Twitte_Feed key={item.id} data={item} />))):
+           <div>Loading.......
+           </div>
+           }
         </div>
       </div>
     </div>

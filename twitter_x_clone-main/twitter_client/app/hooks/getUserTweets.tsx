@@ -24,15 +24,15 @@ export type GetAllTweetsById = {
 };
 
 export const getUserTweets = ({ params, skipValue }: GetUserTweetsPayload) => {
-  const { isLoading, data } = useQuery<GetAllTweetsByIdQuery>({ // Corrected type and destructuring
+  const { isLoading, data } = useQuery<GetAllTweetsByIdQuery>({ 
     queryKey: ["Get-Tweets"],
     queryFn: async () => {
       const tweets = await graphqlClientHeder.request(getTweets, {
         userId: params,
         skipValue,
       });
-      return tweets as GetAllTweetsByIdQuery; // Corrected return type
+      return tweets as GetAllTweetsByIdQuery; 
     },
   });
-  return { isLoading, tweets: data?.getAllTweetsById }; // Corrected return object
+  return { isLoading, tweets: data?.getAllTweetsById }; 
 };

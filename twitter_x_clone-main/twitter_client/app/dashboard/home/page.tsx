@@ -12,9 +12,9 @@ const Home = () => {
   const router = useRouter();
 
 
-  const { user } = useCurrentUser();   // urrent user data
+  const { user } = useCurrentUser();  
 
-  const authCheck = localStorage?.getItem("_Autherization");
+  const authCheck = localStorage.getItem("_Autherization");
   useEffect(() => {
     if (!user?.id || !authCheck) {
       toast.error("Authentication Failed");

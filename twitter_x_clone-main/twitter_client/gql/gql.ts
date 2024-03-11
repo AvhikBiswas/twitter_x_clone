@@ -14,7 +14,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  #graphql\n  mutation CreateTweetMutation($payload: CreateTweetData) {\n    createNewTweet(payload: $payload) {\n      content\n    }\n  }\n": types.CreateTweetMutationDocument,
-    "\n  query getUserTweet($skipValue: Int, $userId: String) {\n    getAllTweetsById(skipValue:$skipValue,userID:$userId) {\n      content\n      id\n      imageURL\n      auther {\n        firstName\n        lastName\n        profileUrl\n      }\n    }\n  }\n": types.GetUserTweetDocument,
+    "\n  query getUserTweet($skipValue: Int, $userId: String) {\n    getAllTweetsById(skipValue: $skipValue, userID: $userId) {\n      content\n      id\n      imageURL\n      auther {\n        firstName\n        lastName\n        profileUrl\n      }\n    }\n  }\n": types.GetUserTweetDocument,
+    "\n  query GetAllTweetsById($skipValue: Int!) {\n    getAllTweets(skipValue: $skipValue) {\n      content\n      auther {\n        firstName\n        lastName\n        emailId\n        profileUrl\n      }\n    }\n  }\n": types.GetAllTweetsByIdDocument,
     "\n  query VerifyAuthToken($token: String!) {\n    verifyAuthToken(token: $token)\n  }\n": types.VerifyAuthTokenDocument,
     "\n  query GetCurrentUser {\n    getCurrentUser {\n      id\n      firstName\n      emailId\n      lastName\n      profileUrl\n    }\n  }\n": types.GetCurrentUserDocument,
     "\n  query GetUserDetails($getUserDetailsId: String!) {\n    GetUserDetails(id: $getUserDetailsId) {\n      id\n      firstName\n      emailId\n      lastName\n      profileUrl\n    }\n  }\n": types.GetUserDetailsDocument,
@@ -41,7 +42,11 @@ export function graphql(source: "\n  #graphql\n  mutation CreateTweetMutation($p
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query getUserTweet($skipValue: Int, $userId: String) {\n    getAllTweetsById(skipValue:$skipValue,userID:$userId) {\n      content\n      id\n      imageURL\n      auther {\n        firstName\n        lastName\n        profileUrl\n      }\n    }\n  }\n"): (typeof documents)["\n  query getUserTweet($skipValue: Int, $userId: String) {\n    getAllTweetsById(skipValue:$skipValue,userID:$userId) {\n      content\n      id\n      imageURL\n      auther {\n        firstName\n        lastName\n        profileUrl\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query getUserTweet($skipValue: Int, $userId: String) {\n    getAllTweetsById(skipValue: $skipValue, userID: $userId) {\n      content\n      id\n      imageURL\n      auther {\n        firstName\n        lastName\n        profileUrl\n      }\n    }\n  }\n"): (typeof documents)["\n  query getUserTweet($skipValue: Int, $userId: String) {\n    getAllTweetsById(skipValue: $skipValue, userID: $userId) {\n      content\n      id\n      imageURL\n      auther {\n        firstName\n        lastName\n        profileUrl\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetAllTweetsById($skipValue: Int!) {\n    getAllTweets(skipValue: $skipValue) {\n      content\n      auther {\n        firstName\n        lastName\n        emailId\n        profileUrl\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetAllTweetsById($skipValue: Int!) {\n    getAllTweets(skipValue: $skipValue) {\n      content\n      auther {\n        firstName\n        lastName\n        emailId\n        profileUrl\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

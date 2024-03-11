@@ -1,11 +1,13 @@
 import { PageSkipValue } from "../../types/tweet";
 import Tweet from "../repository/tweet_repoitory";
 
-export const getAllTweetsById = async (payload: PageSkipValue) => {
-  const tweet_repository = new Tweet();
+export const getAllTweetsByUser = async (payload:PageSkipValue) => {
+  console.log('payload----------->', payload);
+  const Tweet_repository=new Tweet();
   try {
-    const allUserTweet = await tweet_repository.getAllUserTweet(payload);
-    return allUserTweet;
+    const data = await Tweet_repository.getAllUserTweet(payload);
+    console.log('data servises--------------->', data);
+    return data;
   } catch (error) {
     return { mess: "Got Some Error", err:error };
   }

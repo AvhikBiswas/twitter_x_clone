@@ -3,7 +3,7 @@ import { GraphqlContext } from "../types/User_types";
 import { PageSkipValue, tweetPayload } from "../types/tweet";
 import createTweet from "./services/createTweet";
 import GettweetAuthor from "./services/GetTwetAuthor";
-import { getAllTweetsById } from "./services/getAllTweetsByUser";
+import { getAllTweetsByUser } from "./services/getAllTweetsByUser";
 
 const mutations = {
   createNewTweet: async (
@@ -18,26 +18,29 @@ const mutations = {
     return newTweet;
   },
 };
+
 export const AllTweetresolvers = {
   getAllTweetsById: async (
     parent: any,
-    { payload }: { payload: PageSkipValue },
+    { skipValue, userID }: { skipValue: number; userID:string },
     ctx: GraphqlContext
   ) => {
     if (!ctx.user?.id) {
       throw new Error("Not Authenticated");
     }
     try {
-      const allTweetData = await getAllTweetsById({
-        skipValue: payload?.skipValue,
-        userID: payload?.userID,
+      const allTweetData = await getAllTweetsByUser({
+        skipValue,
+        userID
       });
+      console.log('allTweetData-------------------------->', allTweetData)
       return allTweetData;
     } catch (error) {
       console.log("got error in fetching tweet ", error);
     }
   },
 };
+
 const extraResolvers = {
   tweet: {
     auther: async (parent: tweet) => {
@@ -46,4 +49,5 @@ const extraResolvers = {
     },
   },
 };
+
 export const resolver = { mutations, extraResolvers, AllTweetresolvers };

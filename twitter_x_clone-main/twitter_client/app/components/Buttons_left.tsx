@@ -4,6 +4,7 @@ import Left_buttons from "../utils/Left_buttons";
 import Link from "next/link";
 import { IoIosMore } from "react-icons/io";
 import { useRouter } from "next/navigation";
+import useUserStore from "../zustand/store";
 
 type User = {
   id: string;
@@ -18,6 +19,8 @@ interface Props {
 }
 
 export const Buttons_left: React.FC<Props> = ({ user }) => {
+  const { CurrUser } = useUserStore();
+  console.log('CurrUser--------->', CurrUser)
   const [logoutStyle, setLogoutStyle] = useState(false);
   const logoutPopupRef = useRef(null);
   const router = useRouter();
@@ -57,11 +60,10 @@ export const Buttons_left: React.FC<Props> = ({ user }) => {
             <li key={item.title}>
               <Link
                 className="flex justify-start items-center gap-4 hover:bg-neutral-200 rounded-full p-[10px] w-fit cursor-pointer"
-                // {item.title==="Profile"?href={user.id}:}
-                href={item.link}
+                href={item.title === "Profile" ? "/"+CurrUser?.id : item.link}
               >
-                <span className=" text-3xl">{item.icon}</span>
-                <span className=" text-xl sm:inline">{item.title}</span>
+                <span className="text-3xl">{item.icon}</span>
+                <span className="text-xl sm:inline">{item.title}</span>
               </Link>
             </li>
           ))}

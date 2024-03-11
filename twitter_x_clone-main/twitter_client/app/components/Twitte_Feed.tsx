@@ -1,15 +1,23 @@
+"use clent"
+
 import React from 'react';
 import Twitter_PostIcon from '../utils/Twitter_PostIcon';
 import { Post_Feed_Icons } from './Post_Feed_Icons';
+import { GetAllTweetsById } from '../hooks/getUserTweets';
+import { m } from 'framer-motion';
 
-type TwitteFeed = {
-  UserAvatar: string,
-  Twitte_text: string,
-  UserUplodedImg?: string
+type Userdata={
+ data:GetAllTweetsById
+
 }
 
-export const Twitte_Feed: React.FC<TwitteFeed> = ({ UserAvatar, Twitte_text, UserUplodedImg }) => {
-  console.log(UserAvatar);
+type TwitteFeed = {
+  data:any
+}
+
+export const Twitte_Feed: React.FC<TwitteFeed> = ( {data} ) => {
+
+  console.log("data is from profile----------------->",data);
   return (
     <div className='flex pt-3 border-b-2 px-4  hover:bg-neutral-50 cursor-pointer '>
       <div className='flex flex-col'>
@@ -28,21 +36,21 @@ export const Twitte_Feed: React.FC<TwitteFeed> = ({ UserAvatar, Twitte_text, Use
 
         <div className='ml-12'>
           <div className='flex flex-row ml-1'>
-            <h5 className='text-sm font-bold'>Avhik Biswas</h5>
+            <h5 className='text-sm font-bold'>{data?.auther?.firstName} {data?.auther?.lastName}</h5>
             <h5 className='text-sm font-light pl-1'>@AVIK0000007</h5>
           </div>
           <div className='flex flex-col'>
             <p className='ml-1 text-sm'>
-              The way in which Olympic accolade winners are treated in "Achhe Dinn"! @narendramodi
+              {data?.content}
             </p>
           </div>
         </div>
 
         {/* image section */}
 
-        <div className='ml-12 mt-3'>
-          <img src="https://pbs.twimg.com/media/FxNt9owaAAAFSut?format=jpg&name=small " className='rounded-2xl' alt="img" />
-        </div>
+        {/* <div className='ml-12 mt-3'>
+          <img src={} className='rounded-2xl' alt="img" />
+        </div> */}
 
         {/* icon feed */}
 

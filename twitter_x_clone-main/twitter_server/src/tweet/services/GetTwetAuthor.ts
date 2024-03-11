@@ -1,9 +1,9 @@
 import Tweet from "../repository/tweet_repoitory";
 
-const GettweetAuthor = async (authorID:string) => {
-  const tweet_repository = new Tweet();
+const GettweetAuthor = async (authorID: string) => {
+  const Tweet_repository=new Tweet();
   try {
-    const data = await tweet_repository.getAuthor(authorID);
+    const data = await Tweet_repository.getAuthor(authorID);
     return data;
   } catch (error) {
     console.log("error from tweet services", error);

@@ -1,50 +1,53 @@
-import { PrismaClient } from "@prisma/client";
+import { prismaClient } from "../../client/db";
 import { PageSkipValue, tweetPayload } from "../../types/tweet";
 
 class Tweet {
-  private prisma: PrismaClient;
-  constructor() {
-    this.prisma = new PrismaClient();
-  }
 
-  async createTweet(payload: tweetPayload) {
-    console.log("payload is -->", payload);
+  async createTweet(payload:tweetPayload) {
+    console.log('payload_------------------>', payload);
     try {
-      const data = await this.prisma.tweet.create({
+      const data = await prismaClient.tweet.create({
         data: {
           imageURL: payload?.imageURL,
-          content: payload.content,
+          content: payload?.content,
           hashTag: payload?.hashTag,
-          autherId: payload.userID,
+          autherId: payload?.userID,
         },
       });
-      console.log("Data", data);
       return data;
     } catch (error) {
-      console.error("Error creating tweet:", error);
+      console.log('error', error);
       throw new Error("Unable to create tweet");
+
     }
   }
 
   async getAllUserTweet(allUserTweet: PageSkipValue) {
     try {
-      const TweetsData = await this.prisma.tweet.findMany({
+      const tweetsData = await prismaClient.tweet.findMany({
         where: { autherId: allUserTweet.userID },
         skip: allUserTweet.skipValue,
         take: 10,
         orderBy: { createdAt: "desc" },
       });
-      return TweetsData;
+  
+      if (tweetsData.length === 0) {
+        return []; 
+      }
+  
+      return tweetsData;
     } catch (error) {
-      throw new Error("Somthing Went Wrong");
+      console.log('error------------------->', error);
+      // throw new Error("Something Went Wrong");
     }
   }
 
   async getAuthor(userId: string) {
-    const TweetAuthor = await this.prisma.user.findUnique({
+    const tweetAuthor = await prismaClient.user.findUnique({
       where: { id: userId },
     });
-    return TweetAuthor;
+    return tweetAuthor;
   }
 }
+
 export default Tweet;

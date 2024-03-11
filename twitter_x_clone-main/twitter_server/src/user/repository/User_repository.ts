@@ -1,24 +1,19 @@
-import { PrismaClient, user } from "@prisma/client";
+import { prismaClient } from "../../client/db";
 import { craeteUser } from "../../types/repository_types";
 
 class User_repository {
-  private prisma: PrismaClient;
-  constructor() {
-    this.prisma = new PrismaClient();
-  }
+
 
   async createUser(data: craeteUser) {
     try {
-      const newUser: user = await this.prisma.user.create({
+      const newUser = await prismaClient.user.create({
         data: {
-          emailId: data?.email,
-          firstName: data?.firstName,
+          emailId: data.email,
+          firstName: data.firstName,
           lastName: data?.lastName,
           profileUrl: data?.profileImg,
         },
       });
-      console.log(newUser);
-      if(!newUser?.id) return false;
       return newUser;
     } catch (error) {
       console.log("error from user Repo create", error);
@@ -27,44 +22,37 @@ class User_repository {
   }
 
   async findUser(userEmail: string) {
-    
     try {
-      const userData = await this.prisma.user.findUnique({
+      const userData = await prismaClient.user.findUnique({
         where: { emailId: userEmail },
       });
-      console.log(userData);
-      if(!userData?.id) return false;
       return userData;
     } catch (error) {
-      console.log("error from user repo find", error);
+      console.log("error from user repo find findUser", error);
       return false;
     }
   }
-
-  //finding tweets of user
 
   async findUseById(UserId: string) {
     try {
-      const userData = await this.prisma.user.findUnique({
+      const userData = await prismaClient.user.findUnique({
         where: { id: UserId },
       });
-      if(!userData?.id) return false;
       return userData;
     } catch (error) {
-      console.log("error from user repo find", error);
-      return false;
+      console.log("error from user repo find findUseById", error);
+      throw new Error("Somthing Wrong In Find User By Id Repo");
     }
   }
 
-  async findMAnyByID(UserId:string) {
+  async findMAnyByID(UserId: string) {
     try {
-      const userData = await this.prisma.tweet.findMany({
-        where: { id: UserId }
+      const userData = await prismaClient.tweet.findMany({
+        where: { id: UserId },
       });
-      if(!userData) return false;
       return userData;
     } catch (error) {
-      console.log("error from user repo find", error);
+      console.log("error from user repo find findMAnyByID", error);
       return false;
     }
   }

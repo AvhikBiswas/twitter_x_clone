@@ -19,7 +19,9 @@ export const MainLogin = () => {
   useEffect(() => {
     const checkAuthentication = async () => {
       const authToken = window.localStorage.getItem("_Autherization");
-      if (!authToken || authToken == undefined){  return null; };
+      if (!authToken || authToken == undefined) {
+        return null;
+      }
       if (user?.id) {
         router.push("/dashboard/home");
         toast.success("Login Success");
@@ -32,12 +34,15 @@ export const MainLogin = () => {
 
   const GoogleAuthLogin = useCallback(
     async (cred: CredentialResponse) => {
+      toast.loading("Login....", { id: "4" });
       try {
         const authToken = await HandelLoginWithGoogle(cred);
-        localStorage.setItem("_Autherization", authToken);
-        await queryClient.invalidateQueries(["current_user"]);
-        toast.success("Login Success");
-        router.push("/dashboard/home");
+        if (authToken) {
+          localStorage.setItem("_Autherization", authToken);
+          await queryClient.invalidateQueries(["current_user"]);
+          toast.success("Login Success", { id: "4" });
+          router.push("/dashboard/home");
+        }
       } catch (error) {
         toast.error("Login Failed");
         console.error("Error during Google authentication:", error);

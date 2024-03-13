@@ -24,7 +24,7 @@ class Tweet {
       const tweetsData = await prismaClient.tweet.findMany({
         where: { autherId: allUserTweet.userID },
         skip: allUserTweet.skipValue,
-        take: 10,
+        take: 5,
         orderBy: { createdAt: "desc" },
       });
 

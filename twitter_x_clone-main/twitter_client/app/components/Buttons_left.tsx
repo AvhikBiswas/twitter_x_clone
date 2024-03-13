@@ -97,13 +97,13 @@ export const Buttons_left: React.FC<Props> = ({ user }) => {
       <div className="flex justify-center items-center dark:hover:bg-[#323232] mt-12 w-64 h-16 font-bold text-lg rounded-full">
         <div className="flex flex-row pl-3">
           <img
-            src={user?.profileUrl}
+            src={CurrUser?.profileUrl}
             className="rounded-full w-10 h-10"
             alt="img"
           />
           <div className="flex flex-col ml-2">
             <h5 className="text-sm">
-              {user?.firstName} {user?.lastName}
+              {CurrUser?.firstName} {CurrUser?.lastName}
             </h5>
             <h5 className="text-sm font-light">@AVIK0000007</h5>
           </div>

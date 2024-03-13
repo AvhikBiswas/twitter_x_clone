@@ -11,7 +11,6 @@ import { useTheme } from "next-themes";
 export default function ProfileLayout() {
   const { CurrUser } = useUserStore();
   const params = useParams<{ profile: string }>();
-  console.log("params", params.profile);
   const { user } = useCurrentUser();
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();

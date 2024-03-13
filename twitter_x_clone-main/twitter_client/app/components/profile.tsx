@@ -4,25 +4,31 @@ import { useParams } from "next/navigation";
 import { getUserTweets } from "../hooks/getUserTweets";
 import { Twitte_Feed } from "./Twitte_Feed";
 import { Tweet } from "@/gql/graphql";
-import { CurrentUser } from "../Types/CurrentUser";
 import useUserByID from "../hooks/getUserByID";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Link from "next/link";
+import { InfiniteScroller } from "better-react-infinite-scroll";
 
 const ProfileCard = () => {
   const { profile } = useParams<{ profile: string }>();
   const [tweets, setTweets] = useState<Tweet[]>([]);
-  const { isLoading, tweets: fetchedTweets } = getUserTweets({
+  const [pageValue, setPagevalue] = useState<number>(0);
+
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
+    isLoading,
+  } = getUserTweets({
     params: profile,
-    skipValue: 0,
+    pageParam: pageValue,
   });
+
   const { profileData } = useUserByID(profile);
 
-  useEffect(() => {
-    if (!isLoading) {
-      setTweets(fetchedTweets || []);
-    }
-  }, [isLoading, fetchedTweets]);
+  console.log('hasNextPage', hasNextPage) 
 
   return (
     <div className="main_profile w-full h-full">
@@ -40,24 +46,28 @@ const ProfileCard = () => {
             <div className="flex">
               <div className="flex items-center pt-1">
                 <Link href={"/dashboard/home"}>
-                <div className="ml-3  light:hover:bg-white dark:hover:bg-[#242424] cursor-pointer rounded-full w-7">
-                  <IoMdArrowBack
-                    className="w-full h-full object-cover rounded-full"
-                    size={20}
-                  />
-                </div> </Link>
+                  <div className="ml-3  light:hover:bg-white dark:hover:bg-[#242424] cursor-pointer rounded-full w-7">
+                    <IoMdArrowBack
+                      className="w-full h-full object-cover rounded-full"
+                      size={20}
+                    />
+                  </div>{" "}
+                </Link>
                 <div className="flex flex-col ml-9">
                   <h1 className="font-semibold text-lg space-y-0">
                     {profileData?.firstName} {profileData?.lastName}
                   </h1>
                   <div className="pb-1">
-                    <span className="text-sm dark:text-[#383838] font-extralight">0 post</span>
+                    <span className="text-sm dark:text-[#383838] font-extralight">
+                      0 post
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="overflow-x-auto h-[634px] scrollbar-hide">
+          {/* //scrollbar-hide */}
+          <div className="overflow-x-auto h-[634px] scrollbar-hide ">
             <div className="flex flex-col relative">
               <div className="bg-slate-600 w-full h-52"></div>
               {profile !== profileData?.id ? (
@@ -107,12 +117,18 @@ const ProfileCard = () => {
                     color="blue"
                   />
                 ) : (
-                  tweets.map((item, index) => (
-                    <Twitte_Feed
-                      key={item.id}
-                      data={item}
-                    />
-                  ))
+                  <InfiniteScroller
+                    fetchNextPage={fetchNextPage}
+                    hasNextPage={hasNextPage}
+                    loadingMessage={isFetchingNextPage?<p>Loading...</p>:<p>No more Tweet Left</p>}
+                    endingMessage={<p>The beginning of time...</p>}
+                  >
+                    {data?.pages.map((page) =>
+                      page?.getAllTweetsById.map((value:Tweet) => (
+                        <Twitte_Feed key={value.id} data={value} />
+                      ))
+                    )}
+                  </InfiniteScroller>
                 )}
               </span>
             </div>

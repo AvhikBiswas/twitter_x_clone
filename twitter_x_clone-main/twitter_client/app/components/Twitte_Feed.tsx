@@ -3,19 +3,15 @@
 import React from "react";
 import Twitter_PostIcon from "../utils/Twitter_PostIcon";
 import { Post_Feed_Icons } from "./Post_Feed_Icons";
-import { GetAllTweetsById } from "../hooks/getUserTweets";
-import { m } from "framer-motion";
 
-type Userdata = {
-  data: GetAllTweetsById;
-};
+
 
 type TwitteFeed = {
   data: any;
 };
 
 export const Twitte_Feed: React.FC<TwitteFeed> = ({ data }) => {
-  console.log("data is from profile----------------->", data);
+
   return (
     <div
       className={`"flex pt-3 ${

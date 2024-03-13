@@ -1,38 +1,34 @@
+
 import { graphqlClientHeder } from "@/clients/api";
 import { getTweets } from "@/graphql/quary/tweet";
-import { useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  UseInfiniteQueryResult,
+} from "@tanstack/react-query";
 
 type GetUserTweetsPayload = {
   params: string;
-  skipValue: number; // Fixed typo in skipValue
+  pageParam: number;
   currUserId?: string | undefined;
 };
 
-export type GetAllTweetsByIdQuery = {
-  getAllTweetsById: GetAllTweetsById[];
-};
-
-export type GetAllTweetsById = {
-  content: string;
-  id: string;
-  imageURL?: string;
-  author: {
-    firstName: string;
-    lastName?: string;
-    profileUrl: string;
+export const getUserTweets = ({ params, pageParam }: GetUserTweetsPayload) => {
+  const fetchTweets = async ({ pageParam }:{pageParam:number}) => {
+    const tweets = await graphqlClientHeder.request(getTweets, {
+      userId: params,
+      skipValue: pageParam,
+    });
+    return tweets;
   };
-};
 
-export const getUserTweets = ({ params, skipValue }: GetUserTweetsPayload) => {
-  const { isLoading, data } = useQuery<GetAllTweetsByIdQuery>({ 
-    queryKey: ["Get-Tweets"],
-    queryFn: async () => {
-      const tweets = await graphqlClientHeder.request(getTweets, {
-        userId: params,
-        skipValue,
-      });
-      return tweets as GetAllTweetsByIdQuery; 
+  const query = useInfiniteQuery<any, Error>({
+    queryKey: ["Get-Tweets",params],
+    queryFn:fetchTweets,
+    initialPageParam: 0,
+    getNextPageParam: (lastPage,allPages) => {
+      return allPages.length+1;
     },
   });
-  return { isLoading, tweets: data?.getAllTweetsById }; 
+
+  return { ...query, fetchNextPage: query.fetchNextPage };
 };

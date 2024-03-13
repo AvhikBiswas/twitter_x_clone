@@ -5,6 +5,7 @@ import { User_InputFeed } from "./User_InputFeed";
 import { Twitte_Feed } from "./Twitte_Feed";
 import { GetAlltweet } from "../hooks/getAllTweets";
 import { Tweet } from "@/gql/graphql";
+import { InfiniteScroller } from "better-react-infinite-scroll";
 
 type User = {
   __typename?: "User" | undefined;
@@ -46,14 +47,16 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
     setButtonBold2(Bold);
   }
 
-  const { allTweets: fetchedTweets, isLoading } = GetAlltweet(1);
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
+    isLoading,
+  } = GetAlltweet(0);
 
-  useEffect(() => {
-    if (!isLoading) {
-      setAllTweetsData(fetchedTweets || []);
-    }
-  }, [isLoading, fetchedTweets]);
-
+  console.log('data---------------------------->', data)
 
   return (
     <div className="flex flex-col">
@@ -85,17 +88,26 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
       </div>
 
       {/* scroll section  */}
-      <div className="overflow-x-auto h-[634px] scrollbar-hide">
+      <div className="overflow-x-auto h-[42rem] scrollbar-hide">
         <div className="flex pt-2 border border-y-gray-700 border-y-[00.1px] border-x-0">
           <User_InputFeed />
         </div>
 
         <div className="flex flex-col">
-          {!isLoading ?
-           ( allTweetsData.map((item) => (<Twitte_Feed key={item.id} data={item} />))):
-           <div>Loading.......
-           </div>
-           }
+          <InfiniteScroller
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+            loadingMessage={
+              isFetchingNextPage ? <p>Loading...</p> : <p>No more Tweet Left</p>
+            }
+            endingMessage={<p>The beginning of time...</p>}
+          >
+            {data?.pages.map((page) =>
+              page?.getAllTweets.map((value: Tweet) => (
+                <Twitte_Feed key={value.id} data={value} />
+              ))
+            )}
+          </InfiniteScroller>
         </div>
       </div>
     </div>

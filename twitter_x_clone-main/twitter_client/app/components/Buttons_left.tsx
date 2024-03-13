@@ -49,20 +49,20 @@ export const Buttons_left: React.FC<Props> = ({ user }) => {
   }, []);
 
   return (
-    <div className="home mt-[1px]">
-      <div className="w-fit h-fit p-3 dark:hover:bg-[#232323] cursor-pointer rounded-full">
-        <FaXTwitter size={31} />
+    <div className="home mt-2">
+      <div className="w-fit h-fit p-2 dark:hover:bg-[#232323] cursor-pointer rounded-full">
+        <FaXTwitter size={28} />
       </div>
       <div>
         <ul className="mt-4">
           {Left_buttons.map((item) => (
             <li key={item.title}>
               <Link
-                className="flex justify-start items-center gap-4 dark:hover:bg-[#232323] rounded-full p-[10px] w-fit cursor-pointer"
+                className="flex justify-start mb-[3px] items-center gap-5 dark:hover:bg-[#232323] rounded-full p-[10px] w-fit cursor-pointer"
                 href={item.title === "Profile" ? "/" + CurrUser?.id : item.link}
               >
                 <span className="text-3xl">{item.icon}</span>
-                <span className="text-xl sm:inline">{item.title}</span>
+                <span className="text-xl font-sans sm:inline">{item.title}</span>
               </Link>
             </li>
           ))}
@@ -94,18 +94,18 @@ export const Buttons_left: React.FC<Props> = ({ user }) => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center dark:hover:bg-[#323232] mt-12 w-64 h-16 font-bold text-lg rounded-full">
+      <div className="flex justify-center items-center dark:hover:bg-[#323232] mt-14 w-64 h-[65px] font-bold text-lg rounded-full">
         <div className="flex flex-row pl-3">
           <img
             src={CurrUser?.profileUrl}
-            className="rounded-full w-10 h-10"
+            className="rounded-full w-11 h-11"
             alt="img"
           />
           <div className="flex flex-col ml-2">
             <h5 className="text-sm">
               {CurrUser?.firstName} {CurrUser?.lastName}
             </h5>
-            <h5 className="text-sm font-light">@AVIK0000007</h5>
+            <h5 className="text-base font-light">@AVIK0000007</h5>
           </div>
           <div className="ml-10 flex justify-center items-center mr-4  p-2">
             <IoIosMore onClick={handleLogoutPopUp} />

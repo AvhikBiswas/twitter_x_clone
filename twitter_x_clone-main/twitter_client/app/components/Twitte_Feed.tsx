@@ -1,5 +1,3 @@
-"use clent";
-
 import React from "react";
 import Twitter_PostIcon from "../utils/Twitter_PostIcon";
 import { Post_Feed_Icons } from "./Post_Feed_Icons";

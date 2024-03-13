@@ -1,19 +1,24 @@
-import { useQuery } from "@tanstack/react-query";
-import {  GetAllTweetsByIdQuery } from "./getUserTweets";
+import { UseInfiniteQueryResult, useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { graphqlClientHeder } from "@/clients/api";
 import { getAllTweets } from "@/graphql/quary/tweet";
 
-export const GetAlltweet = ( skipValue: number ) => {
-  const { data, isLoading } = useQuery<GetAllTweetsByIdQuery>({
-    queryKey: ["get - allTweets"],
-    queryFn: async () => {
-      const TweetsData = graphqlClientHeder.request(getAllTweets, {
-        skipValue,
-      });
-      return TweetsData as GetAllTweetsByIdQuery;
+export const GetAlltweet = (skipValue: number) => {
+  const fetchTweets = async ({ pageParam }: { pageParam: number }) => {
+    const TweetsData = await graphqlClientHeder.request(getAllTweets, {
+      skipValue: pageParam,
+    });
+    return TweetsData;
+  };
+
+  const query = useInfiniteQuery<UseInfiniteQueryResult>({
+    queryKey: ["get-allTweets"],
+    queryFn: fetchTweets,
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) => {
+      return allPages.length + 1;
     },
+    
   });
 
-
-  return { isLoading, allTweets: data?.getAllTweets };
+  return { ...query,fetchNextPage: query.fetchNextPage };
 };

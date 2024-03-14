@@ -6,6 +6,7 @@ import { QueryClient } from "@tanstack/react-query";
 import { graphqlClientHeder } from "@/clients/api";
 import { getPresignedUrl } from "@/graphql/quary/tweet";
 import axios from "axios";
+import { MdAutoFixHigh } from "react-icons/md";
 
 export const User_InputFeed = () => {
   const [content, setContent] = useState("");
@@ -97,7 +98,7 @@ export const User_InputFeed = () => {
           imageURL: image,
         });
         setContent("");
-        setImage("")
+        setImage("");
       } catch (error) {
         toast.error("Somthing Went Wrong");
       }
@@ -154,6 +155,13 @@ export const User_InputFeed = () => {
               {extraLetters}
             </span>
           ) : null}
+
+
+          {/* AI Tweet */}
+          <button disabled={isPostButtonDisabled} className="w-16 mt-1 rounded-3xl border flex justify-center items-center mx-3">
+            <MdAutoFixHigh size={19} className="justify-center" />
+          </button>
+
           <button
             onClick={handelPost}
             className={`w-16 ${

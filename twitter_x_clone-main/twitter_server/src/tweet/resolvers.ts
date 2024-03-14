@@ -5,6 +5,7 @@ import createTweet from "./services/createTweet";
 import GettweetAuthor from "./services/GetTwetAuthor";
 import { getAllTweetsByUser } from "./services/getAllTweetsByUser";
 import { getAllTweetsRandom } from "./services/getAllTweetsRandom";
+import getPresignedUrl from "./services/getPresignedUrl";
 
 const mutations = {
   createNewTweet: async (
@@ -53,6 +54,28 @@ export const AllTweetresolvers = {
       return allTweets;
     } catch (error) {
       throw new Error("Somthing Wrong");
+    }
+  },
+
+  getPresignedUrl: async (
+    parent: any,
+    { imageType, imageName }: { imageType: string; imageName: string },
+    ctx: GraphqlContext
+  ) => {
+    if (!ctx.user?.id) {
+      throw new Error("Unauthorized User");
+    }
+
+    try {
+      const presignedUrl = await getPresignedUrl({
+        imgType: imageType,
+        imgName: imageName,
+        userID: ctx.user.id,
+      });
+      return presignedUrl;
+    } catch (error) {
+      console.log('error', error)
+      throw new Error("Somthig Wrong");
     }
   },
 };

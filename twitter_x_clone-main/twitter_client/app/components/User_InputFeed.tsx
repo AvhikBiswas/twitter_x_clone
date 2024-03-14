@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Feedicon } from "../utils/FeedIconTypes";
 import { useCreateTweet } from "../hooks/createTweet";
+import toast from "react-hot-toast";
+import { QueryClient } from "@tanstack/react-query";
 
 export const User_InputFeed = () => {
   const [content, setContent] = useState("");
@@ -14,7 +16,7 @@ export const User_InputFeed = () => {
     return rows;
   };
 
-  const handleContentChange = (e:any) => {
+  const handleContentChange = (e: any) => {
     setContent(e.target.value);
   };
 
@@ -25,7 +27,7 @@ export const User_InputFeed = () => {
     input.click();
   }, []);
 
-  const handleImageChange = (e:any) => {
+  const handleImageChange = (e: any) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
     }
@@ -58,9 +60,15 @@ export const User_InputFeed = () => {
 
   const createTweetMutation = useCreateTweet();
 
-  function handelPost() {
-    if (content) {
-      createTweetMutation.mutate({ content:content });
+  async function handelPost() {
+    if (content.length > 5) {
+      try {
+       const postTweet= await createTweetMutation.mutate({ content: content });
+       console.log('postTweet--------------->',postTweet );
+       setContent('');
+      } catch (error) {
+        toast.error("Somthing Went Wrong")
+      }
     }
     return;
   }

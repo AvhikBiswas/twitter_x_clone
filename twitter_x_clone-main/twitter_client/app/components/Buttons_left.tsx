@@ -6,19 +6,8 @@ import { IoIosMore } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import useUserStore from "../zustand/store";
 
-type User = {
-  id: string;
-  firstName: string;
-  emailId: string;
-  lastName?: string | null | undefined;
-  profileUrl: string;
-};
 
-interface Props {
-  user: User;
-}
-
-export const Buttons_left: React.FC<Props> = ({ user }) => {
+export const Buttons_left: React.FC = () => {
   const { CurrUser } = useUserStore();
   const [logoutStyle, setLogoutStyle] = useState(false);
   const logoutPopupRef = useRef(null);

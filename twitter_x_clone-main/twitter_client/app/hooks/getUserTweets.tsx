@@ -1,4 +1,3 @@
-
 import { graphqlClientHeder } from "@/clients/api";
 import { getTweets } from "@/graphql/quary/tweet";
 import {
@@ -13,20 +12,20 @@ type GetUserTweetsPayload = {
 };
 
 export const getUserTweets = ({ params, pageParam }: GetUserTweetsPayload) => {
-  const fetchTweets = async ({ pageParam }:{pageParam:number}) => {
+  const fetchTweets = async ({ pageParam }: { pageParam: number }) => {
     const tweets = await graphqlClientHeder.request(getTweets, {
       userId: params,
-      skipValue: pageParam,
+      skipValue: (pageParam - 1) * 6,
     });
     return tweets;
   };
 
   const query = useInfiniteQuery<any, Error>({
-    queryKey: ["Get-Tweets",params],
-    queryFn:fetchTweets,
-    initialPageParam: 0,
-    getNextPageParam: (lastPage,allPages) => {
-      return allPages.length+1;
+    queryKey: ["Get-Tweets", params],
+    queryFn: fetchTweets,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      return allPages.length + 1;
     },
   });
 

@@ -3,13 +3,16 @@ import { Feedicon } from "../utils/FeedIconTypes";
 import { useCreateTweet } from "../hooks/createTweet";
 import toast from "react-hot-toast";
 import { QueryClient } from "@tanstack/react-query";
+import { graphqlClientHeder } from "@/clients/api";
+import { getPresignedUrl } from "@/graphql/quary/tweet";
+import axios from "axios";
 
 export const User_InputFeed = () => {
   const [content, setContent] = useState("");
   const [isPostButtonDisabled, setIsPostButtonDisabled] = useState(true);
   const [extraLetters, setExtraLetters] = useState(0);
   const hiddenFileInput = useRef(null);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
 
   const calculateRows = () => {
     const rows = content.split("\n").length;
@@ -20,18 +23,44 @@ export const User_InputFeed = () => {
     setContent(e.target.value);
   };
 
-  const handelImageInput = useCallback(() => {
+  const handelImageInput = useCallback((input: HTMLInputElement) => {
+    return async (event: Event) => {
+      event.preventDefault();
+      const file: File | undefined | null = input.files?.item(0);
+      if (!file) return;
+      const uploadeUrl = await graphqlClientHeder.request(getPresignedUrl, {
+        imageType: file.type,
+        imageName: file.name,
+      });
+      try {
+        if (uploadeUrl.getPresignedUrl) {
+          toast.loading("Uploading Image...", { id: file.name });
+          console.log("file-------------->", file);
+          await axios.put(uploadeUrl.getPresignedUrl, file, {
+            headers: {
+              "Content-Type": file.type,
+            },
+          });
+
+          toast.success("Uploading Done..", { id: file.name });
+          const ImageUrl = new URL(uploadeUrl.getPresignedUrl);
+          const filePath = `${ImageUrl.origin}${ImageUrl.pathname}`;
+          setImage(filePath);
+        }
+      } catch (error) {
+        toast.error("Got Some error", { id: file.name });
+      }
+    };
+  }, []);
+
+  const handelSelectImage = useCallback(() => {
     const input = document.createElement("input");
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/*");
+    const handelImage = handelImageInput(input);
+    input.addEventListener("change", handelImage);
     input.click();
-  }, []);
-
-  const handleImageChange = (e: any) => {
-    if (e.target.files[0]) {
-      setImage(e.target.files[0]);
-    }
-  };
+  }, [handelImageInput]);
 
   useEffect(() => {
     const textarea = document.getElementById("userFeedTextarea");
@@ -63,11 +92,13 @@ export const User_InputFeed = () => {
   async function handelPost() {
     if (content.length > 5) {
       try {
-       const postTweet= await createTweetMutation.mutate({ content: content });
-       console.log('postTweet--------------->',postTweet );
-       setContent('');
+        const postTweet = await createTweetMutation.mutate({
+          content: content,
+          imageURL: image,
+        });
+        setContent("");
       } catch (error) {
-        toast.error("Somthing Went Wrong")
+        toast.error("Somthing Went Wrong");
       }
     }
     return;
@@ -94,12 +125,21 @@ export const User_InputFeed = () => {
           />
         </div>
       </div>
+      <div className="flex ml-16 p-2">
+        {image && (
+          <img
+            src={image}
+            className="w-full h-full flex flex-row"
+            alt="Uploade Image"
+          />
+        )}
+      </div>
       <div className="flex flex-row mt-5 ml-14">
         <div className="flex p-1 ml-1 items-center">
           {Feedicon.map((button) => (
             <div
               key={button.title}
-              onClick={button.title === "Image" ? handelImageInput : undefined}
+              onClick={button.title === "Image" ? handelSelectImage : undefined}
               style={iconStyle}
               className="light:hover:bg-neutral-200 dark:hover:bg-[#232323] cursor-pointer flex rounded-full justify-center items-center"
             >

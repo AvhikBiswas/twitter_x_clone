@@ -28,6 +28,7 @@ export const getAllTweets = graphql(`
   query GetAllTweetsById($skipValue: Int!) {
     getAllTweets(skipValue: $skipValue) {
       content
+      imageURL
       auther {
         firstName
         lastName
@@ -35,5 +36,11 @@ export const getAllTweets = graphql(`
         profileUrl
       }
     }
+  }
+`);
+
+export const getPresignedUrl = graphql(`
+  query getSignedUrl($imageType: String!, $imageName: String!) {
+    getPresignedUrl(imageType: $imageType, imageName: $imageName)
   }
 `);

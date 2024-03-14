@@ -2,14 +2,12 @@ import React from "react";
 import Twitter_PostIcon from "../utils/Twitter_PostIcon";
 import { Post_Feed_Icons } from "./Post_Feed_Icons";
 
-
-
 type TwitteFeed = {
   data: any;
 };
 
 export const Twitte_Feed: React.FC<TwitteFeed> = ({ data }) => {
-
+  console.log('data.imageURL', data.imageURL)
   return (
     <div
       className={`"flex pt-3 ${
@@ -43,15 +41,21 @@ export const Twitte_Feed: React.FC<TwitteFeed> = ({ data }) => {
 
         {/* image section */}
 
-        {/* <div className='ml-12 mt-3'>
-          <img src={} className='rounded-2xl' alt="img" />
-        </div> */}
+        { data.imageURL && (
+          <div className="ml-12 mt-3">
+            <img src={data.imageURL} className="rounded-2xl w-full h-full" alt="img" />
+          </div>
+        )}
 
         {/* icon feed */}
 
         <div className="flex ml-11 py-2 gap-16">
           {Twitter_PostIcon.map((Post_Icon) => (
-            <Post_Feed_Icons title={Post_Icon.title} buttonStyle={Post_Icon.buttonStyle} icon={Post_Icon.icon} />
+            <Post_Feed_Icons
+              title={Post_Icon.title}
+              buttonStyle={Post_Icon.buttonStyle}
+              icon={Post_Icon.icon}
+            />
           ))}
         </div>
       </div>

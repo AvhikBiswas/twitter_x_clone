@@ -2,8 +2,6 @@ import { prismaClient } from "../../client/db";
 import { craeteUser } from "../../types/repository_types";
 
 class User_repository {
-
-
   async createUser(data: craeteUser) {
     try {
       const newUser = await prismaClient.user.create({
@@ -56,6 +54,62 @@ class User_repository {
       return false;
     }
   }
+
+  async findfollowUser(userId: string, toFollowing: string) {
+    try {
+      const result = await prismaClient.follow.findUnique({
+        where: {
+          followingID_follwerID: {
+            followingID: toFollowing,
+            follwerID: userId,
+          },
+        },
+      });
+      return result;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async followUser(userId: string, toFollowing: string) {
+    console.log("userId----------->", userId, toFollowing);
+    try {
+      const result = await prismaClient.follow.create({
+        data: {
+          follower: { connect: { id: userId } },
+          following: { connect: { id: toFollowing } },
+        },
+      });
+
+      console.log("result", result);
+      return result;
+    } catch (error) {
+      console.log("error-------------->", error);
+      return error;
+    }
+  }
+
+  async unFollow(userId: string, toUnFollow: string) {
+
+    console.log('unFollow------------->', userId,toUnFollow)
+    try {
+      const unFollowRes =await prismaClient.follow.delete({
+        where: {
+          followingID_follwerID: {
+            followingID: toUnFollow,
+            follwerID: userId,
+          },
+        },
+      });
+      console.log('unFollowRes-------->', unFollowRes);
+      return unFollowRes;
+    } catch (error) {
+      console.log('error-------------------------->', error)
+      return error;
+    }
+  }
+
+  
 }
 
 export default User_repository;

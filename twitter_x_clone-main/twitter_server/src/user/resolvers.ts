@@ -1,11 +1,50 @@
-import { tweet } from "@prisma/client";
-import { user } from ".";
+import { tweet, user } from "@prisma/client";
 import { GraphqlContext, UserData } from "../types/User_types";
 import User_repository from "./repository/User_repository";
 import GoogleAuthuserLogin from "./services/GoogleAuthuserLogin";
 import UserProfile from "./services/UserProfile";
 import getUserTweets from "./services/getUserTweet";
 import findUser from "./services/findUser";
+import { Userfollow } from "./services/follow";
+import { prismaClient } from "../client/db";
+import { Unfollow } from "./services/unFollow";
+
+export const mutations_resolver = {
+  followUser: async (
+    parent: any,
+    { toFollow }: { toFollow: string },
+    ctx: GraphqlContext
+  ) => {
+    if (!ctx.user?.id) {
+      throw new Error("Unathorized user");
+    }
+    try {
+      const followRes = await Userfollow(ctx.user?.id, toFollow);
+      console.log('followRes---->', followRes)
+      return followRes;
+    } catch (error) {
+      console.log("error from follow user", error);
+      throw new Error("somthing went Wrong");
+    }
+  },
+
+  UnfollowUser: async (
+    parent: any,
+    { toUnFollow }: { toUnFollow: string },
+    ctx: GraphqlContext
+  ) => {
+    if (!ctx.user?.id) {
+      throw new Error("Unathorized user");
+    }
+    try {
+      const followRes = await Unfollow(ctx.user?.id, toUnFollow);
+      return followRes;
+    } catch (error) {
+      console.log("error from follow user", error);
+      throw new Error("somthing went Wrong");
+    }
+  },
+};
 
 export const resolvers = {
   verifyAuthToken: async (parent: any, { token }: { token: string }) => {
@@ -45,7 +84,7 @@ export const resolvers = {
         throw new Error("User ID is missing");
       }
       return UserData;
-    } catch (error){
+    } catch (error) {
       return { err: error };
     }
   },
@@ -56,6 +95,26 @@ export const extraResolver = {
     tweets: async (parents: tweet) => {
       const tweetData = await getUserTweets(parents.autherId);
       return tweetData;
+    },
+    follower: async (parent: user) => {
+      const followeRes = await prismaClient.follow.findMany({
+        where: { following: { id: parent.id } },
+        include: {
+          following: true,
+        },
+      });
+
+      return followeRes.map((el)=>el.following);
+    },
+
+    following: async (parent: user) => {
+      const followingeRes = await prismaClient.follow.findMany({
+        where: { follower: { id: parent.id } },
+        include: {
+          follower: true,
+        },
+      });
+      return followingeRes.map((el)=>el.follower);
     },
   },
 };

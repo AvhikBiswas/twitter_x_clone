@@ -7,7 +7,7 @@ type TwitteFeed = {
 };
 
 export const Twitte_Feed: React.FC<TwitteFeed> = ({ data }) => {
-  console.log('data.imageURL', data.imageURL)
+
   return (
     <div
       className={`"flex pt-3 ${

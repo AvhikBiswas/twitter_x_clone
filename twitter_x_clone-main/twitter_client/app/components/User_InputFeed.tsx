@@ -97,6 +97,7 @@ export const User_InputFeed = () => {
           imageURL: image,
         });
         setContent("");
+        setImage("")
       } catch (error) {
         toast.error("Somthing Went Wrong");
       }

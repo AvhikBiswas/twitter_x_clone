@@ -67,7 +67,7 @@ const ProfileCard = () => {
             </div>
           </div>
           {/* //scrollbar-hide */}
-          <div className="overflow-x-auto h-[634px] scrollbar-hide ">
+          <div className="overflow-x-auto h-[42rem] scrollbar-hide ">
             <div className="flex flex-col relative">
               <div className="bg-slate-600 w-full h-52"></div>
               {profile !== profileData?.id ? (

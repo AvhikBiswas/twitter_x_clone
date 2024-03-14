@@ -23,6 +23,9 @@ export const useCreateTweet = () => {
       toast.success("Created Success", { id: "1" });
       await queryClient.invalidateQueries(["get-allTweets"]);
     },
+    onError:async(error)=>{
+      toast.error("Somthing went Wrong",{id:"1"});
+    },
   });
   return mutation;
 };

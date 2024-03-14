@@ -11,7 +11,7 @@ const loading = () => {
         <Buttons_left />
       </div>
       <div className="col-span-5 border border-x-gray-700 border-x-[00.1px] border-y-0">
-        <div>LOADING</div>
+        <div className="flex justify-center items-center text-center">LOADING............</div>
       </div>
       <div className="col-span-4 mt-1">
         <Main_TrendingSearch />

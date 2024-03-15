@@ -2,29 +2,58 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Feedicon } from "../utils/FeedIconTypes";
 import { useCreateTweet } from "../hooks/createTweet";
 import toast from "react-hot-toast";
-import { QueryClient } from "@tanstack/react-query";
 import { graphqlClientHeder } from "@/clients/api";
 import { getPresignedUrl } from "@/graphql/quary/tweet";
 import axios from "axios";
 import { MdAutoFixHigh } from "react-icons/md";
 import TweetSuggetion from "../utils/TweetSugetionAI";
+import { PiSwapFill } from "react-icons/pi";
+import Image from "next/image";
 
 export const User_InputFeed = () => {
   const [content, setContent] = useState("");
   const [isPostButtonDisabled, setIsPostButtonDisabled] = useState(true);
+  const [suggestionContent, setSuggestionContent] = useState("");
   const [extraLetters, setExtraLetters] = useState(0);
-  const hiddenFileInput = useRef(null);
   const [image, setImage] = useState("");
+  const [tweetSuggestion, setTweetSuggestion] = useState();
+  const [suggestionIndex, setSuggestionIndex] = useState(0);
 
   const calculateRows = () => {
     const rows = content.split("\n").length;
     return rows;
   };
 
-  const handelSuggetion = async () => {
-    const Tweetdata = await TweetSuggetion(content);
-    const suggestiondata=JSON.parse(Tweetdata);
+  const handleNextSuggestion = () => {
+    if (tweetSuggestion) {
+      setContent(tweetSuggestion[suggestionIndex]);
+      setSuggestionIndex((prevIndex) => (prevIndex + 1) % 5);
+    }
+  };
 
+  const handelSuggetion = async () => {
+    if (content === suggestionContent && tweetSuggestion) {
+      setContent(tweetSuggestion[4]);
+      return;
+    }
+    try {
+      if (!content) return;
+      setTweetSuggestion(undefined);
+      toast.loading("Loading Suggestions...", { id: "3" });
+      const Tweetdata = await TweetSuggetion(content);
+      setSuggestionContent(content);
+      console.log("Tweetdata", Tweetdata);
+      try {
+        setTweetSuggestion(JSON.parse(Tweetdata));
+        toast.success("Suggestions Loaded!", { id: "3" });
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+        toast.error("Failed to Load Suggestions", { id: "3"});
+      }
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+      toast.error("Failed to Fetch Suggestions", { id: "3", duration: 2000 });
+    }
   };
 
   const handleContentChange = (e: any) => {
@@ -43,20 +72,23 @@ export const User_InputFeed = () => {
       try {
         if (uploadeUrl.getPresignedUrl) {
           toast.loading("Uploading Image...", { id: file.name });
-          console.log("file-------------->", file);
           await axios.put(uploadeUrl.getPresignedUrl, file, {
             headers: {
               "Content-Type": file.type,
             },
           });
 
-          toast.success("Uploading Done..", { id: file.name });
+          toast.success("Image Uploaded!", { id: file.name });
           const ImageUrl = new URL(uploadeUrl.getPresignedUrl);
           const filePath = `${ImageUrl.origin}${ImageUrl.pathname}`;
           setImage(filePath);
         }
       } catch (error) {
-        toast.error("Got Some error", { id: file.name });
+        console.error("Error uploading image:", error);
+        toast.error("Failed to Upload Image", {
+          id: file.name,
+          duration: 1000,
+        });
       }
     };
   }, []);
@@ -107,7 +139,8 @@ export const User_InputFeed = () => {
         setContent("");
         setImage("");
       } catch (error) {
-        toast.error("Somthing Went Wrong");
+        console.error("Error posting tweet:", error);
+        toast.error("Failed to Post Tweet", { duration: 2000 });
       }
     }
     return;
@@ -116,15 +149,18 @@ export const User_InputFeed = () => {
   return (
     <div className="flex-grow flex-shrink">
       <div className="flex ml-2 p-2 relative">
-        <img
+        <Image
+          width={100}
+          height={100}
           src="https://avatars.githubusercontent.com/u/82642119?s=96&v=4"
           className="rounded-full w-10 h-10 cursor-pointer"
           alt="img"
+          loading="eager"
         />
         <div className="flex pl-1 items-center justify-center text-center flex-grow">
           <textarea
             id="userFeedTextarea"
-            className="w-full flex justify-center text-left mt-1 text-xl light:text-[#536471] items-center pl-3 focus:outline-none bg-inherit resize-none overflow-hidden"
+            className="w-full flex justify-center text-left mt-1 text-xl light:text-[#536471] items-center pl-3 pr-2 focus:outline-none bg-inherit resize-none overflow-hidden"
             style={{ height: "40px" }}
             placeholder="What is happening?!"
             name="twitter"
@@ -136,10 +172,13 @@ export const User_InputFeed = () => {
       </div>
       <div className="flex ml-16 p-2">
         {image && (
-          <img
+          <Image
+            width={100}
+            height={100}
             src={image}
             className="w-full h-full flex flex-row"
-            alt="Uploade Image"
+            alt="Uploaded Image"
+            loading="eager"
           />
         )}
       </div>
@@ -165,9 +204,21 @@ export const User_InputFeed = () => {
 
           {/* AI Tweet */}
           <button
-            disabled={isPostButtonDisabled}
+            onClick={handleNextSuggestion}
+            className={`w-16 mt-1 rounded-3xl border ${
+              !tweetSuggestion ? "hidden" : "flex justify-center items-center"
+            }`}
+          >
+            <PiSwapFill size={19} className=" justify-center" />
+          </button>
+
+          <button
             onClick={handelSuggetion}
-            className="w-16 mt-1 rounded-3xl border flex justify-center items-center mx-3"
+            className={`w-16 mt-1 rounded-3xl border flex justify-center items-center mx-3 ${
+              content == suggestionContent && tweetSuggestion
+                ? "dark:bg-[#ff00ffdc]"
+                : ""
+            }`}
           >
             <MdAutoFixHigh size={19} className="justify-center" />
           </button>

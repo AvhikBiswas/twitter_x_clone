@@ -1,24 +1,24 @@
 import React from "react";
 import Twitter_PostIcon from "../utils/Twitter_PostIcon";
 import { Post_Feed_Icons } from "./Post_Feed_Icons";
+import Image from "next/image";
 
 type TwitteFeed = {
   data: any;
 };
 
 export const Twitte_Feed: React.FC<TwitteFeed> = ({ data }) => {
-
   return (
-    <div
-      className={`"flex pt-3 ${
-        data?.hasBorder ? "" : ""
-      }  px-4  light:hover:bg-neutral-50 dark:hover:bg-[#121211] border border-y-gray-700 border-y-[00.1px] border-x-0 "`}
-    >
+    <div className="flex pt-3  px-4  light:hover:bg-neutral-50 dark:hover:bg-[#121211] border border-y-gray-700 border-y-[00.1px] border-x-0 ">
       <div className="flex flex-col cursor-pointer">
         {/* user image  */}
 
         <div className="flex relative">
-          <img
+          <Image
+            width={100}
+            height={100}
+            quality={100}
+            loading="eager"
             src={data?.auther?.profileUrl}
             className="rounded-full absolute  w-10 h-10 cursor-pointer"
             alt="img"
@@ -41,9 +41,21 @@ export const Twitte_Feed: React.FC<TwitteFeed> = ({ data }) => {
 
         {/* image section */}
 
-        { data.imageURL && (
+        {data.imageURL && (
           <div className="ml-12 mt-3">
-            <img src={data.imageURL} className="rounded-2xl w-full h-full" alt="img" />
+            <figure>
+            <Image
+              width={100}
+              height={100}
+              quality={100}
+              src={data.imageURL}
+              loading="lazy"
+              className="rounded-2xl w-full h-full"
+              alt="img"
+              placeholder="blur"
+              blurDataURL={data.imageURL}
+            />
+            </figure>
           </div>
         )}
 

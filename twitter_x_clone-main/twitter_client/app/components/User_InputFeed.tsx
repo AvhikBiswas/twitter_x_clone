@@ -7,6 +7,7 @@ import { graphqlClientHeder } from "@/clients/api";
 import { getPresignedUrl } from "@/graphql/quary/tweet";
 import axios from "axios";
 import { MdAutoFixHigh } from "react-icons/md";
+import TweetSuggetion from "../utils/TweetSugetionAI";
 
 export const User_InputFeed = () => {
   const [content, setContent] = useState("");
@@ -18,6 +19,12 @@ export const User_InputFeed = () => {
   const calculateRows = () => {
     const rows = content.split("\n").length;
     return rows;
+  };
+
+  const handelSuggetion = async () => {
+    const Tweetdata = await TweetSuggetion(content);
+    const suggestiondata=JSON.parse(Tweetdata);
+
   };
 
   const handleContentChange = (e: any) => {
@@ -156,9 +163,12 @@ export const User_InputFeed = () => {
             </span>
           ) : null}
 
-
           {/* AI Tweet */}
-          <button disabled={isPostButtonDisabled} className="w-16 mt-1 rounded-3xl border flex justify-center items-center mx-3">
+          <button
+            disabled={isPostButtonDisabled}
+            onClick={handelSuggetion}
+            className="w-16 mt-1 rounded-3xl border flex justify-center items-center mx-3"
+          >
             <MdAutoFixHigh size={19} className="justify-center" />
           </button>
 

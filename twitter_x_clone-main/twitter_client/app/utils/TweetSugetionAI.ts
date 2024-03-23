@@ -1,4 +1,3 @@
-
 import axios from "axios";
 
 const TweetSuggestion = async (tweetText: string) => {
@@ -8,18 +7,21 @@ const TweetSuggestion = async (tweetText: string) => {
     text: tweetText,
   };
 
-  console.log("data------------>",data );
+  console.log("data------------>", data);
 
   try {
-    const response = await axios.post(
-      "http://localhost:9000/api/v1/suggestion",
-      data,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const apiUrl = process.env.NEXT_PUBLIC_TWEET_SUGGESTION_AI;
+    if (!apiUrl) {
+      throw new Error("API URL is not defined");
+    }
+
+    console.log("API URL:", apiUrl);
+
+    const response = await axios.post(apiUrl, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     return response.data.createdTweets.candidates[0].content.parts[0].text;
   } catch (error) {

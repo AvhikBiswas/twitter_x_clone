@@ -45,6 +45,7 @@ export const Twitte_Feed: React.FC<TwitteFeed> = ({ data }) => {
           <div className="ml-12 mt-3">
             <figure>
             <Image
+            // unoptimized={true}
               width={100}
               height={100}
               quality={100}

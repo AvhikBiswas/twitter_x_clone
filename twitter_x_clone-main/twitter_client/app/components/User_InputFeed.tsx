@@ -42,14 +42,8 @@ export const User_InputFeed = () => {
       toast.loading("Loading Suggestions...", { id: "3" });
       const Tweetdata = await TweetSuggetion(content);
       setSuggestionContent(content);
-      console.log("Tweetdata", Tweetdata);
-      try {
-        setTweetSuggestion(JSON.parse(Tweetdata));
-        toast.success("Suggestions Loaded!", { id: "3" });
-      } catch (error) {
-        console.error("Error parsing JSON:", error);
-        toast.error("Failed to Load Suggestions", { id: "3"});
-      }
+      setTweetSuggestion(JSON.parse(Tweetdata));
+      toast.success("Suggestions Loaded!", { id: "3" });
     } catch (error) {
       console.error("Error fetching suggestions:", error);
       toast.error("Failed to Fetch Suggestions", { id: "3", duration: 2000 });

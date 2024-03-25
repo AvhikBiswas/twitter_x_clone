@@ -8,7 +8,7 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 model user {
@@ -26,6 +26,7 @@ model user {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   tweets    tweet[]
+  Like      Like[]   @relation("userTweetLikes")
 }
 
 model follow {
@@ -38,13 +39,22 @@ model follow {
 }
 
 model tweet {
-  id       String  @id @default(cuid())
-  imageURL String?
-  content  String
-  hashTag  String?
-  auther   user    @relation(fields: [autherId], references: [id])
-  autherId String
-
+  id        String   @id @default(cuid())
+  imageURL  String?
+  content   String
+  hashTag   String?
+  auther    user     @relation(fields: [autherId], references: [id])
+  autherId  String
+  likes     Like[]   @relation("userLikes")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Like {
+  userId        String
+  user          user   @relation("userTweetLikes", fields: [userId], references: [id])
+  tweet         tweet  @relation("userLikes", fields: [tweetId], references: [id])
+  tweetId String
+
+  @@id([tweetId,userId])
 }

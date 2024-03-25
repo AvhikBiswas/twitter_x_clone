@@ -7,6 +7,7 @@ async function UserProfile(id: string) {
       return { err: "Id Can't Be Null" };
     } else {
       const UserData = await user_repository.findUseById(id);
+      console.log('UserData', UserData);
       return UserData;
     }
   } catch (error) {

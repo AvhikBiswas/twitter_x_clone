@@ -5,18 +5,10 @@ export const types = `#graphql
     lastName: String
     emailId: String!
     profileUrl: String!
-
     following:[User]
     follower:[User]
     password: String
     tweets:[tweet]
   }
   
-  type UserDataWithID {
-  id: String!
-  firstName: String!
-  lastName: String
-  emailId: String!
-  profileUrl: String!
-}
 `;

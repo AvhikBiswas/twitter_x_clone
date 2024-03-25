@@ -96,7 +96,7 @@ export const Buttons_left: React.FC = () => {
             </h5>
             <h5 className="text-base font-light">@AVIK0000007</h5>
           </div>
-          <div className="ml-10 flex justify-center items-center mr-4  p-2">
+          <div className="ml-7 flex justify-center items-center mr-4  p-2">
             <IoIosMore onClick={handleLogoutPopUp} />
           </div>
         </div>

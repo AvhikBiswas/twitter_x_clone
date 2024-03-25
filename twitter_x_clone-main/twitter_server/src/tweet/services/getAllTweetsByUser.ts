@@ -6,7 +6,6 @@ export const getAllTweetsByUser = async (payload:PageSkipValue) => {
   const Tweet_repository=new Tweet();
   try {
     const data = await Tweet_repository.getAllUserTweet(payload);
-    console.log('data servises--------------->', data);
     return data;
   } catch (error) {
     return { mess: "Got Some Error", err:error };

@@ -14,8 +14,7 @@ class Tweet {
       });
       return data;
     } catch (error) {
-      console.log("error", error);
-      throw new Error("Unable to create tweet");
+      return error;
     }
   }
 
@@ -24,7 +23,7 @@ class Tweet {
       const tweetsData = await prismaClient.tweet.findMany({
         where: { autherId: allUserTweet.userID },
         skip: allUserTweet.skipValue,
-        take:6,
+        take: 6,
         orderBy: { createdAt: "desc" },
       });
 
@@ -34,23 +33,21 @@ class Tweet {
 
       return tweetsData;
     } catch (error) {
-      throw new Error("Something Went Wrong");
+      return error;
     }
   }
 
   async getAllTweetAll(skipValue: number) {
-
     try {
       const tweetsData = await prismaClient.tweet.findMany({
         where: {},
         skip: skipValue,
-        take:6,
+        take: 6,
         orderBy: { createdAt: "desc" },
       });
       return tweetsData;
     } catch (error) {
-      console.error("Error fetching tweets:", error);
-      throw new Error("Error fetching tweets");
+      return error;
     }
   }
 
@@ -59,6 +56,39 @@ class Tweet {
       where: { id: userId },
     });
     return tweetAuthor;
+  }
+
+  async LikeTweet(tweetId: string, userId: string) {
+    try {
+      console.log("im here in repository ", tweetId, userId);
+      const existingLike = await prismaClient.like.findUnique({
+        where: { tweetId_userId: { tweetId, userId } },
+      });
+
+      if (existingLike) {
+        const data = await prismaClient.like.delete({
+          where: {
+            tweetId_userId: {
+              tweetId,
+              userId,
+            },
+          },
+        });
+
+        return true;
+      }
+
+      const data = await prismaClient.like.create({
+        data: {
+          tweetId,
+          userId,
+        },
+      });
+      console.log("data is created ", data);
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }
 

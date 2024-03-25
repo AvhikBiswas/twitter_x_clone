@@ -17,4 +17,8 @@ input CreateTweetData {
   hashTag:String
 }
 
+type Like {
+  user: User
+  tweet: tweet
+}
 `;

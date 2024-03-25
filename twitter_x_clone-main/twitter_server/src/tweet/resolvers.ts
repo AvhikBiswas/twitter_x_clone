@@ -6,6 +6,7 @@ import GettweetAuthor from "./services/GetTwetAuthor";
 import { getAllTweetsByUser } from "./services/getAllTweetsByUser";
 import { getAllTweetsRandom } from "./services/getAllTweetsRandom";
 import getPresignedUrl from "./services/getPresignedUrl";
+import LikeTweet from "./services/LikeTweet";
 
 const mutations = {
   createNewTweet: async (
@@ -18,6 +19,22 @@ const mutations = {
     }
     const newTweet = await createTweet({ ...payload, userID: ctx.user.id });
     return newTweet;
+  },
+  likeTweet: async (
+    parent: any,
+    { tweetId }: { tweetId: string },
+    ctx: GraphqlContext
+  ) => {
+    if (!ctx.user?.id) {
+      throw new Error("Unauthorized User");
+    }
+    const userId = ctx.user?.id;
+    try {
+      const responseData = await LikeTweet(tweetId, userId);
+      return responseData;
+    } catch (error) {
+      throw new Error("Somthing Wrong");
+    }
   },
 };
 
@@ -74,7 +91,7 @@ export const AllTweetresolvers = {
       });
       return presignedUrl;
     } catch (error) {
-      console.log('error', error)
+      console.log("error", error);
       throw new Error("Somthig Wrong");
     }
   },

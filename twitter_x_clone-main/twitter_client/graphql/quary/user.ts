@@ -18,15 +18,25 @@ export const getCurrentUserQuary = graphql(`
   }
 `);
 
+
+
 export const getProfileQuary = graphql(`
   query GetUserDetails($getUserDetailsId: String!) {
     GetUserDetails(id: $getUserDetailsId) {
       id
       firstName
+      follower {
+        id
+      }
+      following {
+        id
+      }
       emailId
       lastName
       profileUrl
+      tweets {
+      id
+    }
     }
   }
 `);
-

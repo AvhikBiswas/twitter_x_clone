@@ -20,7 +20,7 @@ export const mutations_resolver = {
     }
     try {
       const followRes = await Userfollow(ctx.user?.id, toFollow);
-      console.log('followRes---->', followRes)
+      console.log("followRes---->", followRes);
       return followRes;
     } catch (error) {
       console.log("error from follow user", error);
@@ -76,13 +76,11 @@ export const resolvers = {
   ) => {
     console.log("Id---------------------->", id);
 
-    if (!ctx.user?.id) return { err: "Unauthorized User" };
-    if (!id) return { err: "id Can't be Undefined" };
+    if (!ctx.user?.id) throw new Error("Unauthorized User");
+    if (!id) throw new Error("Id is Null");
     try {
+      console.log("UserData");
       const UserData = await UserProfile(id);
-      if (!UserData) {
-        throw new Error("User ID is missing");
-      }
       return UserData;
     } catch (error) {
       return { err: error };
@@ -92,8 +90,9 @@ export const resolvers = {
 
 export const extraResolver = {
   User: {
-    tweets: async (parents: tweet) => {
-      const tweetData = await getUserTweets(parents.autherId);
+    tweets: async (parent: user) => {
+      console.log("parent.id", parent.id);
+      const tweetData = await getUserTweets(parent.id);
       return tweetData;
     },
     follower: async (parent: user) => {
@@ -104,7 +103,7 @@ export const extraResolver = {
         },
       });
 
-      return followeRes.map((el)=>el.follower);
+      return followeRes.map((el) => el.follower);
     },
 
     following: async (parent: user) => {
@@ -114,7 +113,7 @@ export const extraResolver = {
           following: true,
         },
       });
-      return followingeRes.map((el)=>el.following);
+      return followingeRes.map((el) => el.following);
     },
   },
 };

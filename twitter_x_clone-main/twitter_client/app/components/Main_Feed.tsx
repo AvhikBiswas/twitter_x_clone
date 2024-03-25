@@ -56,8 +56,6 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
     isLoading,
   } = GetAlltweet(0);
 
-  console.log('data---------------------------->', data)
-
   return (
     <div className="flex flex-col">
       <div className="flex flex-row ">

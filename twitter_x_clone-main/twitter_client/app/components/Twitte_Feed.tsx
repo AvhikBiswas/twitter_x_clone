@@ -2,6 +2,7 @@ import React from "react";
 import Twitter_PostIcon from "../utils/Twitter_PostIcon";
 import { Post_Feed_Icons } from "./Post_Feed_Icons";
 import Image from "next/image";
+import Link from "next/link";
 
 type TwitteFeed = {
   data: any;
@@ -14,15 +15,17 @@ export const Twitte_Feed: React.FC<TwitteFeed> = ({ data }) => {
         {/* user image  */}
 
         <div className="flex relative">
-          <Image
-            width={100}
-            height={100}
-            quality={100}
-            loading="eager"
-            src={data?.auther?.profileUrl}
-            className="rounded-full absolute  w-10 h-10 cursor-pointer"
-            alt="img"
-          />
+          <Link href={"/" + data.auther.id}>
+            <Image
+              width={100}
+              height={100}
+              quality={100}
+              loading="eager"
+              src={data?.auther?.profileUrl}
+              className="rounded-full absolute  w-10 h-10 cursor-pointer"
+              alt="img"
+            />
+          </Link>
         </div>
 
         {/* user name Twitte */}
@@ -44,18 +47,18 @@ export const Twitte_Feed: React.FC<TwitteFeed> = ({ data }) => {
         {data.imageURL && (
           <div className="ml-12 mt-3">
             <figure>
-            <Image
-            // unoptimized={true}
-              width={100}
-              height={100}
-              quality={100}
-              src={data.imageURL}
-              loading="lazy"
-              className="rounded-2xl w-full h-full"
-              alt="img"
-              placeholder="blur"
-              blurDataURL={data.imageURL}
-            />
+              <Image
+                // unoptimized={true}
+                width={100}
+                height={100}
+                quality={100}
+                src={data.imageURL}
+                loading="lazy"
+                className="rounded-2xl w-full h-full"
+                alt="img"
+                placeholder="blur"
+                blurDataURL={data.imageURL}
+              />
             </figure>
           </div>
         )}
@@ -65,6 +68,7 @@ export const Twitte_Feed: React.FC<TwitteFeed> = ({ data }) => {
         <div className="flex ml-11 py-2 gap-16">
           {Twitter_PostIcon.map((Post_Icon) => (
             <Post_Feed_Icons
+              key={Post_Icon.title}
               title={Post_Icon.title}
               buttonStyle={Post_Icon.buttonStyle}
               icon={Post_Icon.icon}

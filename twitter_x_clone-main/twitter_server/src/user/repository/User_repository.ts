@@ -39,14 +39,14 @@ class User_repository {
       return userData;
     } catch (error) {
       console.log("error from user repo find findUseById", error);
-      throw new Error("Somthing Wrong In Find User By Id Repo");
+      return error;
     }
   }
 
   async findMAnyByID(UserId: string) {
     try {
       const userData = await prismaClient.tweet.findMany({
-        where: { id: UserId },
+        where: { autherId: UserId },
       });
       return userData;
     } catch (error) {
@@ -90,10 +90,9 @@ class User_repository {
   }
 
   async unFollow(userId: string, toUnFollow: string) {
-
-    console.log('unFollow------------->', userId,toUnFollow)
+    console.log("unFollow------------->", userId, toUnFollow);
     try {
-      const unFollowRes =await prismaClient.follow.delete({
+      const unFollowRes = await prismaClient.follow.delete({
         where: {
           followingID_follwerID: {
             followingID: toUnFollow,
@@ -101,15 +100,13 @@ class User_repository {
           },
         },
       });
-      console.log('unFollowRes-------->', unFollowRes);
+      console.log("unFollowRes-------->", unFollowRes);
       return unFollowRes;
     } catch (error) {
-      console.log('error-------------------------->', error)
+      console.log("error-------------------------->", error);
       return error;
     }
   }
-
-  
 }
 
 export default User_repository;

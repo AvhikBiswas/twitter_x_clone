@@ -6,7 +6,6 @@ import { IoIosMore } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import useUserStore from "../zustand/store";
 
-
 export const Buttons_left: React.FC = () => {
   const { CurrUser } = useUserStore();
   const [logoutStyle, setLogoutStyle] = useState(false);
@@ -36,7 +35,7 @@ export const Buttons_left: React.FC = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
+  if (!CurrUser) return;
   return (
     <div className="home mt-2">
       <div className="w-fit h-fit p-2 dark:hover:bg-[#232323] cursor-pointer rounded-full">
@@ -51,14 +50,16 @@ export const Buttons_left: React.FC = () => {
                 href={item.title === "Profile" ? "/" + CurrUser?.id : item.link}
               >
                 <span className="text-3xl">{item.icon}</span>
-                <span className="text-xl font-sans sm:inline">{item.title}</span>
+                <span className="text-xl hidden font-sans lg:inline">
+                  {item.title}
+                </span>
               </Link>
             </li>
           ))}
         </ul>
       </div>
       <div className="flex justify-start items-center mt-2">
-        <button className="bg-[#1D9BF0] hover:bg-[#1083E5]  w-56 h-[49px]  font-bold text-base  rounded-full">
+        <button className="bg-[#1D9BF0] hover:bg-[#1083E5] hidden lg:block w-56 h-[49px]  font-bold text-base  rounded-full">
           Post
         </button>
       </div>
@@ -69,7 +70,7 @@ export const Buttons_left: React.FC = () => {
           className={`${
             !logoutStyle
               ? "hidden"
-              : "flex justify-start items-center border rounded-xl dark:bg-[#121212] h-20 absolute w-72"
+              : "flex justify-start items-center lg:border rounded-xl dark:bg-[#121212] h-20 absolute w-72"
           }`}
         >
           <div className="flex hover:font-bold font-sans h-10 w-72">
@@ -84,13 +85,13 @@ export const Buttons_left: React.FC = () => {
       </div>
 
       <div className="flex justify-center items-center dark:hover:bg-[#323232] mt-14 w-64 h-[65px] font-bold text-lg rounded-full">
-        <div className="flex flex-row pl-3">
+        <div className="lg:flex flex-row pl-3 hidden">
           <img
             src={CurrUser?.profileUrl}
             className="rounded-full w-11 h-11"
             alt="img"
           />
-          <div className="flex flex-col ml-2">
+          <div className=" flex-col ml-2">
             <h5 className="text-sm">
               {CurrUser?.firstName} {CurrUser?.lastName}
             </h5>

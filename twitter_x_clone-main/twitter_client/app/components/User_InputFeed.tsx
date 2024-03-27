@@ -141,7 +141,7 @@ export const User_InputFeed = () => {
   }
 
   return (
-    <div className="flex-grow flex-shrink">
+    <div className="lg:flex-grow w-full h-full flex-shrink">
       <div className="flex ml-2 p-2 relative">
         <Image
           width={100}
@@ -167,8 +167,8 @@ export const User_InputFeed = () => {
       <div className="flex ml-16 p-2">
         {image && (
           <Image
-            width={100}
-            height={100}
+            width={500}
+            height={500}
             src={image}
             className="w-full h-full flex flex-row"
             alt="Uploaded Image"
@@ -189,45 +189,50 @@ export const User_InputFeed = () => {
             </div>
           ))}
         </div>
+
         <div className="flex ml-auto mr-4 pb-3">
-          {extraLetters < 0 ? (
-            <span className="w-9 h-9 hover:bg-neutral-200 flex rounded-full mt-1 justify-center text-center mr-2  items-center">
-              {extraLetters}
-            </span>
-          ) : null}
+            <div className="flex ml-auto">
+              {extraLetters < 0 ? (
+                <span className="w-9 h-9 hover:bg-neutral-200 flex rounded-full mt-1 justify-center text-center mr-2  items-center">
+                  {extraLetters}
+                </span>
+              ) : null}
 
-          {/* AI Tweet */}
-          <button
-            onClick={handleNextSuggestion}
-            className={`w-16 mt-1 rounded-3xl border ${
-              !tweetSuggestion ? "hidden" : "flex justify-center items-center"
-            }`}
-          >
-            <PiSwapFill size={19} className=" justify-center" />
-          </button>
+              {/* AI Tweet */}
+              <button
+                onClick={handleNextSuggestion}
+                className={`w-16 mt-1 rounded-3xl border ${
+                  !tweetSuggestion
+                    ? "hidden"
+                    : "flex justify-center items-center"
+                }`}
+              >
+                <PiSwapFill size={19} className=" justify-center" />
+              </button>
 
-          <button
-            onClick={handelSuggetion}
-            className={`w-16 mt-1 rounded-3xl border flex justify-center items-center mx-3 ${
-              content == suggestionContent && tweetSuggestion
-                ? "dark:bg-[#ff00ffdc]"
-                : ""
-            }`}
-          >
-            <MdAutoFixHigh size={19} className="justify-center" />
-          </button>
+              <button
+                onClick={handelSuggetion}
+                className={`w-16 mt-1 rounded-3xl border flex justify-center items-center mx-3 ${
+                  content == suggestionContent && tweetSuggestion
+                    ? "dark:bg-[#ff00ffdc]"
+                    : ""
+                }`}
+              >
+                <MdAutoFixHigh size={19} className="justify-center" />
+              </button>
 
-          <button
-            onClick={handelPost}
-            className={`w-16 ${
-              isPostButtonDisabled
-                ? "bg-blue-200"
-                : "bg-[#1D9BF0] hover:bg-[#1083E5]"
-            } h-9 mt-1 text-white font-semibold text-base rounded-2xl`}
-            disabled={isPostButtonDisabled}
-          >
-            Post
-          </button>
+              <button
+                onClick={handelPost}
+                className={`w-16 ${
+                  isPostButtonDisabled
+                    ? "bg-blue-200"
+                    : "bg-[#1D9BF0] hover:bg-[#1083E5]"
+                } h-9 mt-1 text-white font-semibold text-base rounded-2xl`}
+                disabled={isPostButtonDisabled}
+              >
+                Post
+              </button>
+            </div>
         </div>
       </div>
     </div>

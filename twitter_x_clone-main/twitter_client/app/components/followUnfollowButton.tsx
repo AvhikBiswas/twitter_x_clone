@@ -15,7 +15,7 @@ const FollowUnfollowButton: React.FC<FollowUnfollowButtonProps> = ({
   const { profileData, profileDataLoading } = useUserByID(userId);
   const [isFollowing, setIsFollowing] = useState(false);
   const followUser = useFollow();
-  const { unfollowUser, isError }= useUnFollow(); 
+  const { unfollowUser, isError } = useUnFollow();
 
   const handleFollow = () => {
     followUser(userId);
@@ -34,7 +34,7 @@ const FollowUnfollowButton: React.FC<FollowUnfollowButtonProps> = ({
   }, [profileDataLoading, CurrUser?.id, profileData?.follower]);
 
   if (profileDataLoading) {
-    return <div>Loading...</div>;
+    return;
   }
 
   if (CurrUser?.id === userId) {

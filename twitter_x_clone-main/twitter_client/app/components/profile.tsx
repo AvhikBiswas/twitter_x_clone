@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { useParams } from "next/navigation";
@@ -65,13 +66,13 @@ const ProfileCard = () => {
             </div>
           </div>
           {/* //scrollbar-hide */}
-          <div className="overflow-x-auto h-[42rem] scrollbar-hide ">
+          <div className="overflow-x-auto lg:h-[90vh] sm:h-[90vh] scrollbar-hide ">
             <div className="flex flex-col relative">
               <div className="bg-slate-600 w-full h-52"></div>
 
               {/* follow unfollow button */}
               <FollowUnfollowButton userId={profile} />
-              
+
               <span className="absolute mt-36 ml-4 w-36 h-36 rounded-full overflow-hidden">
                 <img
                   className="w-full h-full object-cover object-center rounded-full border-4 border-[#121212]"
@@ -117,10 +118,10 @@ const ProfileCard = () => {
                       isFetchingNextPage ? (
                         <p>Loading...</p>
                       ) : (
-                        <p>No more Tweet Left</p>
+                        <p></p>
                       )
                     }
-                    endingMessage={<p>The beginning of time...</p>}
+                    endingMessage={<p></p>}
                   >
                     {data?.pages.map((page) =>
                       page?.getAllTweetsById.map((value: Tweet) => (

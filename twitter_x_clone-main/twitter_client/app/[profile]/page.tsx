@@ -1,10 +1,15 @@
 import React from "react";
-import ProfileLayout from "./ProfileLayout";
+import ProfileCard from "../components/profile";
+import ProfileLayout from "../layouts/ProfileLayout";
 
 export default function () {
   return (
-    <>
-      <ProfileLayout />
-    </>
+    <div className="">
+      <ProfileLayout>
+        <div className="flex">
+          <ProfileCard />
+        </div>
+      </ProfileLayout>
+    </div>
   );
 }

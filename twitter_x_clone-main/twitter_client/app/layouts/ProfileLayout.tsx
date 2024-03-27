@@ -1,34 +1,41 @@
 "use client";
+
 import { Buttons_left } from "@/app/components/Buttons_left";
 import { Main_TrendingSearch } from "@/app/components/Main_TrendingSerach";
-import ProfileCard from "@/app/components/profile";
 import { useCurrentUser } from "@/app/hooks/useCurrentUser";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import useUserStore from "../zustand/store";
 import { useTheme } from "next-themes";
+import { Bottom_button } from "../components/Bottom_button";
 
-export default function ProfileLayout() {
+interface ProfileLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function ProfileLayout({ children }: ProfileLayoutProps) {
   const { CurrUser } = useUserStore();
   const params = useParams<{ profile: string }>();
   const { user } = useCurrentUser();
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
-  setTheme('dark');
+  const { setTheme } = useTheme();
+
   useEffect(() => {
+    setTheme("dark");
     setMounted(true);
-  }, []);
+  }, [setTheme]);
 
   if (!mounted || !user) return null;
-    return (
+
+  return (
     <div className="grid grid-cols-12 h-screen w-screen">
-      <div className="col-span-3 ml-28">
-        <Buttons_left/>
+      <div className="lg:col-span-3 lg:ml-24 hidden sm:col-span-1 md:inline-block">
+        <Buttons_left />
       </div>
-      <div className="col-span-5 border border-x-gray-700 border-x-[00.1px] border-y-0">
-        <ProfileCard/>
+      <div className="lg:col-span-5 md:col-span-9 w-fit md:border-x-[00.1px] border-x-gray-700 border-y-0 sm:col-span-8">
+        {children}
       </div>
-      <div className="col-span-4 mt-1">
+      <div className="lg:col-span-4 hidden col-span-1 xl:inline-block">
         <Main_TrendingSearch />
       </div>
     </div>

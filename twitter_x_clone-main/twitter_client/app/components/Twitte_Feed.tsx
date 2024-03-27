@@ -10,7 +10,7 @@ type TwitteFeed = {
 
 export const Twitte_Feed: React.FC<TwitteFeed> = ({ data }) => {
   return (
-    <div className="flex pt-3  px-4  light:hover:bg-neutral-50 dark:hover:bg-[#121211] border border-y-gray-700 border-y-[00.1px] border-x-0 ">
+    <div className="flex w-fit pt-3  px-4  light:hover:bg-neutral-50 dark:hover:bg-[#121211] border border-y-gray-700 border-y-[00.1px] border-x-0 ">
       <div className="flex flex-col cursor-pointer">
         {/* user image  */}
 
@@ -45,13 +45,13 @@ export const Twitte_Feed: React.FC<TwitteFeed> = ({ data }) => {
         {/* image section */}
 
         {data.imageURL && (
-          <div className="ml-12 mt-3">
+          <div className="ml-12 mt-3 w-fit">
             <figure>
               <Image
                 // unoptimized={true}
-                width={100}
-                height={100}
-                quality={100}
+                width={500}
+                height={500}
+                quality={70}
                 src={data.imageURL}
                 loading="lazy"
                 className="rounded-2xl w-full h-full"

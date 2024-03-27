@@ -8,59 +8,93 @@ import { LiaUserFriendsSolid } from "react-icons/lia";
 import { FaXTwitter } from "react-icons/fa6";
 import { HiOutlineUser } from "react-icons/hi";
 import { CiCircleMore } from "react-icons/ci";
+import { TbLogout } from "react-icons/tb";
 
 type manueButton = {
   title: string;
   icon: ReactNode;
-  link: string; 
+  link: string;
 };
 
 const Left_buttons: manueButton[] = [
   {
     title: "Home",
     icon: <MdHomeFilled />,
-    link: '/dashboard/home'
+    link: "/dashboard/home",
   },
   {
     title: "Explore",
     icon: <IoSearch />,
-    link: ''
+    link: "",
   },
   {
     title: "Notifications",
     icon: <IoNotificationsOutline />,
-    link: ''
+    link: "",
   },
   {
     title: "Messages",
     icon: <BsEnvelope />,
-    link: '/'
+    link: "/",
   },
   {
     title: "Lists",
     icon: <RiFileListFill />,
-    link: '/'
+    link: "/",
   },
   {
     title: "Communities",
     icon: <LiaUserFriendsSolid />,
-    link: '/'
+    link: "/",
   },
   {
     title: "Premium",
     icon: <FaXTwitter />,
-    link: '/'
+    link: "/",
   },
   {
     title: "Profile",
     icon: <HiOutlineUser />,
-    link: '/'
+    link: "/",
   },
   {
     title: "More",
     icon: <CiCircleMore />,
-    link: '/'
+    link: "/",
   },
 ];
 
 export default Left_buttons;
+
+export const Bottom_buttons: manueButton[] = [
+  {
+    title: "Home",
+    icon: <MdHomeFilled />,
+    link: "/dashboard/home",
+  },
+  {
+    title: "Explore",
+    icon: <IoSearch />,
+    link: "",
+  },
+  {
+    title: "Premium",
+    icon: <FaXTwitter />,
+    link: "/",
+  },
+  {
+    title: "Messages",
+    icon: <BsEnvelope />,
+    link: "/",
+  },
+  {
+    title: "Profile",
+    icon: <HiOutlineUser />,
+    link: "/",
+  },
+  {
+    title: "Notifications",
+    icon: <IoNotificationsOutline />,
+    link: "",
+  },
+];

@@ -123,7 +123,7 @@ const ProfileCard = () => {
                     }
                     endingMessage={<p></p>}
                   >
-                    {data?.pages.map((page) =>
+                    {data?.pages.map((page:any) =>
                       page?.getAllTweetsById.map((value: Tweet) => (
                         <Twitte_Feed key={value.id} data={value} />
                       ))

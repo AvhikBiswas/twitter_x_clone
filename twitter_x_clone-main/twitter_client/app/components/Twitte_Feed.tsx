@@ -9,6 +9,9 @@ type TwitteFeed = {
 };
 
 export const Twitte_Feed: React.FC<TwitteFeed> = ({ data }) => {
+  const imageLoading = () => {
+    return "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.ledr.com%2Fcolours%2Fwhite.htm&psig=AOvVaw04hU1yljJ_PO9nZst0vPY0&ust=1711739752329000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCND7z9DVl4UDFQAAAAAdAAAAABAI";
+  };
   return (
     <div className="flex w-fit pt-3  px-4  light:hover:bg-neutral-50 dark:hover:bg-[#121211] border border-y-gray-700 border-y-[00.1px] border-x-0 ">
       <div className="flex flex-col cursor-pointer">
@@ -17,9 +20,10 @@ export const Twitte_Feed: React.FC<TwitteFeed> = ({ data }) => {
         <div className="flex relative">
           <Link href={"/" + data.auther.id}>
             <Image
-              width={100}
-              height={100}
-              quality={100}
+              width={500}
+              height={500}
+              quality={70}
+              priority={true}
               loading="eager"
               src={data?.auther?.profileUrl}
               className="rounded-full absolute  w-10 h-10 cursor-pointer"
@@ -46,20 +50,17 @@ export const Twitte_Feed: React.FC<TwitteFeed> = ({ data }) => {
 
         {data.imageURL && (
           <div className="ml-12 mt-3 w-fit">
-            <figure>
-              <Image
-                // unoptimized={true}
-                width={500}
-                height={500}
-                quality={70}
-                src={data.imageURL}
-                loading="lazy"
-                className="rounded-2xl w-full h-full"
-                alt="img"
-                placeholder="blur"
-                blurDataURL={data.imageURL}
-              />
-            </figure>
+            <Image
+              // loader={imageLoading}
+              width={500}
+              height={500}
+              quality={10}
+              priority={false}
+              src={data.imageURL}
+              loading="eager"
+              className="rounded-2xl w-full h-full"
+              alt="img"
+            />
           </div>
         )}
 

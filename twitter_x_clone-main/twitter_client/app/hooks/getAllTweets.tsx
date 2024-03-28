@@ -12,7 +12,7 @@ export const GetAlltweet = (skipValue: number) => {
 
   const query = useInfiniteQuery<UseInfiniteQueryResult>({
     queryKey: ["get-allTweets"],
-    queryFn: fetchTweets,
+    queryFn:fetchTweets,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       return allPages.length + 1;

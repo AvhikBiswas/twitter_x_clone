@@ -1,8 +1,10 @@
 import React from "react";
-import ProfileCard from "../components/profile";
 import ProfileLayout from "../layouts/ProfileLayout";
+import dynamic from "next/dynamic";
 
 export default function () {
+  const ProfileCard = dynamic(() => import("../components/profile"));
+
   return (
     <div className="">
       <ProfileLayout>

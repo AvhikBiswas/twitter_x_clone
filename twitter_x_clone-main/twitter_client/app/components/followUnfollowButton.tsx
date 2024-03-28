@@ -28,7 +28,7 @@ const FollowUnfollowButton: React.FC<FollowUnfollowButtonProps> = ({
   useEffect(() => {
     if (!profileDataLoading && CurrUser?.id) {
       const followerIds =
-        profileData?.follower?.map((follower) => follower.id) || [];
+        profileData?.follower?.map((follower: any) => follower.id) || [];
       setIsFollowing(followerIds.includes(CurrUser.id));
     }
   }, [profileDataLoading, CurrUser?.id, profileData?.follower]);

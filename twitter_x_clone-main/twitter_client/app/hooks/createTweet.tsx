@@ -21,7 +21,7 @@ export const useCreateTweet = () => {
     },
     onSuccess: async (payload) => {
       toast.success("Created Success", { id: "1" });
-      await queryClient.invalidateQueries(["get-allTweets"]);
+      await queryClient.invalidateQueries({ queryKey:["get-allTweets"]});
     },
     onError:async(error)=>{
       toast.error("Somthing went Wrong",{id:"1"});

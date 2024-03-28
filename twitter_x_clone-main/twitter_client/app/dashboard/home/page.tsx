@@ -1,27 +1,28 @@
 "use client";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
+import dynamic from "next/dynamic";
 
-import { Buttons_left } from "@/app/components/Buttons_left";
-import { Main_Feed } from "@/app/components/Main_Feed";
-import { Main_TrendingSearch } from "@/app/components/Main_TrendingSerach";
-import { useCurrentUser } from "@/app/hooks/useCurrentUser";
+const Main_Feed = dynamic(() =>
+  import("@/app/components/Main_Feed").then((mod) => mod.Main_Feed)
+);
+
 import ProfileLayout from "@/app/layouts/ProfileLayout";
-import { useRouter } from "next/navigation"; // Import from next/navigation
-import React, { useCallback, useEffect } from "react";
+import useUserStore from "@/app/zustand/store";
 
 const Home = () => {
   const router = useRouter();
-
-  const { user } = useCurrentUser();
-
+  const { CurrUser } = useUserStore();
   const authCheck = localStorage.getItem("_Autherization");
+
   useEffect(() => {
-    if (!user?.id || !authCheck) {
+    if (!CurrUser?.id || !authCheck) {
       router.push("/");
     }
   }, [authCheck]);
 
   return (
-    <div className="flex ">
+    <div className="flex">
       <ProfileLayout>
         <div className="flex">
           <Main_Feed />

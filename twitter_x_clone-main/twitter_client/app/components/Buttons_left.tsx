@@ -9,7 +9,7 @@ import useUserStore from "../zustand/store";
 export const Buttons_left: React.FC = () => {
   const { CurrUser } = useUserStore();
   const [logoutStyle, setLogoutStyle] = useState(false);
-  const logoutPopupRef = useRef(null);
+  const logoutPopupRef:any = useRef(null);
   const router = useRouter();
   const handleLogoutPopUp = () => {
     setLogoutStyle(!logoutStyle); // Toggle the logout style

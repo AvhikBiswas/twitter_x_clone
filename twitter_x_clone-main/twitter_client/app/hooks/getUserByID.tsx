@@ -4,7 +4,7 @@ import { getProfileQuary } from "@/graphql/quary/user";
 import { useQuery } from "@tanstack/react-query";
 
 export default function useUserByID(Id: string) {
-  const { data, isLoading, isError } = useQuery<User, Error>({
+  const { data, isLoading, isError } = useQuery<any, Error>({
     queryKey: ["current_Profile", Id],
     queryFn: async () => {
       const UserData: any = await graphqlClientHeder.request(getProfileQuary, {

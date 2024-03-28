@@ -23,7 +23,6 @@ export const MainLogin = () => {
       }
       if (user?.id) {
         router.push("/dashboard/home");
-        toast.success("Login Success");
       } else {
         router.push("/");
       }
@@ -38,7 +37,7 @@ export const MainLogin = () => {
         const authToken = await HandelLoginWithGoogle(cred);
         if (authToken) {
           localStorage.setItem("_Autherization", authToken);
-          await queryClient.invalidateQueries(["current_user"]);
+          await queryClient.invalidateQueries({ queryKey:["current_user"]});
           toast.success("Login Success", { id: "4" });
           router.push("/dashboard/home");
         }

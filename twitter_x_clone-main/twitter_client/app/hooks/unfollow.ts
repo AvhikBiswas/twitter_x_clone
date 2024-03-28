@@ -20,7 +20,7 @@ const useUnFollow = () => {
       return response;
     },
     onSuccess: async (parent) => {
-      await queryClient.invalidateQueries(["current_Profile"]);
+      await queryClient.invalidateQueries({ queryKey: ["current_Profile"] });
       return;
     },
     onError: () => {

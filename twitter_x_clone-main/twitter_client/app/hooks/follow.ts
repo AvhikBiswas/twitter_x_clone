@@ -14,7 +14,8 @@ const useFollow = () => {
       return response;
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries(["current_Profile"]);
+      await queryClient.invalidateQueries({ queryKey: ["current_Profile"] });
+
     },
     onError: () => {
       toast.error("Unable to follow user");

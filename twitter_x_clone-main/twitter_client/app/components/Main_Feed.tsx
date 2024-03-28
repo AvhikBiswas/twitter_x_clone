@@ -75,7 +75,11 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
 
   return (
     <div className="flex flex-col w-full h-[10%]">
-      <div className={`z-50 lg:hidden md:hidden ${optionBar ? "sm:inline" : "hidden"}`}>
+      <div
+        className={`z-50 lg:hidden md:hidden ${
+          optionBar ? "sm:inline" : "hidden"
+        }`}
+      >
         <span className="fixed flex flex-col h-[100%] w-[100%] opacity-30 dark:bg-slate-400"></span>
         <div className="fixed pt-8 pl-4 flex flex-col h-[100%] w-[60%] dark:bg-black">
           <span
@@ -160,7 +164,7 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
             loadingMessage={isFetchingNextPage ? <p>Loading...</p> : <p></p>}
             endingMessage={<p></p>}
           >
-            {data?.pages.map((page) =>
+            {data?.pages.map((page: any) =>
               page?.getAllTweets.map((value: Tweet) => (
                 <Twitte_Feed key={value.id} data={value} />
               ))

@@ -13,7 +13,7 @@ export const Twitte_Feed: React.FC<TwitteFeed> = ({ data }) => {
     return "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.ledr.com%2Fcolours%2Fwhite.htm&psig=AOvVaw04hU1yljJ_PO9nZst0vPY0&ust=1711739752329000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCND7z9DVl4UDFQAAAAAdAAAAABAI";
   };
   return (
-    <div className="flex w-fit pt-3  px-4  light:hover:bg-neutral-50 dark:hover:bg-[#121211] border border-y-gray-700 border-y-[00.1px] border-x-0 ">
+    <div className="flex w-full h-fit pt-3  px-4  light:hover:bg-neutral-50 dark:hover:bg-[#121211]  border-y-gray-700 border-y-[00.1px]">
       <div className="flex flex-col cursor-pointer">
         {/* user image  */}
 

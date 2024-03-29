@@ -32,7 +32,7 @@ export default function ProfileLayout({ children }: ProfileLayoutProps) {
       <div className="lg:col-span-3 lg:ml-24 hidden sm:col-span-1 md:inline-block">
         <Buttons_left />
       </div>
-      <div className="lg:col-span-5 md:col-span-9 w-full h-full md:border-x-[00.1px] border-x-gray-700 border-y-0 sm:col-span-8">
+      <div className="lg:col-span-5 md:col-span-9 w-fit lg:w-full md:border-x-[00.1px] border-x-gray-700 border-y-0 sm:col-span-8">
         {children}
       </div>
       <div className="lg:col-span-4 hidden col-span-1 xl:inline-block">

@@ -28,6 +28,7 @@ export const User_InputFeed = () => {
     if (tweetSuggestion) {
       setContent(tweetSuggestion[suggestionIndex]);
       setSuggestionIndex((prevIndex) => (prevIndex + 1) % 5);
+      return;
     }
   };
 
@@ -44,6 +45,7 @@ export const User_InputFeed = () => {
       setSuggestionContent(content);
       setTweetSuggestion(JSON.parse(Tweetdata));
       toast.success("Suggestions Loaded!", { id: "3" });
+      return;
     } catch (error) {
       console.error("Error fetching suggestions:", error);
       toast.error("Failed to Fetch Suggestions", { id: "3", duration: 2000 });
@@ -185,7 +187,7 @@ export const User_InputFeed = () => {
               style={iconStyle}
               className="light:hover:bg-neutral-200 dark:hover:bg-[#232323] cursor-pointer flex rounded-full justify-center items-center"
             >
-              {button.icon}
+              {button.icon} 
             </div>
           ))}
         </div>

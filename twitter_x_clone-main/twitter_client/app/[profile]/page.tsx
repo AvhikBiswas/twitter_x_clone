@@ -8,7 +8,7 @@ export default function () {
   return (
     <div className="">
       <ProfileLayout>
-        <div className="flex">
+        <div className="flex w-full">
           <ProfileCard />
         </div>
       </ProfileLayout>

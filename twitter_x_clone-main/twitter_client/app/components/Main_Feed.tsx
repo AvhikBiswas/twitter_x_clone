@@ -32,7 +32,7 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
   const Line1 =
     "bg-[#1D9BF0] line w-20 ml-[102px] mt-3 h-1 rounded-2xl absolute";
   const Line2 =
-    "bg-[#1D9BF0] line w-24 ml-[102px] mt-3 h-1 rounded-2xl absolute";
+    "bg-[#1D9BF0] line w-24 ml-[95px] mt-3 h-1 rounded-2xl absolute";
   const Bold = "font-bold";
 
   const [buttonStyle1, setButtonStyle1] = useState(Line1);
@@ -75,6 +75,7 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
 
   return (
     <div className="flex flex-col w-full h-[10%]">
+      {/* Hidden option bar */}
       <div
         className={`z-50 lg:hidden md:hidden ${
           optionBar ? "sm:inline" : "hidden"
@@ -112,6 +113,7 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
           </div>
         </div>
       </div>
+      {/* Mobile header */}
       <div className="flex flex-row justify-between p-5 md:hidden ">
         <div>
           <FaCircleUser size={40} onClick={handelBar} />
@@ -124,7 +126,8 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
         </div>
       </div>
 
-      <div className="flex flex-row">
+      {/* Button group */}
+      <div className="flex flex-row w-full justify-between overflow-x-hidden">
         <div className="flex items-center justify-center">
           <button
             className={`light:hover:bg-neutral-200 dark:hover:bg-[#232323] w-72 h-14 ${buttonBold1}`}
@@ -144,14 +147,14 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
             <div className={buttonStyle2}></div>
           </button>
         </div>
-        <div className="lg:flex hidden justify-center items-center w-[50px] cursor-pointer">
+        <div className="xl:flex hidden justify-center items-center w-[50px] cursor-pointer">
           <div className="p-1 light:hover:bg-neutral-200 dark:hover:bg-[#232323]  rounded-full">
             <LuSettings size={20} />
           </div>
         </div>
       </div>
 
-      {/* scroll section  */}
+      {/* Scroll section */}
       <div className="overflow-x-auto lg:h-[90vh] sm:h-[90vh] scrollbar-hide">
         <div className="flex pt-2 border border-y-gray-700 border-y-[00.1px] border-x-0">
           <User_InputFeed />

@@ -85,7 +85,7 @@ export const Buttons_left: React.FC = () => {
       </div>
 
       <div className="flex justify-center items-center dark:hover:bg-[#323232] mt-14 w-64 h-[65px] font-bold text-lg rounded-full">
-        <div className="lg:flex flex-row pl-3 hidden">
+        <div className="xl:flex flex-row pl-3 hidden">
           <img
             src={CurrUser?.profileUrl}
             className="rounded-full w-11 h-11"

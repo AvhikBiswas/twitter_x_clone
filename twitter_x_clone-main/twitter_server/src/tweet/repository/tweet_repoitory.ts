@@ -1,9 +1,14 @@
+import { Redis } from "ioredis";
 import { prismaClient } from "../../client/db";
 import { PageSkipValue, tweetPayload } from "../../types/tweet";
 
 class Tweet {
+  Redisclient = new Redis(process.env.REDIS_URL!);
+
   async createTweet(payload: tweetPayload) {
     try {
+      await this.Redisclient.del(`FIND_MANY_USER:${payload.userID}`);
+      await this.Redisclient.del(`ALLUSER_TWEET:${payload.userID}`);
       const data = await prismaClient.tweet.create({
         data: {
           imageURL: payload?.imageURL,
@@ -15,6 +20,8 @@ class Tweet {
       return data;
     } catch (error) {
       return error;
+    } finally {
+      await this.Redisclient.quit();
     }
   }
 
@@ -30,11 +37,10 @@ class Tweet {
       if (tweetsData.length === 0) {
         return [];
       }
-
       return tweetsData;
     } catch (error) {
       return error;
-    }
+    } 
   }
 
   async getAllTweetAll(skipValue: number) {
@@ -52,15 +58,30 @@ class Tweet {
   }
 
   async getAuthor(userId: string) {
-    const tweetAuthor = await prismaClient.user.findUnique({
-      where: { id: userId },
-    });
-    return tweetAuthor;
+    try {
+      const cashedData = await this.Redisclient.get(`GET_AUTHOR:${userId}`);
+      if (cashedData) {
+        console.log("getauthor from redis");
+        return JSON.parse(cashedData);
+      }
+      const tweetAuthor = await prismaClient.user.findUnique({
+        where: { id: userId },
+      });
+
+      await this.Redisclient.set(
+        `GET_AUTHOR:${userId}`,
+        JSON.stringify(tweetAuthor)
+      );
+      return tweetAuthor;
+    } catch (error) {
+      return error;
+    } finally {
+      await this.Redisclient.quit();
+    }
   }
 
   async LikeTweet(tweetId: string, userId: string) {
     try {
-      console.log("im here in repository ", tweetId, userId);
       const existingLike = await prismaClient.like.findUnique({
         where: { tweetId_userId: { tweetId, userId } },
       });
@@ -84,7 +105,6 @@ class Tweet {
           userId,
         },
       });
-      console.log("data is created ", data);
       return true;
     } catch (error) {
       return false;

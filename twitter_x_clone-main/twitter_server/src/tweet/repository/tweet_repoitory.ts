@@ -7,6 +7,10 @@ class Tweet {
 
   async createTweet(payload: tweetPayload) {
     try {
+      const RATE_LIMIT=await this.Redisclient.get(`RATE_LIMIT${payload.userID}`);
+      if(RATE_LIMIT){
+        throw new Error("Wait...");
+      }
       await this.Redisclient.del(`FIND_MANY_USER:${payload.userID}`);
       await this.Redisclient.del(`ALLUSER_TWEET:${payload.userID}`);
       const data = await prismaClient.tweet.create({
@@ -17,6 +21,7 @@ class Tweet {
           autherId: payload?.userID,
         },
       });
+      await this.Redisclient.setex(`RATE_LIMIT${payload.userID}`,10,1);
       return data;
     } catch (error) {
       return error;

@@ -134,6 +134,7 @@ export const User_InputFeed = () => {
         });
         setContent("");
         setImage("");
+        return;
       } catch (error) {
         console.error("Error posting tweet:", error);
         toast.error("Failed to Post Tweet", { duration: 2000 });
@@ -187,54 +188,52 @@ export const User_InputFeed = () => {
               style={iconStyle}
               className="light:hover:bg-neutral-200 dark:hover:bg-[#232323] cursor-pointer flex rounded-full justify-center items-center"
             >
-              {button.icon} 
+              {button.icon}
             </div>
           ))}
         </div>
 
         <div className="flex ml-auto mr-4 pb-3">
-            <div className="flex ml-auto">
-              {extraLetters < 0 ? (
-                <span className="w-9 h-9 hover:bg-neutral-200 flex rounded-full mt-1 justify-center text-center mr-2  items-center">
-                  {extraLetters}
-                </span>
-              ) : null}
+          <div className="flex ml-auto">
+            {extraLetters < 0 ? (
+              <span className="w-9 h-9 hover:bg-neutral-200 flex rounded-full mt-1 justify-center text-center mr-2  items-center">
+                {extraLetters}
+              </span>
+            ) : null}
 
-              {/* AI Tweet */}
-              <button
-                onClick={handleNextSuggestion}
-                className={`w-16 mt-1 rounded-3xl border ${
-                  !tweetSuggestion
-                    ? "hidden"
-                    : "flex justify-center items-center"
-                }`}
-              >
-                <PiSwapFill size={19} className=" justify-center" />
-              </button>
+            {/* AI Tweet */}
+            <button
+              onClick={handleNextSuggestion}
+              className={`w-16 mt-1 rounded-3xl border ${
+                !tweetSuggestion ? "hidden" : "flex justify-center items-center"
+              }`}
+            >
+              <PiSwapFill size={19} className=" justify-center" />
+            </button>
 
-              <button
-                onClick={handelSuggetion}
-                className={`w-16 mt-1 rounded-3xl border flex justify-center items-center mx-3 ${
-                  content == suggestionContent && tweetSuggestion
-                    ? "dark:bg-[#ff00ffdc]"
-                    : ""
-                }`}
-              >
-                <MdAutoFixHigh size={19} className="justify-center" />
-              </button>
+            <button
+              onClick={handelSuggetion}
+              className={`w-16 mt-1 rounded-3xl border flex justify-center items-center mx-3 ${
+                content == suggestionContent && tweetSuggestion
+                  ? "dark:bg-[#ff00ffdc]"
+                  : ""
+              }`}
+            >
+              <MdAutoFixHigh size={19} className="justify-center" />
+            </button>
 
-              <button
-                onClick={handelPost}
-                className={`w-16 ${
-                  isPostButtonDisabled
-                    ? "bg-blue-200"
-                    : "bg-[#1D9BF0] hover:bg-[#1083E5]"
-                } h-9 mt-1 text-white font-semibold text-base rounded-2xl`}
-                disabled={isPostButtonDisabled}
-              >
-                Post
-              </button>
-            </div>
+            <button
+              onClick={handelPost}
+              className={`w-16 ${
+                isPostButtonDisabled
+                  ? "bg-blue-200"
+                  : "bg-[#1D9BF0] hover:bg-[#1083E5]"
+              } h-9 mt-1 text-white font-semibold text-base rounded-2xl`}
+              disabled={isPostButtonDisabled}
+            >
+              Post
+            </button>
+          </div>
         </div>
       </div>
     </div>

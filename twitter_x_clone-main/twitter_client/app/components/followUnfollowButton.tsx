@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import useUserStore from "../zustand/store";
-import useUserByID from "../hooks/getUserByID";
-import useFollow from "../hooks/follow";
-import useUnFollow from "../hooks/unfollow";
+import useFollow from "../hooks/useFollow";
+import useUnFollow from "../hooks/useUnfollow";
+import useUserByID from "../hooks/useUserByID";
+
 
 interface FollowUnfollowButtonProps {
   userId: any;

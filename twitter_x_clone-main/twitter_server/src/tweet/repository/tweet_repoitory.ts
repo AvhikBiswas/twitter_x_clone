@@ -7,8 +7,10 @@ class Tweet {
 
   async createTweet(payload: tweetPayload) {
     try {
-      const RATE_LIMIT=await this.Redisclient.get(`RATE_LIMIT${payload.userID}`);
-      if(RATE_LIMIT){
+      const RATE_LIMIT = await this.Redisclient.get(
+        `RATE_LIMIT${payload.userID}`
+      );
+      if (RATE_LIMIT) {
         throw new Error("Wait...");
       }
       await this.Redisclient.del(`FIND_MANY_USER:${payload.userID}`);
@@ -21,7 +23,7 @@ class Tweet {
           autherId: payload?.userID,
         },
       });
-      await this.Redisclient.setex(`RATE_LIMIT${payload.userID}`,10,1);
+      await this.Redisclient.setex(`RATE_LIMIT${payload.userID}`, 10, 1);
       return data;
     } catch (error) {
       return error;
@@ -35,7 +37,7 @@ class Tweet {
       const tweetsData = await prismaClient.tweet.findMany({
         where: { autherId: allUserTweet.userID },
         skip: allUserTweet.skipValue,
-        take: 6,
+        take: 10,
         orderBy: { createdAt: "desc" },
       });
 
@@ -45,7 +47,7 @@ class Tweet {
       return tweetsData;
     } catch (error) {
       return error;
-    } 
+    }
   }
 
   async getAllTweetAll(skipValue: number) {
@@ -53,7 +55,7 @@ class Tweet {
       const tweetsData = await prismaClient.tweet.findMany({
         where: {},
         skip: skipValue,
-        take: 6,
+        take: 10,
         orderBy: { createdAt: "desc" },
       });
       return tweetsData;
@@ -66,7 +68,6 @@ class Tweet {
     try {
       const cashedData = await this.Redisclient.get(`GET_AUTHOR:${userId}`);
       if (cashedData) {
-        console.log("getauthor from redis");
         return JSON.parse(cashedData);
       }
       const tweetAuthor = await prismaClient.user.findUnique({

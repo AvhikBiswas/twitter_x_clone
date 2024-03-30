@@ -2,14 +2,17 @@
 import React, { useEffect, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { useParams } from "next/navigation";
-import { getUserTweets } from "../hooks/getUserTweets";
+
 import { Twitte_Feed } from "./Twitte_Feed";
 import { Tweet } from "@/gql/graphql";
-import useUserByID from "../hooks/getUserByID";
+
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Link from "next/link";
 import { InfiniteScroller } from "better-react-infinite-scroll";
-import FollowUnfollowButton from "./followUnfollowButton";
+import { useUserTweets } from "../hooks/useUserTweets";
+import useUserByID from "../hooks/useUserByID";
+import FollowUnfollowButton from "./FollowUnfollowButton";
+import Image from "next/image";
 
 const ProfileCard = () => {
   const { profile } = useParams<{ profile: string }>();
@@ -23,7 +26,7 @@ const ProfileCard = () => {
     isFetchingNextPage,
     status,
     isLoading,
-  } = getUserTweets({
+  } = useUserTweets({
     params: profile,
     pageParam: pageValue,
   });
@@ -74,8 +77,10 @@ const ProfileCard = () => {
               <FollowUnfollowButton userId={profile} />
 
               <span className="absolute mt-36 ml-4 w-36 h-36 rounded-full overflow-hidden">
-                <img
+                <Image
                   className="w-full h-full object-cover object-center rounded-full border-4 border-[#121212]"
+                    width={100}
+                    height={100}
                   src={profileData?.profileUrl}
                   alt=""
                 />
@@ -116,12 +121,12 @@ const ProfileCard = () => {
                     hasNextPage={hasNextPage}
                     loadingMessage={
                       isFetchingNextPage ? (
-                        <p>Loading...</p>
+                        <p className="flex justify-center text-center items-center">Loading...</p>
                       ) : (
-                        <p></p>
+                        <p className="flex justify-center text-center items-center">Not loading...</p>
                       )
                     }
-                    endingMessage={<p></p>}
+                    endingMessage={<p className="flex justify-center text-center items-center"> Pls Wait...</p>}
                   >
                     {data?.pages.map((page:any) =>
                       page?.getAllTweetsById.map((value: Tweet) => (

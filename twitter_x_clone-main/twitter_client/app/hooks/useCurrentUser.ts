@@ -13,7 +13,6 @@ export const useCurrentUser = () => {
     queryFn: async () => {
       const response = await graphqlClientHeder.request(getCurrentUserQuary);
       const user = response.getCurrentUser;
-      console.log('USer FROM HOOK',user);
       if (user) {
         setUser(user);
       } else {

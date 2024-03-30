@@ -11,18 +11,18 @@ type GetUserTweetsPayload = {
   currUserId?: string | undefined;
 };
 
-export const getUserTweets = ({ params, pageParam }: GetUserTweetsPayload) => {
-  const fetchTweets = async ({ pageParam }: { pageParam: number }) => {
+export const useUserTweets = ({ params, pageParam }: GetUserTweetsPayload) => {
+  const fetchTweets = async ({ pageParam }: { pageParam: any }) => {
     const tweets = await graphqlClientHeder.request(getTweets, {
       userId: params,
-      skipValue: (pageParam - 1) * 6,
+      skipValue: (pageParam - 1) * 10,
     });
     return tweets;
   };
 
-  const query = useInfiniteQuery<any, Error>({
+  const query = useInfiniteQuery<any>({
     queryKey: ["Get-Tweets", params],
-    queryFn: fetchTweets,
+    queryFn: ({ pageParam }) => fetchTweets({ pageParam }),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       return allPages.length + 1;

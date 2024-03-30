@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { LuSettings } from "react-icons/lu";
 import { User_InputFeed } from "./User_InputFeed";
 import { Twitte_Feed } from "./Twitte_Feed";
-import { GetAlltweet } from "../hooks/getAllTweets";
 import { Tweet } from "@/gql/graphql";
 import { InfiniteScroller } from "better-react-infinite-scroll";
 import Link from "next/link";
@@ -14,6 +13,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { TbLogout } from "react-icons/tb";
 import { useRouter } from "next/navigation";
 import { RxCross2 } from "react-icons/rx";
+import { useAllTweets } from "../hooks/useAllTweets";
 
 type User = {
   __typename?: "User" | undefined;
@@ -48,7 +48,7 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
     isFetchingNextPage,
     status,
     isLoading,
-  } = GetAlltweet(0);
+  } = useAllTweets(0);
 
   const handleButtonClickForYou = () => {
     setButtonStyle2("");
@@ -164,8 +164,22 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
           <InfiniteScroller
             fetchNextPage={fetchNextPage}
             hasNextPage={hasNextPage}
-            loadingMessage={isFetchingNextPage ? <p>Loading...</p> : <p></p>}
-            endingMessage={<p></p>}
+            loadingMessage={
+              isFetchingNextPage ? (
+                <p className="flex justify-center text-center items-center">
+                  Loading...
+                </p>
+              ) : (
+                <p className="flex justify-center text-center items-center">
+                  Not loading...
+                </p>
+              )
+            }
+            endingMessage={
+              <p className="flex justify-center text-center items-center">
+                Pls Wait...
+              </p>
+            }
           >
             {data?.pages.map((page: any) =>
               page?.getAllTweets.map((value: Tweet) => (

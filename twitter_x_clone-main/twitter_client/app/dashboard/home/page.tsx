@@ -13,13 +13,6 @@ import useUserStore from "@/app/zustand/store";
 const Home = () => {
   const router = useRouter();
   const { CurrUser } = useUserStore();
-  const authCheck = localStorage.getItem("_Autherization");
-
-  useEffect(() => {
-    if (!CurrUser?.id || !authCheck) {
-      router.push("/");
-    }
-  }, [authCheck]);
 
   return (
     <div className="flex">

@@ -5,11 +5,12 @@ import Link from "next/link";
 import { IoIosMore } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import useUserStore from "../zustand/store";
+import Image from "next/image";
 
 export const Buttons_left: React.FC = () => {
   const { CurrUser } = useUserStore();
   const [logoutStyle, setLogoutStyle] = useState(false);
-  const logoutPopupRef:any = useRef(null);
+  const logoutPopupRef: any = useRef(null);
   const router = useRouter();
   const handleLogoutPopUp = () => {
     setLogoutStyle(!logoutStyle); // Toggle the logout style
@@ -86,7 +87,9 @@ export const Buttons_left: React.FC = () => {
 
       <div className="flex justify-center items-center dark:hover:bg-[#323232] mt-14 w-64 h-[65px] font-bold text-lg rounded-full">
         <div className="xl:flex flex-row pl-3 hidden">
-          <img
+          <Image
+            width={100}
+            height={100}
             src={CurrUser?.profileUrl}
             className="rounded-full w-11 h-11"
             alt="img"

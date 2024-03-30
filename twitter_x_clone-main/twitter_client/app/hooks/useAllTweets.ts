@@ -2,15 +2,15 @@ import { UseInfiniteQueryResult, useInfiniteQuery, useQuery } from "@tanstack/re
 import { graphqlClientHeder } from "@/clients/api";
 import { getAllTweets } from "@/graphql/quary/tweet";
 
-export const GetAlltweet = (skipValue: number) => {
+export const useAllTweets = (skipValue: number) => {
   const fetchTweets = async ({ pageParam }: { pageParam: number }) => {
     const TweetsData = await graphqlClientHeder.request(getAllTweets, {
-      skipValue: (pageParam-1)*6,
+      skipValue: (pageParam-1)*10,
     });
     return TweetsData;
   };
 
-  const query = useInfiniteQuery<UseInfiniteQueryResult>({
+  const query = useInfiniteQuery({
     queryKey: ["get-allTweets"],
     queryFn:fetchTweets,
     initialPageParam: 1,

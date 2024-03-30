@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Feedicon } from "../utils/FeedIconTypes";
-import { useCreateTweet } from "../hooks/createTweet";
 import toast from "react-hot-toast";
 import { graphqlClientHeder } from "@/clients/api";
 import { getPresignedUrl } from "@/graphql/quary/tweet";
@@ -9,9 +8,12 @@ import { MdAutoFixHigh } from "react-icons/md";
 import TweetSuggetion from "../utils/TweetSugetionAI";
 import { PiSwapFill } from "react-icons/pi";
 import Image from "next/image";
+import useUserStore from "../zustand/store";
+import { useCreateTweet } from "../hooks/useCreateTweet";
 
 export const User_InputFeed = () => {
   const [content, setContent] = useState("");
+  const { CurrUser } = useUserStore();
   const [isPostButtonDisabled, setIsPostButtonDisabled] = useState(true);
   const [suggestionContent, setSuggestionContent] = useState("");
   const [extraLetters, setExtraLetters] = useState(0);
@@ -149,7 +151,7 @@ export const User_InputFeed = () => {
         <Image
           width={100}
           height={100}
-          src="https://avatars.githubusercontent.com/u/82642119?s=96&v=4"
+          src={CurrUser?.profileUrl!}
           className="rounded-full w-10 h-10 cursor-pointer"
           alt="img"
           loading="eager"

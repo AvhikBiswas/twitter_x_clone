@@ -2,8 +2,8 @@ import React from "react";
 import ProfileLayout from "../layouts/ProfileLayout";
 import dynamic from "next/dynamic";
 
-export default function () {
-  const ProfileCard = dynamic(() => import("../components/profile"));
+ const page=()=>{
+  const ProfileCard = dynamic(() => import("../components/Profile"));
 
   return (
     <div className="">
@@ -15,3 +15,4 @@ export default function () {
     </div>
   );
 }
+export default page;

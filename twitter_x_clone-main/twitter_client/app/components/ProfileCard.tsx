@@ -11,8 +11,8 @@ import Link from "next/link";
 import { InfiniteScroller } from "better-react-infinite-scroll";
 import { useUserTweets } from "../hooks/useUserTweets";
 import useUserByID from "../hooks/useUserByID";
-import FollowUnfollowButton from "./FollowUnfollowButton";
 import Image from "next/image";
+import FollowUnfollowButton from "../components/FollowUnfollowButton";
 
 const ProfileCard = () => {
   const { profile } = useParams<{ profile: string }>();

@@ -12,7 +12,7 @@ import { InfiniteScroller } from "better-react-infinite-scroll";
 import { useUserTweets } from "../hooks/useUserTweets";
 import useUserByID from "../hooks/useUserByID";
 import Image from "next/image";
-import FollowUnfollowButton from "./FollowUnfollowButton";
+import FButton from "../components/FButton";
 
 const ProfileCard = () => {
   const { profile } = useParams<{ profile: string }>();
@@ -68,7 +68,9 @@ const ProfileCard = () => {
               <div className="bg-slate-600 w-full h-52"></div>
 
               {/* follow unfollow button */}
-              <FollowUnfollowButton userId={profile} />
+              <span>
+                <FButton userId={profile} />
+              </span>
 
               <span className="absolute mt-36 ml-4 w-36 h-36 rounded-full overflow-hidden">
                 <Image

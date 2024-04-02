@@ -1,4 +1,3 @@
-"use client"
 import React, { useState, useEffect } from "react";
 import useUserStore from "../zustand/store";
 import useFollow from "../hooks/useFollow";
@@ -10,7 +9,7 @@ interface FollowUnfollowButtonProps {
   userId: any;
 }
 
-const FollowUnfollowButton: React.FC<FollowUnfollowButtonProps> = ({
+const FButton: React.FC<FollowUnfollowButtonProps> = ({
   userId,
 }) => {
   const { CurrUser } = useUserStore();
@@ -68,4 +67,4 @@ const FollowUnfollowButton: React.FC<FollowUnfollowButtonProps> = ({
   );
 };
 
-export default FollowUnfollowButton;
+export default FButton;

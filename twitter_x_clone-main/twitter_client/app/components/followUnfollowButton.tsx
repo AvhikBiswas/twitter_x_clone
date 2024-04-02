@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect } from "react";
 import useUserStore from "../zustand/store";
 import useFollow from "../hooks/useFollow";

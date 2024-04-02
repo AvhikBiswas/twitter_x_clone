@@ -3,7 +3,7 @@ import ProfileLayout from "../layouts/ProfileLayout";
 import dynamic from "next/dynamic";
 
  const page=()=>{
-  const ProfileCard = dynamic(() => import("../components/Profile"));
+  const ProfileCard = dynamic(() => import("../components/ProfileCard"));
 
   return (
     <div className="">

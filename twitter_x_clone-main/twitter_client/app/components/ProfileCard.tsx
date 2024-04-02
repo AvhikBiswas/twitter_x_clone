@@ -121,14 +121,11 @@ const ProfileCard = () => {
                           Loading...
                         </p>
                       ) : (
-                        <p className="flex justify-center text-center items-center">
-                          Not loading...
-                        </p>
+                        <p className="flex justify-center text-center items-center"></p>
                       )
                     }
                     endingMessage={
                       <p className="flex justify-center text-center items-center">
-                        {" "}
                         Pls Wait...
                       </p>
                     }

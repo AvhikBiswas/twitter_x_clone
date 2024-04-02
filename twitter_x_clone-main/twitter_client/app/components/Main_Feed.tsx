@@ -170,9 +170,7 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
                   Loading...
                 </p>
               ) : (
-                <p className="flex justify-center text-center items-center">
-                  Not loading...
-                </p>
+                <p className="flex justify-center text-center items-center"></p>
               )
             }
             endingMessage={

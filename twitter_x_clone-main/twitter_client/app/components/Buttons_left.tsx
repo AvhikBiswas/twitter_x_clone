@@ -46,15 +46,21 @@ export const Buttons_left: React.FC = () => {
         <ul className="mt-4">
           {Left_buttons.map((item) => (
             <li key={item.title}>
-              <Link
+              <span
                 className="flex justify-start mb-[3px] items-center gap-5 dark:hover:bg-[#232323] rounded-full p-[10px] w-fit cursor-pointer"
-                href={item.title === "Profile" ? "/" + CurrUser?.id : item.link}
+                onClick={() => {
+                  if (item.title === "Profile") {
+                    router.push(`/${CurrUser?.id}`);
+                  } else {
+                    router.push(item.link);
+                  }
+                }}
               >
                 <span className="text-3xl">{item.icon}</span>
                 <span className="text-xl hidden font-sans lg:inline">
                   {item.title}
                 </span>
-              </Link>
+              </span>
             </li>
           ))}
         </ul>

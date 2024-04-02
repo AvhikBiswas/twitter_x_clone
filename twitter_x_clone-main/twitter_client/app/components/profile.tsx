@@ -33,15 +33,9 @@ const ProfileCard = () => {
 
   const { profileData, profileDataLoading } = useUserByID(profile);
   return (
-    <div className="main_profile w-full h-full">
+    <div className="flex  w-full h-full">
       {isLoading && profileDataLoading ? (
-        <div className="flex w-full h-full justify-center text-center items-center">
-          <AiOutlineLoading3Quarters
-            size={40}
-            className="flex justify-center text-center items-center"
-            color="blue"
-          />
-        </div>
+        ""
       ) : (
         <div>
           <div className="flex light:bg-neutral-200 w-full h-14 z-10">
@@ -53,7 +47,7 @@ const ProfileCard = () => {
                       className="w-full h-full object-cover rounded-full"
                       size={20}
                     />
-                  </div>{" "}
+                  </div>
                 </Link>
                 <div className="flex flex-col ml-9">
                   <h1 className="font-semibold text-lg space-y-0">
@@ -79,8 +73,8 @@ const ProfileCard = () => {
               <span className="absolute mt-36 ml-4 w-36 h-36 rounded-full overflow-hidden">
                 <Image
                   className="w-full h-full object-cover object-center rounded-full border-4 border-[#121212]"
-                    width={100}
-                    height={100}
+                  width={100}
+                  height={100}
                   src={profileData?.profileUrl}
                   alt=""
                 />
@@ -121,14 +115,23 @@ const ProfileCard = () => {
                     hasNextPage={hasNextPage}
                     loadingMessage={
                       isFetchingNextPage ? (
-                        <p className="flex justify-center text-center items-center">Loading...</p>
+                        <p className="flex justify-center text-center items-center">
+                          Loading...
+                        </p>
                       ) : (
-                        <p className="flex justify-center text-center items-center">Not loading...</p>
+                        <p className="flex justify-center text-center items-center">
+                          Not loading...
+                        </p>
                       )
                     }
-                    endingMessage={<p className="flex justify-center text-center items-center"> Pls Wait...</p>}
+                    endingMessage={
+                      <p className="flex justify-center text-center items-center">
+                        {" "}
+                        Pls Wait...
+                      </p>
+                    }
                   >
-                    {data?.pages.map((page:any) =>
+                    {data?.pages.map((page: any) =>
                       page?.getAllTweetsById.map((value: Tweet) => (
                         <Twitte_Feed key={value.id} data={value} />
                       ))

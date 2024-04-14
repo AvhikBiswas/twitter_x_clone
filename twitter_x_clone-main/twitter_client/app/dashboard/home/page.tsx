@@ -1,27 +1,20 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
-import dynamic from "next/dynamic";
-
-const Main_Feed = dynamic(() =>
-  import("@/app/components/Main_Feed").then((mod) => mod.Main_Feed)
-);
-
 import ProfileLayout from "@/app/layouts/ProfileLayout";
 import useUserStore from "@/app/zustand/store";
+import { Main_Feed } from "@/app/components/Main_Feed";
+import { useCurrentUser } from "@/app/hooks/useCurrentUser";
 
 const Home = () => {
   const router = useRouter();
   const { CurrUser } = useUserStore();
-
+  const { user } = useCurrentUser();
   return (
-    <div className="flex">
-      <ProfileLayout>
-        <div className="flex">
-          <Main_Feed />
-        </div>
-      </ProfileLayout>
-    </div>
+    <ProfileLayout>
+      <div className="flex">
+        <Main_Feed />
+      </div>
+    </ProfileLayout>
   );
 };
 

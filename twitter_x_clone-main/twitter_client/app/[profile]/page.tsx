@@ -6,13 +6,11 @@ import dynamic from "next/dynamic";
   const ProfileCard = dynamic(() => import("../components/ProfileCard"));
 
   return (
-    <div className="">
       <ProfileLayout>
         <div className="flex w-full">
           <ProfileCard />
         </div>
       </ProfileLayout>
-    </div>
   );
 }
 export default page;

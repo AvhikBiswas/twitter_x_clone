@@ -26,7 +26,7 @@ const TweetSuggestion = async (tweetText: string) => {
     return response.data.createdTweets.candidates[0].content.parts[0].text;
   } catch (error) {
     console.error("Error:", error);
-    throw error;
+    throw new Error;
   }
 };
 

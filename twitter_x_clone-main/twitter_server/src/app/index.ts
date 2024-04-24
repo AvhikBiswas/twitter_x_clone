@@ -15,7 +15,7 @@ export async function initialServer() {
     app.use(bodyParser.json());
     app.use(
       cors({
-        origin:process.env.CLIENT_URL as string ,
+        origin: process.env.CLIENT_URL as string,
       })
     );
 
@@ -31,8 +31,6 @@ export async function initialServer() {
        ${tweet.createNewTweetMutation}
        ${user.mutations}
       }
-      
-
       `,
       resolvers: {
         Query: {
@@ -57,20 +55,27 @@ export async function initialServer() {
       expressMiddleware(server, {
         context: async ({ req, res }) => {
           try {
-            if (!req.headers.authorization)
-              return { err: "Unauth", user: null };
-            const data = req.headers.authorization
+            if (!req.headers.authorization) {
+              res.status(401).send("Unauthorized User");
+              return { user: null };
+            }
+
+            const data: any = req.headers.authorization
               ? JwtVerify.verifyToken(req.headers.authorization)
               : "";
+
+            if (data?.err) {
+              res.status(401).send("Unauthorized User");
+              return { user: null };
+            }
 
             return {
               user: data,
             };
           } catch (error) {
-            return {
-              user: "Unauthorized User",
-              error,
-            };
+            console.error("Error in authentication middleware:", error);
+            res.status(500).send("Internal Server Error");
+            return { user: null };
           }
         },
       })

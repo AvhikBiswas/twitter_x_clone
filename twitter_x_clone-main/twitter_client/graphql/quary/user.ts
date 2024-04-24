@@ -11,6 +11,7 @@ export const getCurrentUserQuary = graphql(`
     getCurrentUser {
       id
       firstName
+      userName
       emailId
       lastName
       profileUrl
@@ -33,6 +34,7 @@ export const getProfileQuary = graphql(`
       }
       emailId
       lastName
+      userName
       profileUrl
       tweets {
       id

@@ -39,7 +39,7 @@ export const Twitte_Feed: React.FC<TwitteFeed> = ({ data }) => {
             <h5 className="text-sm font-bold">
               {data?.auther?.firstName} {data?.auther?.lastName}
             </h5>
-            <h5 className="text-sm font-light pl-1">@AVIK0000007</h5>
+            <h5 className="text-sm font-light pl-1">{data?.auther?.userName}</h5>
           </div>
           <div className="flex flex-col">
             <p className="ml-1 text-sm">{data?.content}</p>

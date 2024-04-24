@@ -35,10 +35,6 @@ export const User_InputFeed = () => {
   };
 
   const handelSuggetion = async () => {
-    if (content === suggestionContent && tweetSuggestion) {
-      setContent(tweetSuggestion[4]);
-      return;
-    }
     try {
       if (!content) return;
       setTweetSuggestion(undefined);

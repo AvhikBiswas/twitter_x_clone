@@ -12,8 +12,8 @@ export const useCurrentUser = () => {
     queryKey: ["current_user"],
     queryFn: async () => {
       const response = await graphqlClientHeder.request(getCurrentUserQuary);
-      const user = response.getCurrentUser;
-      if (user) {
+      const user:any = response.getCurrentUser;
+      if (user.id) {
         setUser(user);
       } else {
         removeUser();

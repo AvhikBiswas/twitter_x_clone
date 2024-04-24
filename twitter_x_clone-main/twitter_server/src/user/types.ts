@@ -4,6 +4,7 @@ export const types = `#graphql
     firstName: String!
     lastName: String
     emailId: String!
+    userName: String
     profileUrl: String!
     following:[User]
     follower:[User]

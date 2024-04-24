@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
-import { FaXTwitter } from "react-icons/fa6";
 import Left_buttons from "../utils/Left_buttons";
 import Link from "next/link";
 import { IoIosMore } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import useUserStore from "../zustand/store";
 import Image from "next/image";
+import { SlSocialStumbleupon } from "react-icons/sl";
 
 export const Buttons_left: React.FC = () => {
   const { CurrUser } = useUserStore();
@@ -40,7 +40,7 @@ export const Buttons_left: React.FC = () => {
   return (
     <div className="home mt-2">
       <div className="w-fit h-fit p-2 dark:hover:bg-[#232323] cursor-pointer rounded-full">
-        <FaXTwitter size={28} />
+        <SlSocialStumbleupon size={30} />
       </div>
       <div>
         <ul className="mt-4">
@@ -104,7 +104,7 @@ export const Buttons_left: React.FC = () => {
             <h5 className="text-sm">
               {CurrUser?.firstName} {CurrUser?.lastName}
             </h5>
-            <h5 className="text-base font-light">@AVIK0000007</h5>
+            <h5 className="text-base font-light">{CurrUser?.userName}</h5>
           </div>
           <div className="ml-7 flex justify-center items-center mr-4  p-2">
             <IoIosMore onClick={handleLogoutPopUp} />

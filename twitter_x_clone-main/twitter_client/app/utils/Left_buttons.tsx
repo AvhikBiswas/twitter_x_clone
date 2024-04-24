@@ -5,10 +5,9 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { BsEnvelope } from "react-icons/bs";
 import { RiFileListFill } from "react-icons/ri";
 import { LiaUserFriendsSolid } from "react-icons/lia";
-import { FaXTwitter } from "react-icons/fa6";
 import { HiOutlineUser } from "react-icons/hi";
 import { CiCircleMore } from "react-icons/ci";
-import { TbLogout } from "react-icons/tb";
+import { SlSocialStumbleupon } from "react-icons/sl";
 
 type manueButton = {
   title: string;
@@ -49,7 +48,7 @@ const Left_buttons: manueButton[] = [
   },
   {
     title: "Premium",
-    icon: <FaXTwitter />,
+    icon: <SlSocialStumbleupon />,
     link: "/",
   },
   {
@@ -79,18 +78,18 @@ export const Bottom_buttons: manueButton[] = [
   },
   {
     title: "Premium",
-    icon: <FaXTwitter />,
-    link: "/",
+    icon: <SlSocialStumbleupon />,
+    link: "",
   },
   {
     title: "Messages",
     icon: <BsEnvelope />,
-    link: "/",
+    link: "",
   },
   {
     title: "Profile",
     icon: <HiOutlineUser />,
-    link: "/",
+    link: "",
   },
   {
     title: "Notifications",

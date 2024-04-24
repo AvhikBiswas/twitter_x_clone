@@ -5,7 +5,7 @@ type tweet{
     content: String
     hashTag:String
     auther:User
-}
+    }
 input CreateTweetData {
         content:String!
         imageURL:String

@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import { CiLinkedin } from "react-icons/ci";
 import { LuGithub } from "react-icons/lu";
+import { SlSocialStumbleupon } from "react-icons/sl";
 
 export const MainLogin = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -71,7 +72,7 @@ export const MainLogin = () => {
           <div className="flex flex-col xl:flex-row xl:ml-60  w-fit h-fit">
             <div className="col-span-6 mt-10 flex  sm:mb-auto xl:m-0 xl:justify-center items-center pb-2">
               <div className="xl:mb-7 xl:mt-16 xl:ml-14 ml-6 text-[3rem] xl:text-[20rem]">
-                <RiTwitterXFill />
+                <SlSocialStumbleupon />
               </div>
             </div>
 

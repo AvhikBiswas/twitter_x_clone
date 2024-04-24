@@ -4,11 +4,11 @@ import JwtVerify from "../../auth/jwt";
 
 async function GoogleAuthuserLogin(token: string) {
   const user_repository = new User_repository();
-  console.log("token--->", token);
 
   const userData = await GetUserDetail(token);
   try {
     if (userData) {
+      console.log('userData',userData );
       const user = await user_repository.findUser(userData.email);
       if (!user) {
         const newUser = await user_repository.createUser(userData);

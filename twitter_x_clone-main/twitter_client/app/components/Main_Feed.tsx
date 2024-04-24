@@ -14,6 +14,7 @@ import { TbLogout } from "react-icons/tb";
 import { useRouter } from "next/navigation";
 import { RxCross2 } from "react-icons/rx";
 import { useAllTweets } from "../hooks/useAllTweets";
+import { SlSocialStumbleupon } from "react-icons/sl";
 
 type User = {
   __typename?: "User" | undefined;
@@ -119,7 +120,7 @@ export const Main_Feed: React.FC<Props> = ({ user }) => {
           <FaCircleUser size={40} onClick={handelBar} />
         </div>
         <div>
-          <FaXTwitter size={40} />
+          <SlSocialStumbleupon size={40} />
         </div>
         <div>
           <LuSettings size={30} />

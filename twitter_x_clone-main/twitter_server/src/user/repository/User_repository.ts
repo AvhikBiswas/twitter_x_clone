@@ -1,14 +1,17 @@
 import { Redis } from "ioredis";
 import { prismaClient } from "../../client/db";
 import { craeteUser } from "../../types/repository_types";
+import userNameGenarator from "../../utils/userNameGenarator";
 
 class User_repository {
   Redisclient = new Redis(process.env.REDIS_URL!);
 
   async createUser(data: craeteUser) {
     try {
+      const username=userNameGenarator(data.firstName);
       const newUser = await prismaClient.user.create({
         data: {
+          userName:username,
           emailId: data.email,
           firstName: data.firstName,
           lastName: data?.lastName,
@@ -19,22 +22,15 @@ class User_repository {
     } catch (error) {
       console.log("error from user Repo create", error);
       return false;
-    } 
+    }
   }
 
   async findUser(userEmail: string) {
     try {
-      const cashedData = await this.Redisclient.get(`userEmail:${userEmail}`);
-      if (cashedData) {
-        return JSON.parse(cashedData);
-      }
       const userData = await prismaClient.user.findUnique({
         where: { emailId: userEmail },
       });
-      await this.Redisclient.set(
-        `userEmail:${userEmail}`,
-        JSON.stringify(userData)
-      );
+      console.log("userData--------------->", userData);
       return userData;
     } catch (error) {
       console.log("error from user repo find findUser", error);

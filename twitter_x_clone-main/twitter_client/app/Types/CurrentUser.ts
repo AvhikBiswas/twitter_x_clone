@@ -5,4 +5,5 @@ export type CurrentUser = {
   emailId: string;
   lastName?: string | null | undefined;
   profileUrl: string;
+  userName?: string;
 };

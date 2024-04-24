@@ -13,12 +13,14 @@ import { useUserTweets } from "../hooks/useUserTweets";
 import useUserByID from "../hooks/useUserByID";
 import Image from "next/image";
 import FButton from "../components/FButton";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const ProfileCard = () => {
   const { profile } = useParams<{ profile: string }>();
   const [tweets, setTweets] = useState<Tweet[]>([]);
   const [pageValue, setPagevalue] = useState<number>(0);
-
+  const router=useRouter();
   const {
     data,
     fetchNextPage,
@@ -32,10 +34,15 @@ const ProfileCard = () => {
   });
 
   const { profileData, profileDataLoading } = useUserByID(profile);
+
+ if(!profileDataLoading && profileData===null){
+  toast.error("No user Found",{id:'20'});
+  router.push('/dashboard/home');
+ }
   return (
     <div className="w-full h-full">
       {isLoading && profileDataLoading ? (
-        ""
+        <></>
       ) : (
         <div>
           <div className="flex light:bg-neutral-200 w-full h-14 z-10">

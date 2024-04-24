@@ -1,8 +1,6 @@
 import React from "react";
 import { BsEmojiSmile } from "react-icons/bs";
-import { CiImageOn } from "react-icons/ci";
 import { GrSchedulePlay } from "react-icons/gr";
-import { HiOutlineFaceSmile } from "react-icons/hi2";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineBrokenImage, MdOutlineGifBox, MdOutlinePoll } from "react-icons/md";
 

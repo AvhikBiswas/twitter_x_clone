@@ -20,6 +20,7 @@ export const getTweets = graphql(`
         lastName
         profileUrl
         id
+        userName
       }
     }
   }
@@ -34,6 +35,7 @@ export const getAllTweets = graphql(`
         firstName
         lastName
         emailId
+        userName
         profileUrl
         id
       }

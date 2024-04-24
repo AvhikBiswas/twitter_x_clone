@@ -42,7 +42,7 @@ const ProfileCard = () => {
   return (
     <div className="w-full h-full">
       {isLoading && profileDataLoading ? (
-        <></>
+        ""
       ) : (
         <div>
           <div className="flex light:bg-neutral-200 w-full h-14 z-10">

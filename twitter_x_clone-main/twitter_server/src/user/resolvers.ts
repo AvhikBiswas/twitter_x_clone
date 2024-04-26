@@ -8,6 +8,7 @@ import findUser from "./services/findUser";
 import { Userfollow } from "./services/follow";
 import { prismaClient } from "../client/db";
 import { Unfollow } from "./services/unFollow";
+import { findUsersByName } from "./services/findUserByName";
 
 export const mutations_resolver = {
   followUser: async (
@@ -67,6 +68,15 @@ export const resolvers = {
       return user;
     } catch (error) {
       console.log("error", error);
+    }
+  },
+  getUserByName:async(parent:any,{firstName,lastName}:{firstName:string,lastName:string,},ctx:GraphqlContext)=>{
+    if (!ctx.user?.id) throw new Error("Unauthorized User");
+    try {
+      const UserData = await findUsersByName(firstName,lastName);
+      return UserData;
+    } catch (error) {
+      return { err: error };
     }
   },
   GetUserDetails: async (

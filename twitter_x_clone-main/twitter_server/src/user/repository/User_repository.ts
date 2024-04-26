@@ -8,10 +8,10 @@ class User_repository {
 
   async createUser(data: craeteUser) {
     try {
-      const username=userNameGenarator(data.firstName);
+      const username = userNameGenarator(data.firstName);
       const newUser = await prismaClient.user.create({
         data: {
-          userName:username,
+          userName: username,
           emailId: data.email,
           firstName: data.firstName,
           lastName: data?.lastName,
@@ -35,6 +35,36 @@ class User_repository {
     } catch (error) {
       console.log("error from user repo find findUser", error);
       return false;
+    } finally {
+      await this.Redisclient.quit();
+    }
+  }
+
+  async findUsersByName(firstName: string,lastName?:string) {
+    try {
+      const cachedData = await this.Redisclient.get(`USER_NAMES:${firstName+lastName}`);
+      if (cachedData) {
+        return JSON.parse(cachedData);
+      }
+      const userData = await prismaClient.user.findMany({
+        where: {
+          firstName: {
+            startsWith: firstName,
+          },
+          lastName:{
+            startsWith:lastName
+          }
+        },
+        take: 5,
+      });
+      await this.Redisclient.set(
+        `USER_NAMES:${firstName+lastName}`,
+        JSON.stringify(userData)
+      );
+      return userData;
+    } catch (error) {
+      console.log("error from user repo find username", error);
+      return error;
     } finally {
       await this.Redisclient.quit();
     }

@@ -3,18 +3,18 @@ import { prismaClient } from "../../client/db";
 import { PageSkipValue, tweetPayload } from "../../types/tweet";
 
 class Tweet {
-  Redisclient = new Redis(process.env.REDIS_URL!);
+  // Redisclient = new Redis(process.env.REDIS_URL!);
 
   async createTweet(payload: tweetPayload) {
     try {
-      const RATE_LIMIT = await this.Redisclient.get(
-        `RATE_LIMIT${payload.userID}`
-      );
-      if (RATE_LIMIT) {
-        throw new Error("Wait...");
-      }
-      await this.Redisclient.del(`FIND_MANY_USER:${payload.userID}`);
-      await this.Redisclient.del(`ALLUSER_TWEET:${payload.userID}`);
+      // const RATE_LIMIT = await this.Redisclient.get(
+      //   `RATE_LIMIT${payload.userID}`
+      // );
+      // if (RATE_LIMIT) {
+      //   throw new Error("Wait...");
+      // }
+      // await this.Redisclient.del(`FIND_MANY_USER:${payload.userID}`);
+      // await this.Redisclient.del(`ALLUSER_TWEET:${payload.userID}`);
       const data = await prismaClient.tweet.create({
         data: {
           imageURL: payload?.imageURL,
@@ -23,13 +23,13 @@ class Tweet {
           autherId: payload?.userID,
         },
       });
-      await this.Redisclient.setex(`RATE_LIMIT${payload.userID}`, 10, 1);
+      // await this.Redisclient.setex(`RATE_LIMIT${payload.userID}`, 10, 1);
       return data;
     } catch (error) {
       return error;
-    } finally {
-      await this.Redisclient.quit();
-    }
+    // } finally {
+    //   await this.Redisclient.quit();
+    // }
   }
 
   async getAllUserTweet(allUserTweet: PageSkipValue) {
@@ -66,24 +66,25 @@ class Tweet {
 
   async getAuthor(userId: string) {
     try {
-      const cashedData = await this.Redisclient.get(`GET_AUTHOR:${userId}`);
-      if (cashedData) {
-        return JSON.parse(cashedData);
-      }
+      // const cashedData = await this.Redisclient.get(`GET_AUTHOR:${userId}`);
+      // if (cashedData) {
+      //   return JSON.parse(cashedData);
+      // }
       const tweetAuthor = await prismaClient.user.findUnique({
         where: { id: userId },
       });
 
-      await this.Redisclient.set(
-        `GET_AUTHOR:${userId}`,
-        JSON.stringify(tweetAuthor)
-      );
+      // await this.Redisclient.set(
+      //   `GET_AUTHOR:${userId}`,
+      //   JSON.stringify(tweetAuthor)
+      // );
       return tweetAuthor;
     } catch (error) {
       return error;
-    } finally {
-      await this.Redisclient.quit();
-    }
+    } 
+    // finally {
+    //   await this.Redisclient.quit();
+    // }
   }
 
   async LikeTweet(tweetId: string, userId: string) {

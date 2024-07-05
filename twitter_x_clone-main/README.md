@@ -5,6 +5,9 @@
 SocialSynth is a social media platform developed with AI capabilities, using Next.js, Redis, Node.js, and TypeScript. It provides various features to enhance user experience, including GraphQL for efficient data fetching, AWS S3 integration for storing media files securely, and Gemini Pro AI for tweet grammar and spelling correction. Additionally, it implements a tweet suggestion feature using Semiller to provide personalized tweet recommendations and integrates authentication and authorization mechanisms using JWT tokens.
 
 
+and here is the ai tweet repo https://github.com/AvhikBiswas/tweet_AI.git
+
+
 ## Project Details
 Technologies Used: Next.js, Redis, Prisma, Node.js, TypeScript
 ### Features:
@@ -15,6 +18,7 @@ Technologies Used: Next.js, Redis, Prisma, Node.js, TypeScript
 - Implemented a tweet suggestion feature using Semiller.
 - Integrated authentication and authorization mechanisms using JWT tokens.
 - Implemented Rate Limiting for creating posts.
+
 
 
 ## Getting Started

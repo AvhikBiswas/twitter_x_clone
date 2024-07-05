@@ -27,7 +27,8 @@ class Tweet {
       return data;
     } catch (error) {
       return error;
-    // } finally {
+    } 
+    // finally {
     //   await this.Redisclient.quit();
     // }
   }
@@ -81,8 +82,8 @@ class Tweet {
       return tweetAuthor;
     } catch (error) {
       return error;
-    } 
-    // finally {
+    }
+    //  finally {
     //   await this.Redisclient.quit();
     // }
   }
